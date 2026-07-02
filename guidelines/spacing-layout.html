@@ -1,0 +1,24 @@
+<!-- @dsCard group="Spacing" viewport="700x190" name="Layout" subtitle="Container 1160, fluid gutter, whitespace does the separating" -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 20px 24px; }
+  .rows { display: grid; gap: 8px; }
+  .row { display: grid; grid-template-columns: 130px 1fr; gap: 16px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--border-hairline); }
+  .row:last-child { border-bottom: none; }
+  .k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.05em; color: var(--text-meta); text-transform: uppercase; }
+  .v { font-size: 14px; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+<div class="rows">
+  <div class="row"><span class="k">container</span><span class="v">1160px, centered, single column of content</span></div>
+  <div class="row"><span class="k">gutter</span><span class="v">clamp(20px, 4.5vw, 48px)</span></div>
+  <div class="row"><span class="k">section gap</span><span class="v">space-12 to space-13 between sections, no background changes</span></div>
+  <div class="row"><span class="k">measure</span><span class="v">62ch body, 44ch lead</span></div>
+</div>
+</body>
+</html>

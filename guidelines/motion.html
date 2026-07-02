@@ -1,0 +1,33 @@
+<!-- @dsCard group="Effects" viewport="700x210" name="Motion" subtitle="Quick ease-out, no bounces. Hover the specimens." -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 22px 24px; }
+  .row { display: flex; gap: 28px; align-items: center; margin-bottom: 22px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); font-weight: 500; font-size: 15px; padding: 11px 20px; border-radius: var(--radius-pill); background: var(--accent-600); color: var(--text-on-accent); cursor: pointer; transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+  .btn:hover { background: var(--accent-700); }
+  .btn:active { transform: translateY(1px); }
+  .btn .arr { transition: transform var(--dur-base) var(--ease-out); }
+  .btn:hover .arr { transform: translateX(3px); }
+  .lnk { font-size: 16px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--border-strong); cursor: pointer; transition: color var(--dur-fast) var(--ease-out), text-decoration-color var(--dur-fast) var(--ease-out); }
+  .lnk:hover { color: var(--link-hover); text-decoration-color: currentColor; }
+  .arrow { font-size: 20px; color: var(--text-meta); display: inline-block; transition: transform var(--dur-base) var(--ease-out), color var(--dur-fast) var(--ease-out); cursor: pointer; }
+  .arrow:hover { transform: translate(3px, -3px); color: var(--link-hover); }
+  .meta { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.05em; color: var(--text-meta); text-transform: uppercase; line-height: 1.8; }
+</style>
+</head>
+<body>
+<div class="row">
+  <span class="btn">Hover me <span class="arr">&rarr;</span></span>
+  <span class="lnk">Underline darkens</span>
+  <span class="arrow">&#8599;</span>
+</div>
+<div class="meta">
+  ease-out cubic-bezier(0.16, 1, 0.3, 1) &middot; fast 140ms &middot; base 240ms &middot; slow 420ms<br>
+  hover: color and underline shifts &middot; press: 1px down &middot; entrances: 12px fade-up, once
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+/* Radii, borders, shadows, motion. The system is nearly flat:
+   hairlines do the separating, shadows are reserved for floating chrome. */
+
+:root {
+  /* Radii — square by default; pills for buttons and tags */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+
+  /* Borders */
+  --border-w: 1px;
+
+  /* Shadows — only for elements that float (sticky nav, menus) */
+  --shadow-float: 0 1px 2px rgba(33, 29, 24, 0.05), 0 8px 28px rgba(33, 29, 24, 0.07);
+
+  /* Motion — quick, decisive ease-out. No bounces. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --ease-inout: cubic-bezier(0.65, 0.05, 0.36, 1); /* @kind other */
+  --dur-fast: 140ms; /* @kind other */
+  --dur-base: 240ms; /* @kind other */
+  --dur-slow: 420ms; /* @kind other */
+
+  /* Accent underline motif (the one flourish) */
+  --underline-thickness: 0.07em;
+  --underline-offset: 0.12em;
+  --underline-thickness-hero: 0.055em;
+}

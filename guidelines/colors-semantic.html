@@ -1,0 +1,31 @@
+<!-- @dsCard group="Colors" viewport="700x240" name="Semantic aliases" subtitle="Use these in components, not the raw ramps" -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body { margin: 0; padding: 18px 24px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 28px; }
+  .row { display: flex; align-items: center; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--border-hairline); }
+  .chip { width: 30px; height: 20px; border-radius: 4px; border: 1px solid var(--border-hairline); flex: none; }
+  .name { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="row"><span class="chip" style="background: var(--surface-page);"></span><span class="name">--surface-page</span></div>
+  <div class="row"><span class="chip" style="background: var(--text-body);"></span><span class="name">--text-body</span></div>
+  <div class="row"><span class="chip" style="background: var(--surface-raised);"></span><span class="name">--surface-raised</span></div>
+  <div class="row"><span class="chip" style="background: var(--text-secondary);"></span><span class="name">--text-secondary</span></div>
+  <div class="row"><span class="chip" style="background: var(--surface-inset);"></span><span class="name">--surface-inset</span></div>
+  <div class="row"><span class="chip" style="background: var(--text-meta);"></span><span class="name">--text-meta</span></div>
+  <div class="row"><span class="chip" style="background: var(--surface-wash);"></span><span class="name">--surface-wash</span></div>
+  <div class="row"><span class="chip" style="background: var(--text-accent);"></span><span class="name">--text-accent</span></div>
+  <div class="row"><span class="chip" style="background: var(--border-hairline);"></span><span class="name">--border-hairline</span></div>
+  <div class="row"><span class="chip" style="background: var(--link);"></span><span class="name">--link</span></div>
+  <div class="row"><span class="chip" style="background: var(--border-strong);"></span><span class="name">--border-strong</span></div>
+  <div class="row"><span class="chip" style="background: var(--live);"></span><span class="name">--live</span></div>
+</div>
+</body>
+</html>

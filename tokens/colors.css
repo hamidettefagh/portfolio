@@ -1,0 +1,50 @@
+/* Direction: "Field Notes", warm editorial. Chosen July 2026;
+   the grayscale "Quiet" direction was retired. */
+
+:root {
+  /* Base ramps — warm paper + warm ink */
+  --paper-0: #FDFBF8;
+  --paper-1: #F7F3EC;
+  --paper-2: #F0EADF;
+  --ink-900: #211D18;
+  --ink-700: #4F4840;
+  --ink-500: #7D7569;
+  --ink-300: #ADA495;
+
+  /* Hairlines */
+  --line-1: #E8E2D6;
+  --line-2: #D3CBBD;
+
+  /* Accent — burnt orange, used sparingly (one accent per view) */
+  --accent-700: oklch(46% 0.15 38);
+  --accent-600: oklch(53% 0.17 38);
+  --accent-500: oklch(59% 0.17 40);
+  --accent-100: oklch(93% 0.04 45);
+  --accent-050: oklch(97% 0.018 50);
+
+  /* Status — only for the live "now" dot */
+  --live: oklch(58% 0.13 150);
+
+  /* Semantic aliases */
+  --surface-page: var(--paper-0);
+  --surface-raised: #FFFFFF;
+  --surface-inset: var(--paper-1);
+  --surface-wash: var(--accent-050);
+
+  --text-display: var(--ink-900);
+  --text-body: var(--ink-900);
+  --text-secondary: var(--ink-700);
+  --text-meta: var(--ink-500);
+  --text-faint: var(--ink-300);
+  --text-accent: var(--accent-600);
+  --text-on-accent: #FFF9F3;
+
+  --border-hairline: var(--line-1);
+  --border-strong: var(--line-2);
+
+  --link: var(--accent-600);
+  --link-hover: var(--accent-700);
+  --focus-ring: var(--accent-500);
+
+  --selection-bg: var(--accent-100);
+}

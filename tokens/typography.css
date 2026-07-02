@@ -1,0 +1,46 @@
+/* Type system.
+   Display: Archivo, heavy, tight tracking.
+   Serif: Newsreader italic, for one accent word or an aside quote. Never body copy.
+   Mono: Geist Mono, uppercase meta labels and tickers. */
+
+:root {
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-mono: "Geist Mono", "SFMono-Regular", Menlo, monospace;
+
+  /* Scale (desktop-first, fluid where it matters) */
+  --text-hero: clamp(56px, 8.2vw, 112px);
+  --text-h2: clamp(34px, 4.2vw, 54px);
+  --text-h3: 26px;
+  --text-lead: 21px;
+  --text-body: 17px;
+  --text-small: 15px;
+  --text-mono: 13px;
+  --text-mono-sm: 11.5px;
+
+  /* Weights */
+  --weight-display: 700;
+  --weight-heading: 600;
+  --weight-body: 400;
+  --weight-medium: 500;
+
+  /* Tracking */
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.02em;
+  --tracking-body: -0.005em;
+  --tracking-mono: 0.08em;
+
+  /* Leading */
+  --leading-display: 0.98;
+  --leading-heading: 1.1;
+  --leading-body: 1.6;
+  --leading-tight: 1.35;
+
+  /* Serif accent */
+  --serif-accent-weight: 500;
+
+  /* Measure */
+  --measure-body: 62ch;
+  --measure-lead: 44ch;
+}
