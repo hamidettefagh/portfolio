@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Favicon: italic serif letter with the accent underline, the system's one flourish -->
+  <rect width="64" height="64" fill="#FDFBF8"/>
+  <text x="31" y="45" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="46" fill="#211D18" text-anchor="middle">h</text>
+  <rect x="13" y="52" width="38" height="5" fill="#B93B06" style="fill:oklch(53% 0.17 38)"/>
+</svg>

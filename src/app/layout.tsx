@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Archivo, Newsreader, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -34,7 +36,11 @@ export default function RootLayout({
       lang="en"
       className={`${archivo.variable} ${newsreader.variable} ${geistMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
