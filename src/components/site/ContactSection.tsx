@@ -23,7 +23,7 @@ export function ContactSection() {
           href="https://www.linkedin.com/in/hamidettefagh"
         />
       </div>
-      <footer className="mt-12 pt-6 pb-8 border-t border-line-2 flex items-baseline justify-between gap-4">
+      <footer className="mt-12 pt-6 pb-8 border-t border-line-2 flex items-baseline justify-between gap-4 [@media(max-width:640px)]:flex-wrap [@media(max-width:640px)]:gap-y-[8px]">
         <span className="font-display font-semibold text-[15px]">
           Hamid Ettefagh
         </span>

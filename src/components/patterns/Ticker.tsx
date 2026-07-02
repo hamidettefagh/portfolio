@@ -9,7 +9,7 @@ export function Ticker({
   items?: string[];
 }) {
   return (
-    <div className="border-t border-b border-line-2 py-[14px] flex items-center gap-7 overflow-hidden">
+    <div className="border-t border-b border-line-2 py-[14px] flex items-center gap-7 overflow-hidden [@media(max-width:640px)]:flex-wrap [@media(max-width:640px)]:gap-y-[10px]">
       <span className="font-mono text-mono tracking-mono uppercase text-accent-600 flex-none inline-flex items-center gap-2">
         {live ? (
           <span

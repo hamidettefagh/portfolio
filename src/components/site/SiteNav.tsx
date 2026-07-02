@@ -29,6 +29,8 @@ export function SiteNav({
     <nav
       className={[
         "fixed top-0 left-0 right-0 z-50 h-(--nav-height) flex items-center justify-between px-(--gutter)",
+        // The wordmark and four links cannot share one row on phones; stack them
+        "[@media(max-width:640px)]:h-auto [@media(max-width:640px)]:flex-col [@media(max-width:640px)]:items-start [@media(max-width:640px)]:gap-[6px] [@media(max-width:640px)]:py-[10px]",
         "border-b transition-[background-color,border-color] duration-(--dur-base) ease-out",
         scrolled
           ? "bg-[color-mix(in_srgb,var(--color-paper-0)_82%,transparent)] backdrop-blur-[12px] border-line-1"

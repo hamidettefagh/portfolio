@@ -36,7 +36,7 @@ export function Hero() {
             agent and a dependable one is where I work.
           </p>
         </div>
-        <div className="flex gap-[14px] mt-9">
+        <div className="flex flex-wrap gap-[14px] mt-9">
           <Button href="#work" arrow>
             View selected work
           </Button>

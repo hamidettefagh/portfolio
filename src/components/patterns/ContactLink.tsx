@@ -29,7 +29,7 @@ export function ContactLink({
   const external = href ? href.startsWith("http") : false;
   return (
     <a
-      className="group flex items-baseline justify-between gap-6 py-[26px] border-t border-line-1 no-underline text-inherit cursor-pointer"
+      className="group flex items-baseline justify-between gap-6 py-[26px] border-t border-line-1 no-underline text-inherit cursor-pointer [@media(max-width:640px)]:flex-col [@media(max-width:640px)]:items-start [@media(max-width:640px)]:gap-[6px]"
       href={copyable ? (href ?? `mailto:${value}`) : href}
       onClick={onClick}
       target={external ? "_blank" : undefined}
