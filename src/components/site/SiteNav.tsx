@@ -43,7 +43,7 @@ export function SiteNav({
       >
         {mark}
       </Link>
-      <div className="flex gap-[28px] items-center [@media(max-width:640px)]:gap-[18px]">
+      <div className="flex flex-wrap gap-[28px] items-center [@media(max-width:640px)]:gap-[18px]">
         {links.map((l) =>
           l.href.startsWith("#") ? (
             <a key={l.href} className={linkCls} href={l.href}>

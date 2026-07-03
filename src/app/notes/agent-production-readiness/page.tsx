@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteNav } from "@/components/site/SiteNav";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
+import { TextLink } from "@/components/primitives/TextLink";
 import { Scorecard } from "./Scorecard";
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 export default function AgentReadiness() {
   return (
     <div>
-      <SiteNav links={[{ href: "/", label: "Home" }]} />
+      <SiteNav links={[{ href: "/notes", label: "All notes" }]} />
       <article className="max-w-[880px] mx-auto pt-[calc(var(--nav-height)+var(--spacing-11))] px-(--gutter) pb-11">
         <Eyebrow dot="accent">{["Notes", "Production readiness"]}</Eyebrow>
         <h1 className="font-display font-bold text-[clamp(40px,5.4vw,68px)] tracking-display leading-[1.02] mt-6 mb-6 text-balance">
@@ -22,6 +23,16 @@ export default function AgentReadiness() {
           A demo that works in a keynote is not an agent that works at 2am. This
           is the checklist I use to tell the difference. Score your own system
           against it. The gaps are the work.
+        </p>
+        <p className="mt-4 text-small text-ink-500 leading-tight">
+          The executable version, a Claude skill, is{" "}
+          <TextLink
+            href="https://github.com/hamidettefagh/agent-production-readiness"
+            external
+          >
+            on GitHub
+          </TextLink>
+          .
         </p>
         <Scorecard />
       </article>

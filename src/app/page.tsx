@@ -17,6 +17,7 @@ export default function Home() {
         cmdk
         links={[
           { href: "#work", label: "Work" },
+          { href: "/notes", label: "Notes" },
           { href: "#about", label: "About" },
           { href: "#experience", label: "Experience" },
           { href: "#contact", label: "Contact" },

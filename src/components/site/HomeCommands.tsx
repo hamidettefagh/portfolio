@@ -49,6 +49,11 @@ const COMMANDS: Command[] = [
     action: () =>
       window.open("https://www.linkedin.com/in/hamidettefagh", "_blank"),
   },
+  {
+    label: "Open GitHub",
+    hint: "↗",
+    action: () => window.open("https://github.com/hamidettefagh", "_blank"),
+  },
 ];
 
 export function HomeCommands() {
