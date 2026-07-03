@@ -1,6 +1,7 @@
 import { SiteNav } from "@/components/site/SiteNav";
 import { Hero } from "@/components/site/Hero";
 import { WorkSection } from "@/components/site/WorkSection";
+import { ToolsSection } from "@/components/site/ToolsSection";
 import { AskSection } from "@/components/site/AskSection";
 import { AboutSection } from "@/components/site/AboutSection";
 import { ExperienceSection } from "@/components/site/ExperienceSection";
@@ -17,7 +18,7 @@ export default function Home() {
         cmdk
         links={[
           { href: "#work", label: "Work" },
-          { href: "/notes", label: "Notes" },
+          { href: "#tools", label: "Tools" },
           { href: "#about", label: "About" },
           { href: "#experience", label: "Experience" },
           { href: "#contact", label: "Contact" },
@@ -27,6 +28,9 @@ export default function Home() {
         <Hero />
         <Reveal>
           <WorkSection />
+        </Reveal>
+        <Reveal>
+          <ToolsSection />
         </Reveal>
         <Reveal>
           <AskSection />
