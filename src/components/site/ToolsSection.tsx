@@ -2,9 +2,19 @@ import { Rule } from "@/components/primitives/Rule";
 import { Button } from "@/components/primitives/Button";
 import { TextLink } from "@/components/primitives/TextLink";
 import { RadarChart } from "@/components/patterns/RadarChart";
+import { ArchitectureDiagram } from "@/components/patterns/ArchitectureDiagram";
 
 // A representative filled profile so the showcase radar reads as a real result.
 const EXAMPLE = [4, 3, 4, 4, 3, 4, 3];
+
+// A representative architecture flow for the showcase.
+const EXAMPLE_STAGES = [
+  { label: "You" },
+  { label: "Agent", accent: true },
+  { label: "Retrieval" },
+  { label: "Human approval" },
+  { label: "Systems of record" },
+];
 
 export function ToolsSection() {
   return (
@@ -41,6 +51,25 @@ export function ToolsSection() {
               On GitHub
             </TextLink>
           </div>
+        </div>
+      </div>
+
+      <div className="mt-12 pt-10 border-t border-line-1">
+        <h3 className="font-display font-semibold text-[24px] tracking-heading leading-heading m-0">
+          Agent architecture
+        </h3>
+        <p className="mt-3 mb-0 text-body leading-body text-ink-700 max-w-[56ch]">
+          The design-time companion. Answer a few questions about your use case
+          and get an opinionated starting architecture: one agent or many, where
+          the knowledge and the humans belong, and the risks I would flag.
+        </p>
+        <div className="mt-7">
+          <ArchitectureDiagram stages={EXAMPLE_STAGES} />
+        </div>
+        <div className="mt-7">
+          <Button href="/agent-architecture" variant="secondary" arrow>
+            Open the tool
+          </Button>
         </div>
       </div>
     </section>
