@@ -8,16 +8,25 @@ type Answers = Record<string, string>;
 const QUESTIONS: { id: string; q: string; options: { id: string; label: string }[] }[] = [
   {
     id: "q1",
-    q: "What does the agent mainly do?",
+    q: "What does it mainly do?",
     options: [
       { id: "answer", label: "Answer questions from a body of knowledge" },
       { id: "act", label: "Take actions in other systems" },
       { id: "transform", label: "Analyze or transform input you give it" },
-      { id: "workflow", label: "Run a multi-step workflow across both" },
+      { id: "workflow", label: "Run a multi-step process end to end" },
     ],
   },
   {
     id: "q2",
+    q: "How much of the work follows fixed steps or rules?",
+    options: [
+      { id: "fixed", label: "Mostly fixed steps and clear rules" },
+      { id: "spine", label: "A fixed process with a few real judgment calls" },
+      { id: "open", label: "Open-ended, every case is genuinely different" },
+    ],
+  },
+  {
+    id: "q3",
     q: "How many distinct jobs does it span?",
     options: [
       { id: "one", label: "One focused job" },
@@ -26,7 +35,7 @@ const QUESTIONS: { id: string; q: string; options: { id: string; label: string }
     ],
   },
   {
-    id: "q3",
+    id: "q4",
     q: "How reversible are its actions?",
     options: [
       { id: "read", label: "Read-only, or suggestions a person acts on" },
@@ -35,7 +44,7 @@ const QUESTIONS: { id: string; q: string; options: { id: string; label: string }
     ],
   },
   {
-    id: "q4",
+    id: "q5",
     q: "Where does its knowledge live?",
     options: [
       { id: "model", label: "General knowledge the model already has" },
@@ -45,7 +54,7 @@ const QUESTIONS: { id: string; q: string; options: { id: string; label: string }
     ],
   },
   {
-    id: "q5",
+    id: "q6",
     q: "What are the latency and scale needs?",
     options: [
       { id: "interactive", label: "Interactive, a person is waiting" },
@@ -54,7 +63,7 @@ const QUESTIONS: { id: string; q: string; options: { id: string; label: string }
     ],
   },
   {
-    id: "q6",
+    id: "q7",
     q: "How much should it act on its own?",
     options: [
       { id: "draft", label: "Draft only, a person approves" },
@@ -64,6 +73,8 @@ const QUESTIONS: { id: string; q: string; options: { id: string; label: string }
   },
 ];
 
+type Node = { label: string; accent?: boolean };
+
 type Recommendation = {
   shape: string;
   shapeDetail: string;
@@ -71,13 +82,13 @@ type Recommendation = {
   humans: string;
   model: string;
   risks: string[];
-  stages: { label: string; accent?: boolean }[];
+  stages: Node[];
 };
 
-function knowledgeNode(q4: string): { label: string; accent?: boolean } | null {
-  if (q4 === "docs") return { label: "Retrieval" };
-  if (q4 === "records") return { label: "Query tools" };
-  if (q4 === "live") return { label: "Live tools" };
+function knowledgeNode(q5: string): Node | null {
+  if (q5 === "docs") return { label: "Retrieval" };
+  if (q5 === "records") return { label: "Query tools" };
+  if (q5 === "live") return { label: "Live tools" };
   return null;
 }
 
@@ -85,25 +96,33 @@ function compute(a: Answers): Recommendation {
   let shape: string;
   let shapeDetail: string;
 
-  if (a.q2 === "many") {
+  if (a.q2 === "fixed") {
+    shape = "This is a workflow, not an agent";
+    shapeDetail =
+      "The steps are known and the rules are clear. Build this as deterministic automation. A model in this path trades something you can test for something you have to evaluate, and buys cost, latency, and nondeterminism you did not need.";
+  } else if (a.q2 === "spine") {
+    shape = "A workflow with a model in the loop";
+    shapeDetail =
+      "Automate the fixed process. Put the model only at the genuine judgment points, wrapped in deterministic control flow, so it advises the decisions and never drives the parts that should stay predictable.";
+  } else if (a.q1 === "transform" && a.q3 === "one") {
+    shape = "A single model call";
+    shapeDetail =
+      "One structured call with clear instructions and a few strong examples. No agent loop, no tools. Reasoning applied once, not a system to operate.";
+  } else if (a.q3 === "many") {
     shape = "Multi-agent";
     shapeDetail =
-      "A coordinator that delegates to focused specialists. Each specialist owns one domain and hands a result back.";
-  } else if (a.q1 === "transform" && a.q2 === "one") {
-    shape = "You may not need an agent";
-    shapeDetail =
-      "A single structured model call likely does this. Reach for an agent only when the task has to plan, use tools, or loop.";
-  } else if (a.q1 === "act" || a.q1 === "workflow" || a.q2 === "few") {
+      "A coordinator that delegates to focused specialists. Each specialist owns one domain and hands a result back. Reach for this only because a single agent genuinely cannot hold the job.";
+  } else if (a.q1 === "act" || a.q1 === "workflow" || a.q3 === "few") {
     shape = "Single agent with tools";
     shapeDetail =
-      "One agent with a small, well-defined set of tools. Keep the tool surface tight and each tool boring.";
+      "One agent with a small, well-defined set of tools. Let it reason over the parts that vary, and lean on plain code for the parts that do not. Keep the tool surface tight and each tool boring.";
   } else {
     shape = "Single agent";
     shapeDetail = "One agent, one job. Do not add structure it does not need yet.";
   }
 
   let knowledge: string;
-  switch (a.q4) {
+  switch (a.q5) {
     case "docs":
       knowledge =
         "RAG over a vector store. Retrieval quality is your ceiling, so evaluate retrieval on its own before you blame the model.";
@@ -120,34 +139,48 @@ function compute(a: Answers): Recommendation {
   }
 
   let humans: string;
-  if (a.q3 === "irreversible")
+  if (a.q4 === "irreversible")
     humans = "Put a confirmation gate before any irreversible action, and give a person the escape hatch.";
-  else if (a.q6 === "draft")
+  else if (a.q7 === "draft")
     humans = "The agent drafts, a person approves and sends. No autonomous writes yet.";
-  else if (a.q6 === "guarded")
+  else if (a.q7 === "guarded")
     humans =
       "Autonomous within guardrails, with a confidence threshold that escalates the uncertain cases to a person.";
-  else if (a.q6 === "full" && a.q3 === "read")
+  else if (a.q7 === "full" && a.q4 === "read")
     humans = "Light oversight is fine, but only because it cannot do harm. Earn more autonomy with evals and traces.";
   else humans = "Keep a person on the uncertain and the irreversible. Let the rest run.";
 
   let model: string;
-  if (a.q5 === "interactive")
+  if (shape === "This is a workflow, not an agent")
+    model =
+      "Little to none. If one step genuinely needs judgment, make it a single call inside otherwise deterministic code, not the other way around.";
+  else if (shape === "A workflow with a model in the loop")
+    model =
+      "One model call at each judgment point, right-sized for that decision. The workflow around it stays deterministic and testable.";
+  else if (a.q6 === "interactive")
     model = "A fast, smaller model in the loop. Escalate to a frontier model only for the steps that need it.";
-  else if (a.q5 === "highvolume")
+  else if (a.q6 === "highvolume")
     model = "Right-size hard. The cheapest model that passes your evals, not the biggest one available.";
   else model = "You can afford a frontier model and more steps. Spend the tokens where they buy accuracy.";
 
   const allRisks: string[] = [];
-  if (shape === "You may not need an agent")
+  if (shape === "This is a workflow, not an agent")
     allRisks.push(
-      "Adding agentic loops here buys failure modes for no gain. Use the simplest thing that works and revisit only if it stops working.",
+      "Reasoning is the expensive, nondeterministic option. The moment a model enters this path, a testable workflow becomes something you have to evaluate. Keep it as code, and add a model only where the work genuinely stops being predictable.",
     );
-  if (a.q3 === "irreversible")
+  if (shape === "A workflow with a model in the loop")
+    allRisks.push(
+      "Keep the model on a short leash. It advises at the decision points; it does not drive the process. Everything it does not touch stays deterministic and under test.",
+    );
+  if (a.q2 === "open" && (a.q1 === "act" || a.q1 === "workflow"))
+    allRisks.push(
+      "Even here, not every step needs the model. Push the deterministic parts down into tools and code, and let the agent reason only over what actually varies.",
+    );
+  if (a.q4 === "irreversible")
     allRisks.push(
       "One confident wrong action is the whole risk. Gate it, log it, and make it reversible wherever you can.",
     );
-  if (a.q6 === "full")
+  if (a.q7 === "full")
     allRisks.push(
       "You cannot ship full autonomy without evals and traces. Autonomy is earned with evidence, not asserted.",
     );
@@ -155,20 +188,24 @@ function compute(a: Answers): Recommendation {
     allRisks.push(
       "Coordination adds latency and new failure modes. Start with one agent and split only when a single one provably cannot hold the job.",
     );
-  if (a.q4 === "docs")
+  if (a.q5 === "docs")
     allRisks.push("Most RAG failures are retrieval failures. Evaluate retrieval before you touch the prompt.");
-  if (a.q4 === "live")
+  if (a.q5 === "live")
     allRisks.push("Your tools are now part of the trust boundary. Handle their failures and their latency on purpose.");
-  if (a.q5 === "highvolume")
+  if (a.q6 === "highvolume")
     allRisks.push("Track cost per resolved task, not per call, from the first day.");
-  if (a.q1 === "act" && allRisks.length < 3)
-    allRisks.push("Every tool is a new way to be wrong. Validate inputs going in and check outputs before they land.");
 
-  let stages: { label: string; accent?: boolean }[];
-  const kn = knowledgeNode(a.q4);
-  const needsApproval = a.q6 === "draft" || a.q3 === "irreversible";
+  const needsApproval = a.q7 === "draft" || a.q4 === "irreversible";
+  const kn = knowledgeNode(a.q5);
+  let stages: Node[];
 
-  if (shape === "You may not need an agent") {
+  if (shape === "This is a workflow, not an agent") {
+    stages = [{ label: "You" }, { label: "Deterministic workflow", accent: true }, { label: "Systems of record" }];
+  } else if (shape === "A workflow with a model in the loop") {
+    stages = [{ label: "You" }, { label: "Workflow", accent: true }, { label: "Model" }];
+    if (needsApproval) stages.push({ label: "Human approval" });
+    stages.push({ label: "Systems of record" });
+  } else if (shape === "A single model call") {
     stages = [{ label: "You" }, { label: "Model", accent: true }, { label: "Structured output" }];
   } else if (shape === "Multi-agent") {
     stages = [{ label: "You" }, { label: "Coordinator", accent: true }, { label: "Specialists", accent: true }];
@@ -211,7 +248,7 @@ export function ArchitectureTool() {
 
   const copySummary = () => {
     if (!rec) return;
-    const text = `Agent architecture: ${rec.shape}. ${rec.shapeDetail} hamidettefagh.com/agent-architecture`;
+    const text = `Agent or workflow: ${rec.shape}. ${rec.shapeDetail} hamidettefagh.com/agent-architecture`;
     try {
       navigator.clipboard.writeText(text);
       setCopied(true);
@@ -285,7 +322,7 @@ export function ArchitectureTool() {
             <h3 className="font-display font-bold text-[clamp(28px,4vw,40px)] tracking-heading leading-tight mt-3 mb-0">
               {rec.shape}
             </h3>
-            <p className="mt-3 mb-0 text-lead leading-[1.5] text-ink-700 max-w-[52ch]">
+            <p className="mt-3 mb-0 text-lead leading-[1.5] text-ink-700 max-w-[54ch]">
               {rec.shapeDetail}
             </p>
 
@@ -315,13 +352,14 @@ export function ArchitectureTool() {
 
             <p className="mt-9 font-mono text-[10.5px] tracking-[0.05em] uppercase text-ink-300 max-w-[60ch] leading-[1.6]">
               This is how I would start, not the only way. Your constraints may
-              point somewhere else. The point is to choose the shape on purpose.
+              point somewhere else. The point is to reach for reasoning on
+              purpose, not by default.
             </p>
           </div>
         ) : (
           <p className="text-body text-ink-500 leading-body max-w-[52ch]">
-            Answer the six questions and I will show you how I would start it,
-            and the two or three things I would worry about.
+            Answer the questions and I will tell you which parts of this actually
+            need an agent, and which should stay a workflow you can test.
           </p>
         )}
       </div>

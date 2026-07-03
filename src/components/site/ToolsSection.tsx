@@ -7,12 +7,11 @@ import { ArchitectureDiagram } from "@/components/patterns/ArchitectureDiagram";
 // A representative filled profile so the showcase radar reads as a real result.
 const EXAMPLE = [4, 3, 4, 4, 3, 4, 3];
 
-// A representative architecture flow for the showcase.
+// The hybrid shape, to signal the agent-versus-workflow point at a glance.
 const EXAMPLE_STAGES = [
   { label: "You" },
-  { label: "Agent", accent: true },
-  { label: "Retrieval" },
-  { label: "Human approval" },
+  { label: "Workflow", accent: true },
+  { label: "Model" },
   { label: "Systems of record" },
 ];
 
@@ -56,12 +55,13 @@ export function ToolsSection() {
 
       <div className="mt-12 pt-10 border-t border-line-1">
         <h3 className="font-display font-semibold text-[24px] tracking-heading leading-heading m-0">
-          Agent architecture
+          Agent, or workflow?
         </h3>
         <p className="mt-3 mb-0 text-body leading-body text-ink-700 max-w-[56ch]">
-          The design-time companion. Answer a few questions about your use case
-          and get an opinionated starting architecture: one agent or many, where
-          the knowledge and the humans belong, and the risks I would flag.
+          The design-time companion. I keep seeing agents built where a workflow
+          would do. Answer a few questions and get an opinionated call on which
+          parts actually need reasoning, and which should stay deterministic
+          automation you can test.
         </p>
         <div className="mt-7">
           <ArchitectureDiagram stages={EXAMPLE_STAGES} />
