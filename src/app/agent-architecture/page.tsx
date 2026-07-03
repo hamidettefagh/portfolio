@@ -6,7 +6,7 @@ import { ArchitectureTool } from "./ArchitectureTool";
 export const metadata: Metadata = {
   title: "Agent, or workflow? | Hamid Ettefagh",
   description:
-    "I keep seeing agents where a workflow would do. Answer a few questions about your use case and get an opinionated call on which parts actually need reasoning, and which should stay deterministic automation you can test.",
+    "I keep seeing agents where a workflow would do. Answer seven questions about your use case and get an opinionated call on which parts actually need reasoning, and which should stay deterministic automation you can test.",
 };
 
 export default function AgentArchitecture() {
@@ -19,10 +19,10 @@ export default function AgentArchitecture() {
           Agent, or workflow?
         </h1>
         <p className="text-lead leading-[1.5] text-ink-700 max-w-[56ch] m-0">
-          I keep seeing agents where a workflow would do. Teams hand steps that
-          should be plain, deterministic automation to a model, and make things
-          nondeterministic that need to stay predictable. Reasoning earns its
-          place in some of the work, not all of it. Answer a few questions and I
+          I keep seeing agents where a workflow would do. Teams hand a model
+          steps that should be plain, deterministic automation, and make
+          predictable work nondeterministic in the process. Reasoning earns its
+          place in some of the work, not all of it. Answer seven questions and I
           will tell you which parts of this actually need an agent, and which
           should stay a workflow you can test.
         </p>
