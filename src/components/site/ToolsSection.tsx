@@ -59,17 +59,24 @@ export function ToolsSection() {
         </h3>
         <p className="mt-3 mb-0 text-body leading-body text-ink-700 max-w-[56ch]">
           The design-time companion. I keep seeing agents built where a workflow
-          would do. Answer a few questions and get an opinionated call on which
+          would do. Answer seven questions and get an opinionated call on which
           parts actually need reasoning, and which should stay deterministic
-          automation you can test.
+          automation you can test. Use the browser version, or run the same
+          decision over a real spec from your editor with the Claude skill.
         </p>
         <div className="mt-7">
           <ArchitectureDiagram stages={EXAMPLE_STAGES} />
         </div>
-        <div className="mt-7">
+        <div className="flex items-center gap-6 mt-7">
           <Button href="/agent-architecture" variant="secondary" arrow>
             Open the tool
           </Button>
+          <TextLink
+            href="https://github.com/hamidettefagh/agent-or-workflow"
+            external
+          >
+            On GitHub
+          </TextLink>
         </div>
       </div>
     </section>

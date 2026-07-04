@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SiteNav } from "@/components/site/SiteNav";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
+import { TextLink } from "@/components/primitives/TextLink";
 import { ArchitectureTool } from "./ArchitectureTool";
 
 export const metadata: Metadata = {
@@ -25,6 +26,16 @@ export default function AgentArchitecture() {
           place in some of the work, not all of it. Answer seven questions and I
           will tell you which parts of this actually need an agent, and which
           should stay a workflow you can test.
+        </p>
+        <p className="mt-4 text-small text-ink-500 leading-tight">
+          The executable version, a Claude skill that reads a real spec, is{" "}
+          <TextLink
+            href="https://github.com/hamidettefagh/agent-or-workflow"
+            external
+          >
+            on GitHub
+          </TextLink>
+          .
         </p>
         <ArchitectureTool />
       </article>
