@@ -19,6 +19,7 @@ export default function Home() {
         links={[
           { href: "#work", label: "Work" },
           { href: "#tools", label: "Tools" },
+          { href: "/two-gates", label: "Two gates" },
           { href: "#about", label: "About" },
           { href: "#experience", label: "Experience" },
           { href: "#contact", label: "Contact" },

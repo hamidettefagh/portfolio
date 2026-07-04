@@ -8,6 +8,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: "https://hamidettefagh.com/two-gates",
+      lastModified: new Date(),
+      priority: 0.8,
+    },
+    {
       url: "https://hamidettefagh.com/agent-production-readiness",
       lastModified: new Date(),
       priority: 0.7,
