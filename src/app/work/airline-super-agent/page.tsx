@@ -41,7 +41,7 @@ const decisions = [
 
 const outcomes = [
   "The program survived the go-live escalation and stayed in production. The weekend grounding fix reversed a decision that had already been made to shut it down.",
-  "The platform scaled to hundreds of thousands of automated customer actions per week, deflecting roughly a fifth of call-center volume.",
+  "In production, the platform handles hundreds of thousands of automated customer actions a week and deflects roughly 20 percent of call-center volume.",
   "I co-authored the roadmap and statement of work for the next-generation agent architecture, now in delivery.",
   "I became the technical point of contact leadership escalated to for the hardest production and trust decisions on the account.",
 ];

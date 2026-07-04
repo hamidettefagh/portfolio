@@ -157,7 +157,10 @@ function compute(a: Answers): Recommendation {
   }
 
   let humans: string;
-  if (a.q4 === "irreversible")
+  if (kind === "workflow")
+    humans =
+      "No agent in this path, so oversight is ordinary code review and change control, not approval gates. If a step is irreversible, gate it deterministically and log it.";
+  else if (a.q4 === "irreversible")
     humans = "Put a confirmation gate before any irreversible action, log every call, and give a person the escape hatch.";
   else if (a.q7 === "draft")
     humans = "The agent drafts, a person approves and sends. No autonomous writes yet.";
@@ -207,13 +210,20 @@ function compute(a: Answers): Recommendation {
     risks.push("Your tools are now part of the trust boundary. Handle their failures and latency on purpose.");
 
   // Stages.
-  const end: Node = a.q1 === "answer" ? { label: "Answer" } : { label: "Systems of record" };
+  const end: Node =
+    a.q1 === "answer"
+      ? { label: "Answer" }
+      : a.q1 === "transform"
+        ? { label: "Structured output" }
+        : { label: "Systems of record" };
   const needsApproval = a.q7 === "draft" || a.q4 === "irreversible";
   const kn = knowledgeNode(a.q5);
   let stages: Node[];
 
   if (kind === "workflow") {
-    stages = [{ label: "You" }, { label: "Deterministic workflow", accent: true }, end];
+    stages = [{ label: "You" }, { label: "Deterministic workflow", accent: true }];
+    if (needsApproval) stages.push({ label: "Human approval" });
+    stages.push(end);
   } else if (kind === "hybrid") {
     stages = [{ label: "You" }, { label: "Workflow", accent: true }, { label: "Model" }];
     if (needsApproval) stages.push({ label: "Human approval" });
