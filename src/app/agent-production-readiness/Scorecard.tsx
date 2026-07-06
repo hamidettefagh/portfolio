@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { RadarChart, readinessBand } from "@/components/patterns/RadarChart";
 
 // Interactive production-readiness diagnostic. The seven categories map to the
@@ -78,6 +78,11 @@ const TOTAL = CATEGORIES.length * PER;
 export function Scorecard() {
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [copied, setCopied] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    setReduceMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
 
   const toggle = (key: string) =>
     setChecked((prev) => {
@@ -130,7 +135,7 @@ export function Scorecard() {
   return (
     <div className="mt-9">
       <div className="mx-auto max-w-[540px]">
-        <RadarChart values={perCategory} animate />
+        <RadarChart values={perCategory} animate={!reduceMotion} />
       </div>
 
       {diagnosis && (diagnosis.strengths.length > 0 || diagnosis.gaps.length > 0) ? (

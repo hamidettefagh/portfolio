@@ -4,10 +4,12 @@ import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { TextLink } from "@/components/primitives/TextLink";
 import { Scorecard } from "./Scorecard";
 
+const description =
+  "An interactive diagnostic for telling a demo agent from a production one. Score an agent across evaluation, cost, observability, guardrails, oversight, reliability, and governance.";
+
 export const metadata: Metadata = {
   title: "Agent production readiness | Hamid Ettefagh",
-  description:
-    "An interactive diagnostic for telling a demo agent from a production one. Score an agent across evaluation, cost, observability, guardrails, oversight, reliability, and governance.",
+  description,
 };
 
 export default function AgentReadiness() {
@@ -32,7 +34,8 @@ export default function AgentReadiness() {
           >
             on GitHub
           </TextLink>
-          .
+          . This is the ship gate in{" "}
+          <TextLink href="/two-gates">the two gates</TextLink>.
         </p>
         <Scorecard />
       </article>

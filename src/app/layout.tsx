@@ -21,11 +21,35 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
+const SITE_TITLE = "Hamid Ettefagh | Forward Deployed AI Engineer";
+const SITE_DESCRIPTION =
+  "Forward Deployed AI Engineer building production agent systems for the enterprise. Multi-agent platforms, RAG, and AI governance at Fortune 500 scale.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://hamidettefagh.com"),
-  title: "Hamid Ettefagh | Forward Deployed AI Engineer",
-  description:
-    "Forward Deployed AI Engineer building production agent systems for the enterprise. Multi-agent platforms, RAG, and AI governance at Fortune 500 scale.",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    siteName: "Hamid Ettefagh",
+    url: "https://hamidettefagh.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Hamid Ettefagh",
+  url: "https://hamidettefagh.com",
+  jobTitle: "Senior Forward Deployed Engineer, AI",
+  worksFor: { "@type": "Organization", name: "Salesforce" },
+  sameAs: [
+    "https://www.linkedin.com/in/hamidettefagh",
+    "https://github.com/hamidettefagh",
+  ],
 };
 
 export default function RootLayout({
@@ -40,6 +64,10 @@ export default function RootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </body>
     </html>
   );

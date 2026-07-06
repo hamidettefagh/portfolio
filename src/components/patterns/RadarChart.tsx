@@ -130,7 +130,7 @@ export function RadarChart({
             y={ly.toFixed(1)}
             textAnchor={anchor}
             dominantBaseline="middle"
-            className={`font-mono uppercase ${complete ? "fill-accent-600" : "fill-ink-500"}`}
+            className={`font-mono uppercase ${complete ? "fill-accent-600" : "fill-ink-700"}`}
             style={{ fontSize: 11, letterSpacing: "0.06em" }}
           >
             {c}

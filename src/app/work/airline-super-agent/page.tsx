@@ -4,11 +4,14 @@ import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Tag } from "@/components/primitives/Tag";
 import { Rule } from "@/components/primitives/Rule";
 import { Button } from "@/components/primitives/Button";
+import { TextLink } from "@/components/primitives/TextLink";
+
+const description =
+  "How I stabilized a major US airline's production customer service agent through a go-live crisis, then designed the delegate-agent architecture it now runs on.";
 
 export const metadata: Metadata = {
-  title: "Airline super agent program, case study",
-  description:
-    "How I stabilized a major US airline's production customer service agent through a go-live crisis, then designed the delegate-agent architecture it now runs on.",
+  title: "Airline super agent program | Hamid Ettefagh",
+  description,
 };
 
 // Case study detail — ui_kits/portfolio/CaseStudy.jsx
@@ -42,7 +45,7 @@ const decisions = [
 const outcomes = [
   "The program survived the go-live escalation and stayed in production. The weekend grounding fix reversed a decision that had already been made to shut it down.",
   "In production, the platform handles hundreds of thousands of automated customer actions a week and deflects roughly 20 percent of call-center volume.",
-  "I co-authored the roadmap and statement of work for the next-generation agent architecture, now in delivery.",
+  "I co-authored the roadmap and statement of work for the next-generation agent architecture, now in flight.",
   "I became the technical point of contact leadership escalated to for the hardest production and trust decisions on the account.",
 ];
 
@@ -68,7 +71,7 @@ export default function CaseStudy() {
 
         <Rule />
 
-        <span className={labelCls}>Overview</span>
+        <h2 className={labelCls}>Overview</h2>
         <p className={pCls}>
           A major US airline launched a production customer service agent to
           deflect call-center volume across loyalty, baggage, and back-office
@@ -77,7 +80,7 @@ export default function CaseStudy() {
           delegate-agent architecture it now runs on.
         </p>
 
-        <span className={labelCls}>The turning point</span>
+        <h2 className={labelCls}>The turning point</h2>
         <p className={pCls}>
           Within a day of launch, the agent gave customers guidance that no
           longer matched a policy the airline had recently changed. The error
@@ -94,31 +97,31 @@ export default function CaseStudy() {
           current.
         </p>
 
-        <span className={labelCls}>Decisions</span>
+        <h2 className={labelCls}>Decisions</h2>
         <ul className="list-none p-0 m-0 max-w-(--measure-body)">
           {decisions.map((d) => (
             <li
               key={d.lead}
-              className="text-body leading-body text-ink-800 py-4 border-t border-line-1"
+              className="text-body leading-body text-ink-700 py-4 border-t border-line-1"
             >
               <span className="text-ink-900 font-medium">{d.lead}</span> {d.body}
             </li>
           ))}
         </ul>
 
-        <span className={labelCls}>Outcomes</span>
+        <h2 className={labelCls}>Outcomes</h2>
         <ul className="list-none p-0 m-0 max-w-(--measure-body)">
           {outcomes.map((o, i) => (
             <li
               key={i}
-              className="text-body leading-body text-ink-800 py-4 border-t border-line-1"
+              className="text-body leading-body text-ink-700 py-4 border-t border-line-1"
             >
               {o}
             </li>
           ))}
         </ul>
 
-        <span className={labelCls}>What carried forward</span>
+        <h2 className={labelCls}>What carried forward</h2>
         <p className={pCls}>
           The incident is a compact version of why enterprise agents fail in
           production. Not because the model is weak, but because it is allowed to
@@ -126,6 +129,10 @@ export default function CaseStudy() {
           in current, approved knowledge and enforcing trust boundaries
           deterministically in the request path, not from trusting the model to
           police itself.
+        </p>
+        <p className="mt-6 text-small text-ink-500 leading-tight">
+          The approach it taught me is in{" "}
+          <TextLink href="/two-gates">the two gates</TextLink>.
         </p>
 
         <div className="mt-11">

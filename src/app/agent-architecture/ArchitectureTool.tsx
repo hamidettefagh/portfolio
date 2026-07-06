@@ -257,7 +257,7 @@ function Detail({ label, text }: { label: string; text: string }) {
       <span className="font-mono text-mono tracking-mono uppercase text-accent-600 pt-[2px]">
         {label}
       </span>
-      <p className="text-body leading-body text-ink-800 m-0 max-w-[56ch]">{text}</p>
+      <p className="text-body leading-body text-ink-700 m-0 max-w-[56ch]">{text}</p>
     </div>
   );
 }
@@ -370,7 +370,7 @@ export function ArchitectureTool() {
               {rec.risks.map((r, i) => (
                 <p
                   key={i}
-                  className="text-body leading-body text-ink-800 m-0 py-4 border-t border-line-1 max-w-[62ch]"
+                  className="text-body leading-body text-ink-700 m-0 py-4 border-t border-line-1 max-w-[62ch]"
                 >
                   {r}
                 </p>

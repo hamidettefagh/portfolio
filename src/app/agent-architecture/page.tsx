@@ -4,10 +4,12 @@ import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { TextLink } from "@/components/primitives/TextLink";
 import { ArchitectureTool } from "./ArchitectureTool";
 
+const description =
+  "I keep seeing agents where a workflow would do. Answer seven questions about your use case and get an opinionated call on which parts actually need reasoning, and which should stay deterministic automation you can test.";
+
 export const metadata: Metadata = {
   title: "Agent, or workflow? | Hamid Ettefagh",
-  description:
-    "I keep seeing agents where a workflow would do. Answer seven questions about your use case and get an opinionated call on which parts actually need reasoning, and which should stay deterministic automation you can test.",
+  description,
 };
 
 export default function AgentArchitecture() {
@@ -35,7 +37,8 @@ export default function AgentArchitecture() {
           >
             on GitHub
           </TextLink>
-          .
+          . This is the design gate in{" "}
+          <TextLink href="/two-gates">the two gates</TextLink>.
         </p>
         <ArchitectureTool />
       </article>

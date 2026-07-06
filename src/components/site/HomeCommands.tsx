@@ -12,6 +12,27 @@ function scrollToId(id: string) {
 const COMMANDS: Command[] = [
   { label: "Go to work", hint: "01", action: () => scrollToId("work") },
   {
+    label: "Open the two gates",
+    hint: "→",
+    action: () => {
+      window.location.href = "/two-gates";
+    },
+  },
+  {
+    label: "Open the design gate",
+    hint: "→",
+    action: () => {
+      window.location.href = "/agent-architecture";
+    },
+  },
+  {
+    label: "Open the ship gate",
+    hint: "→",
+    action: () => {
+      window.location.href = "/agent-production-readiness";
+    },
+  },
+  {
     label: "Ask my agent",
     hint: "AI",
     action: () => {

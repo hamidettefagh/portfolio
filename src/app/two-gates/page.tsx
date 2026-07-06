@@ -5,10 +5,12 @@ import { TextLink } from "@/components/primitives/TextLink";
 import { Button } from "@/components/primitives/Button";
 import { Rule } from "@/components/primitives/Rule";
 
+const description =
+  "A production airline agent nearly got pulled offline in its first day. Here is what it taught me: two gates, one to decide what to build and one to prove it is ready to run.";
+
 export const metadata: Metadata = {
   title: "The two gates | Hamid Ettefagh",
-  description:
-    "A production airline agent nearly got pulled offline in its first day. Here is what it taught me: two gates, one to decide what to build and one to prove it is ready to run.",
+  description,
 };
 
 const labelCls =
@@ -39,7 +41,7 @@ export default function TwoGates() {
           <Rule />
         </div>
 
-        <span className={labelCls}>The weekend it almost died</span>
+        <h2 className={labelCls}>The weekend it almost died</h2>
         <p className={pCls}>
           A major US airline put a customer service agent into production. Within
           a day of go-live it was being pulled back toward shutdown. The failure
@@ -77,7 +79,7 @@ export default function TwoGates() {
           .
         </p>
 
-        <span className={labelCls}>What the scar taught</span>
+        <h2 className={labelCls}>What the scar taught</h2>
         <p className={pCls}>
           The lesson was not add retrieval. It was that the failure and the fix
           lived in two different places, and I had confused them.
@@ -93,7 +95,7 @@ export default function TwoGates() {
           launch.
         </p>
 
-        <span className={labelCls}>The design gate: decide what to build</span>
+        <h2 className={labelCls}>The design gate: decide what to build</h2>
         <p className={pCls}>
           Most agent projects fail at a decision made before any code is written.
           Someone assumes the answer is an agent, because agents are the
@@ -124,7 +126,7 @@ export default function TwoGates() {
           A demo is not evidence.
         </p>
 
-        <span className={labelCls}>The ship gate: prove it is ready</span>
+        <h2 className={labelCls}>The ship gate: prove it is ready</h2>
         <p className={pCls}>
           Passing the design gate means you built the right thing. It says
           nothing about whether the thing works. That is a separate question, and
@@ -153,7 +155,7 @@ export default function TwoGates() {
           production.
         </p>
 
-        <span className={labelCls}>Why I work this way now</span>
+        <h2 className={labelCls}>Why I work this way now</h2>
         <p className={pCls}>
           Two gates, in order. The design gate keeps me from building more
           autonomy than the job needs. The ship gate keeps me from trusting a
