@@ -30,7 +30,13 @@ export function ToolsSection() {
           Two questions I ask on every build, each one turned into something you
           can run. The design gate decides what to build. The ship gate decides
           whether it is ready. The write-up behind both is in{" "}
-          <TextLink href="/two-gates">the two gates</TextLink>.
+          <TextLink href="/two-gates">the two gates</TextLink>, and the whole
+          method installs as a{" "}
+          <TextLink href="https://github.com/hamidettefagh/two-gates" external>
+            Claude Code plugin
+          </TextLink>
+          , gates plus a loop that turns production incidents into regression
+          evals.
         </p>
       </div>
 

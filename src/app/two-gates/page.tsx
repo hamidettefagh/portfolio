@@ -179,6 +179,14 @@ export default function TwoGates() {
             The ship gate
           </Button>
         </div>
+        <p className="mt-6 text-small text-ink-500 leading-tight">
+          The whole method, both gates plus a loop that turns incidents into
+          regression evals, installs as a{" "}
+          <TextLink href="https://github.com/hamidettefagh/two-gates" external>
+            Claude Code plugin
+          </TextLink>
+          .
+        </p>
       </article>
     </div>
   );
