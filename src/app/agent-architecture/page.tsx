@@ -5,7 +5,7 @@ import { TextLink } from "@/components/primitives/TextLink";
 import { ArchitectureTool } from "./ArchitectureTool";
 
 const description =
-  "I keep seeing agents where a workflow would do. Answer seven questions about your use case and get an opinionated call on which parts actually need reasoning, and which should stay deterministic automation you can test.";
+  "I keep seeing agents where a workflow would do. Answer seven questions about your use case and get an opinionated call on which parts actually need reasoning, and which should stay deterministic automation you can test. Includes an Agentforce lens: the same verdict in Flow, prompt templates, topics, and actions.";
 
 export const metadata: Metadata = {
   title: "Agent, or workflow? | Hamid Ettefagh",
@@ -38,7 +38,9 @@ export default function AgentArchitecture() {
             on GitHub
           </TextLink>
           . This is the design gate in{" "}
-          <TextLink href="/two-gates">the two gates</TextLink>.
+          <TextLink href="/two-gates">the two gates</TextLink>. If the work
+          lives on Salesforce, switch the lens to Agentforce and the same
+          verdict renders in Flow, prompt templates, topics, and actions.
         </p>
         <ArchitectureTool />
       </article>
