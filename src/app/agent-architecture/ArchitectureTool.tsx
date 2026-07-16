@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArchitectureDiagram } from "@/components/patterns/ArchitectureDiagram";
+import { TextLink } from "@/components/primitives/TextLink";
 
 type Answers = Record<string, string>;
 
@@ -144,7 +145,7 @@ const LENSES: Record<Platform, Lens> = {
     knowledge: {
       workflow:
         "Look it up deterministically, by key or query. No vector search, and no model in the retrieval path.",
-      docs: "RAG over a vector store. Retrieval quality is your ceiling, so evaluate it on its own before you blame the model.",
+      docs: "RAG over a vector store for interactive answers, or agentic search where the agent can afford to explore. Either way, retrieval quality is your ceiling, so evaluate it on its own before you blame the model.",
       live: "Call tools or APIs at query time. RAG alone would hand back stale answers.",
       records:
         "Give it scoped, parameterized query tools over the system of record, not raw text-to-query and not a vector store. If you must generate queries, constrain them to a safe, read-only surface.",
@@ -409,6 +410,26 @@ const PLATFORM_OPTIONS: { id: Platform; label: string }[] = [
   { id: "agentforce", label: "Agentforce" },
 ];
 
+// The state is the URL: seven answer digits plus the lens, so a verdict is a
+// link anyone can open and see the same result.
+function encodeAnswers(answers: Answers): string {
+  return QUESTIONS.map((q) => {
+    const idx = q.options.findIndex((o) => o.id === answers[q.id]);
+    return idx === -1 ? "x" : String(idx);
+  }).join("");
+}
+
+function decodeAnswers(code: string): Answers {
+  const out: Answers = {};
+  QUESTIONS.forEach((q, i) => {
+    const idx = Number(code[i]);
+    if (Number.isInteger(idx) && idx >= 0 && idx < q.options.length) {
+      out[q.id] = q.options[idx].id;
+    }
+  });
+  return out;
+}
+
 export function ArchitectureTool() {
   const [answers, setAnswers] = useState<Answers>({});
   const [platform, setPlatform] = useState<Platform>("general");
@@ -418,20 +439,43 @@ export function ArchitectureTool() {
   const done = answeredCount === QUESTIONS.length;
   const rec = useMemo(() => (done ? compute(answers, platform) : null), [answers, done, platform]);
 
+  // Hydrate from the URL once, so a shared verdict link reproduces the state.
+  useEffect(() => {
+    const sp = new URLSearchParams(window.location.search);
+    const a = sp.get("a");
+    if (a) setAnswers(decodeAnswers(a));
+    if (sp.get("l") === "a") setPlatform("agentforce");
+  }, []);
+
+  // Keep the URL in sync, debounced, so the current state is always linkable.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const sp = new URLSearchParams();
+      if (answeredCount > 0) sp.set("a", encodeAnswers(answers));
+      if (platform === "agentforce") sp.set("l", "a");
+      const qs = sp.toString();
+      window.history.replaceState(null, "", qs ? `?${qs}` : window.location.pathname);
+    }, 250);
+    return () => clearTimeout(t);
+  }, [answers, platform, answeredCount]);
+
   const set = (qid: string, oid: string) =>
     setAnswers((prev) => ({ ...prev, [qid]: oid }));
 
   const copySummary = () => {
     if (!rec) return;
     const prefix = platform === "agentforce" ? "Flow, prompt, or agent" : "Agent or workflow";
-    const text = `${prefix}: ${rec.shape}. ${rec.shapeDetail} hamidettefagh.com/agent-architecture`;
-    try {
-      navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
-    } catch {
-      // ignore
-    }
+    const link = `hamidettefagh.com/agent-architecture${window.location.search}`;
+    const text = `${prefix}: ${rec.shape}. ${rec.shapeDetail} ${link}`;
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1600);
+      })
+      .catch(() => {
+        // ignore
+      });
   };
 
   return (
@@ -556,7 +600,24 @@ export function ArchitectureTool() {
               ))}
             </div>
 
-            <p className="mt-9 font-mono text-[10.5px] tracking-[0.05em] uppercase text-ink-300 max-w-[60ch] leading-[1.6]">
+            <p className="mt-9 text-small text-ink-500 leading-tight max-w-[56ch]">
+              This link now carries your answers, so the verdict can be shared
+              as is. To run the same decision over a real spec from your editor,
+              use the{" "}
+              <TextLink
+                href="https://github.com/hamidettefagh/agent-or-workflow"
+                external
+              >
+                Claude skill
+              </TextLink>
+              . Built the thing already? Take it through{" "}
+              <TextLink href="/agent-production-readiness">
+                the ship gate
+              </TextLink>
+              .
+            </p>
+
+            <p className="mt-6 font-mono text-[10.5px] tracking-[0.05em] uppercase text-ink-300 max-w-[60ch] leading-[1.6]">
               This is how I would start, not the only way. Your constraints may
               point somewhere else. If your answers put a model in the path, make
               it justify the seat.

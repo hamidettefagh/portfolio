@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { RadarChart, readinessBand } from "@/components/patterns/RadarChart";
+import { TextLink } from "@/components/primitives/TextLink";
 
 // Interactive production-readiness diagnostic. The seven categories map to the
 // seven axes of the radar (order matches READINESS_AXES). Fill-based checkbox
@@ -75,6 +76,30 @@ const CATEGORIES: { label: string; items: string[] }[] = [
 const PER = CATEGORIES[0].items.length; // items per axis (4)
 const TOTAL = CATEGORIES.length * PER;
 
+// The state is the URL: 28 checkboxes as a 28-bit mask in hex, so a filled
+// scorecard is a link anyone can open and see the same shape.
+function encodeChecked(checked: Set<string>): string {
+  let bits = 0;
+  for (let ci = 0; ci < CATEGORIES.length; ci++) {
+    for (let ii = 0; ii < PER; ii++) {
+      if (checked.has(`${ci}-${ii}`)) bits |= 1 << (ci * PER + ii);
+    }
+  }
+  return bits.toString(16);
+}
+
+function decodeChecked(hex: string): Set<string> {
+  const bits = parseInt(hex, 16);
+  const out = new Set<string>();
+  if (!Number.isInteger(bits) || bits < 0) return out;
+  for (let ci = 0; ci < CATEGORIES.length; ci++) {
+    for (let ii = 0; ii < PER; ii++) {
+      if (bits & (1 << (ci * PER + ii))) out.add(`${ci}-${ii}`);
+    }
+  }
+  return out;
+}
+
 export function Scorecard() {
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [copied, setCopied] = useState(false);
@@ -82,7 +107,18 @@ export function Scorecard() {
 
   useEffect(() => {
     setReduceMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const s = new URLSearchParams(window.location.search).get("s");
+    if (s) setChecked(decodeChecked(s));
   }, []);
+
+  // Keep the URL in sync, debounced, so the current score is always linkable.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const qs = checked.size > 0 ? `?s=${encodeChecked(checked)}` : "";
+      window.history.replaceState(null, "", qs || window.location.pathname);
+    }, 250);
+    return () => clearTimeout(t);
+  }, [checked]);
 
   const toggle = (key: string) =>
     setChecked((prev) => {
@@ -122,14 +158,16 @@ export function Scorecard() {
       parts.push(`Strongest: ${diagnosis.strengths.join(", ")}.`);
     if (diagnosis && diagnosis.gaps.length)
       parts.push(`Gaps: ${diagnosis.gaps.join(", ")}.`);
-    parts.push("hamidettefagh.com/agent-production-readiness");
-    try {
-      navigator.clipboard.writeText(parts.join(" "));
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
-    } catch {
-      // ignore
-    }
+    parts.push(`hamidettefagh.com/agent-production-readiness${window.location.search}`);
+    navigator.clipboard
+      .writeText(parts.join(" "))
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1600);
+      })
+      .catch(() => {
+        // ignore
+      });
   };
 
   return (
@@ -171,6 +209,21 @@ export function Scorecard() {
           Reset
         </button>
       </div>
+
+      {count > 0 ? (
+        <p className="text-center text-small text-ink-500 leading-tight max-w-[52ch] mx-auto mt-4">
+          This link now carries your score, so it can be shared as is. To run
+          the same review on real code and configs, use the{" "}
+          <TextLink
+            href="https://github.com/hamidettefagh/agent-production-readiness"
+            external
+          >
+            Claude skill
+          </TextLink>
+          . Deciding what the next build should even be? Start at{" "}
+          <TextLink href="/agent-architecture">the design gate</TextLink>.
+        </p>
+      ) : null}
 
       {CATEGORIES.map((cat, ci) => (
         <section key={cat.label}>
