@@ -1,0 +1,29 @@
+# Hamid Ettefagh
+
+> Personal site of Hamid Ettefagh, Senior Forward Deployed Engineer (AI) at Salesforce, based in Los Angeles. He designs, builds, and ships production agent systems for the enterprise: multi-agent platforms, RAG pipelines, and the evaluation and observability layers that make them safe to run at scale. The site's through-line: production over demos, and reach for reasoning on purpose, not by default.
+
+## Method
+
+- [The two gates](https://hamidettefagh.com/two-gates): the write-up behind everything on this site. A design gate decides what to build, a ship gate proves it is ready, and an incident-to-eval loop turns production failures into regression tests.
+
+## Interactive tools
+
+- [Agent, or workflow?](https://hamidettefagh.com/agent-architecture): the design gate. Answer seven questions about a use case and get a deterministic verdict: workflow, hybrid, single model call, single agent with tools, or multi-agent. Includes an Agentforce lens that renders the same verdict in Flows, prompt templates, and topics.
+- [Agent production readiness](https://hamidettefagh.com/agent-production-readiness): the ship gate. Score a built agent across seven dimensions (evaluation, cost, observability, guardrails, human oversight, reliability, governance) before go-live.
+
+## Open source
+
+- [two-gates plugin](https://github.com/hamidettefagh/two-gates): the whole method as one installable Claude Code plugin. Install with /plugin marketplace add hamidettefagh/two-gates, then /plugin install two-gates@hamidettefagh.
+- [agent-or-workflow](https://github.com/hamidettefagh/agent-or-workflow): the design gate as a Claude skill with a deterministic verdict engine.
+- [agent-production-readiness](https://github.com/hamidettefagh/agent-production-readiness): the ship gate as a Claude skill with a 28-check rubric.
+- [incident-to-eval](https://github.com/hamidettefagh/incident-to-eval): turns a production agent incident into a portable, validated eval case.
+
+## Case studies
+
+- [Airline super agent program](https://hamidettefagh.com/work/airline-super-agent): stabilizing a production customer service agent through a go-live crisis, then designing the delegate-agent architecture it runs on now.
+
+## Contact
+
+- Email: hamid.ettefagh@gmail.com
+- LinkedIn: https://www.linkedin.com/in/hamidettefagh
+- GitHub: https://github.com/hamidettefagh
