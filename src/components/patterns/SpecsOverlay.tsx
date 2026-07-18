@@ -32,7 +32,7 @@ const TYPE_TOKENS: {
 }[] = [
   { name: "--text-hero", sample: "Agents that ship", px: 40, weight: 700, tight: true },
   { name: "--text-h2", sample: "Selected work", px: 30, weight: 700, tight: true },
-  { name: "--text-h3", sample: "Airline super agent program", px: 24, weight: 600, tight: true },
+  { name: "--text-h3", sample: "Multi-agent customer operations", px: 24, weight: 600, tight: true },
   { name: "--text-lead", sample: "Production agent systems for the enterprise", px: 20, weight: 400 },
   { name: "--text-body", sample: "Demos are easy. Production is the job.", px: 17, weight: 400 },
   { name: "--text-small", sample: "Captions and footnotes", px: 15, weight: 400 },

@@ -20,7 +20,7 @@
 
 ## Case studies
 
-- [Airline super agent program](https://hamidettefagh.com/work/airline-super-agent): stabilizing a production customer service agent through a go-live crisis, then designing the delegate-agent architecture it runs on now.
+- [Multi-agent customer operations platform](https://hamidettefagh.com/work/airline-super-agent): how a major US airline's production customer service platform survived the launch failure that nearly ended it, and the delegate-agent architecture it runs on now.
 
 ## Contact
 

@@ -5,9 +5,9 @@ import { ProjectRow } from "@/components/patterns/ProjectRow";
 export const WORK_ITEMS = [
   {
     index: "01",
-    title: "Airline super agent program",
+    title: "Multi-agent customer operations platform",
     summary:
-      "Lead forward deployed engineer on a production multi-agent platform serving customer operations. Stabilized a critical go-live under executive visibility and co-authored the roadmap for the next-generation agent now in flight.",
+      "A production multi-agent platform for customer operations, now handling hundreds of thousands of automated actions a week and deflecting roughly 20 percent of call volume. I led it through the launch failure that nearly ended it and designed the delegate-agent architecture it runs on today.",
     org: "Major US airline",
   },
   {

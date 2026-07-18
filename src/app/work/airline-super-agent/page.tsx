@@ -7,10 +7,10 @@ import { Button } from "@/components/primitives/Button";
 import { TextLink } from "@/components/primitives/TextLink";
 
 const description =
-  "How I stabilized a major US airline's production customer service agent through a go-live crisis, then designed the delegate-agent architecture it now runs on.";
+  "How a major US airline's production customer service platform survived the launch failure that nearly ended it, and the delegate-agent architecture it runs on now.";
 
 export const metadata: Metadata = {
-  title: "Airline super agent program | Hamid Ettefagh",
+  title: "Multi-agent customer operations platform | Hamid Ettefagh",
   description,
 };
 
@@ -56,12 +56,12 @@ export default function CaseStudy() {
       <article className="max-w-[880px] mx-auto pt-[calc(var(--nav-height)+var(--spacing-11))] px-(--gutter) pb-11">
         <Eyebrow dot="accent">{["Case study", "Major US airline"]}</Eyebrow>
         <h1 className="font-display font-bold text-[clamp(40px,5.4vw,68px)] tracking-display leading-[1.02] mt-6 mb-5 text-balance">
-          Airline super agent program
+          Multi-agent customer operations platform
         </h1>
         <p className="text-lead leading-[1.5] text-ink-700 max-w-[56ch] m-0">
-          I stabilized a production customer service agent that leadership had
-          moved to shut down within a day of launch, then co-authored the
-          architecture for its next generation.
+          A production customer service agent was a day from being shut down. I
+          found the failure, closed the path that produced it, and designed the
+          delegate-agent architecture the platform runs on now.
         </p>
         <div className="flex gap-[10px] flex-wrap mt-8 mb-10">
           <Tag>Lead forward deployed engineer</Tag>
@@ -76,7 +76,7 @@ export default function CaseStudy() {
           A major US airline launched a production customer service agent to
           deflect call-center volume across loyalty, baggage, and back-office
           requests. I led the engagement as the forward deployed engineer:
-          stabilizing the platform through a go-live crisis, then designing the
+          finding the failure that nearly ended the launch, then designing the
           delegate-agent architecture it now runs on.
         </p>
 

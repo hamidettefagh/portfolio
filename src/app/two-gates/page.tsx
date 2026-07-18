@@ -73,10 +73,7 @@ export default function TwoGates() {
           handles hundreds of thousands of automated customer actions a week and
           deflects roughly 20 percent of call-center volume. The full account is
           in the{" "}
-          <TextLink href="/work/airline-super-agent">
-            airline super agent case study
-          </TextLink>
-          .
+          <TextLink href="/work/airline-super-agent">case study</TextLink>.
         </p>
 
         <h2 className={labelCls}>What the scar taught</h2>
