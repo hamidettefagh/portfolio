@@ -51,11 +51,7 @@ const COMMANDS: Command[] = [
     label: "Copy email",
     hint: "@",
     action: () => {
-      try {
-        navigator.clipboard.writeText(EMAIL);
-      } catch {
-        // noop
-      }
+      navigator.clipboard?.writeText(EMAIL).catch(() => {});
     },
     confirm: `Copied ${EMAIL}`,
   },

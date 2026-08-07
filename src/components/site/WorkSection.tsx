@@ -14,28 +14,28 @@ export const WORK_ITEMS = [
     index: "02",
     title: "Agent cost and retention optimization",
     summary:
-      "Re-architected the production agent runtime, cutting operating costs by 80 percent and driving more than 1,150 customer reactivations.",
+      "A production agent runtime re-architected to cut operating costs by 80 percent and drive more than 1,150 customer reactivations. Cost is a feature; this is the engagement where I proved it.",
     org: "Global dining platform",
   },
   {
     index: "03",
     title: "Global deal registration program",
     summary:
-      "Architected the foundational program spanning the US, Japan, and Asia-Pacific, delivered with zero-defect UAT across 17 languages.",
+      "Zero-defect UAT across 17 languages, spanning the US, Japan, and Asia-Pacific. I architected the foundational program.",
     org: "Consumer electronics leader",
   },
   {
     index: "04",
     title: "Agentic AI proof of concept",
     summary:
-      "Designed and delivered a large-scale agentic proof of concept with projected material reduction in average handle time.",
+      "A large-scale agentic proof of concept with a projected material reduction in average handle time. I designed and delivered it, and projected is deliberate: a proof of concept earns a forecast, not a production claim.",
     org: "National telecom carrier",
   },
   {
     index: "05",
     title: "InsightForce",
     summary:
-      "AI insight engine prototype. Winner of a 63-entry company-wide hackathon, with modeled pipeline impact north of $1B.",
+      "An AI insight engine prototype with modeled pipeline impact north of $1B. I built it for a 63-entry company-wide hackathon and it took first place.",
     org: "Internal innovation",
   },
 ];

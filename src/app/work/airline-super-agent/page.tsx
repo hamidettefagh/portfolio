@@ -5,6 +5,7 @@ import { Tag } from "@/components/primitives/Tag";
 import { Rule } from "@/components/primitives/Rule";
 import { Button } from "@/components/primitives/Button";
 import { TextLink } from "@/components/primitives/TextLink";
+import { ArchitectureDiagram } from "@/components/patterns/ArchitectureDiagram";
 
 const description =
   "How a major US airline's production customer service platform survived the launch failure that nearly ended it, and the delegate-agent architecture it runs on now.";
@@ -79,6 +80,16 @@ export default function CaseStudy() {
           finding the failure that nearly ended the launch, then designing the
           delegate-agent architecture it now runs on.
         </p>
+        <div className="mt-7">
+          <ArchitectureDiagram
+            stages={[
+              { label: "Customer" },
+              { label: "Orchestrator", accent: true },
+              { label: "Delegate agents", accent: true },
+              { label: "Systems of record" },
+            ]}
+          />
+        </div>
 
         <h2 className={labelCls}>The turning point</h2>
         <p className={pCls}>

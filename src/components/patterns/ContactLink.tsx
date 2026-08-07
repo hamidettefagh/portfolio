@@ -17,14 +17,18 @@ export function ContactLink({
   const [copied, setCopied] = useState(false);
   const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!copyable) return;
+    // Without clipboard support, let the browser follow the mailto href.
+    if (!navigator.clipboard) return;
     e.preventDefault();
-    try {
-      navigator.clipboard.writeText(value);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
-    } catch {
-      // fall through to href (mailto fallback)
-    }
+    navigator.clipboard.writeText(value).then(
+      () => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1600);
+      },
+      () => {
+        window.location.href = href ?? `mailto:${value}`;
+      },
+    );
   };
   const external = href ? href.startsWith("http") : false;
   return (

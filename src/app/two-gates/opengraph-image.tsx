@@ -1,10 +1,11 @@
 import { ImageResponse } from "next/og";
 import { loadArchivo } from "@/lib/og";
 
-// OG image — simple text card in the site palette, per the handoff README.
+// Per-page OG card for the essay, same layout as the root card with the
+// page's own words in place of the byline.
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "Hamid Ettefagh, Forward Deployed AI Engineer";
+export const alt = "The two gates, an essay by Hamid Ettefagh";
 
 export default async function Image() {
   const archivo = await loadArchivo();
@@ -31,7 +32,7 @@ export default async function Image() {
             lineHeight: 1,
           }}
         >
-          Hamid Ettefagh
+          The two gates
         </div>
         <div
           style={{
@@ -39,9 +40,12 @@ export default async function Image() {
             marginTop: 28,
             color: "#4F4840",
             letterSpacing: "-0.02em",
+            lineHeight: 1.3,
+            maxWidth: 1008,
           }}
         >
-          Forward Deployed AI Engineer
+          The first decides what to build. The second decides whether it is
+          ready to run.
         </div>
         <div
           style={{

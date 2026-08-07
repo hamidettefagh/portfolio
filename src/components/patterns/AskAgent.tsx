@@ -78,7 +78,7 @@ export function AskAgent({
             busy ? "animate-[ask-pulse_1.1s_ease-in-out_infinite]" : "",
           ].join(" ")}
         ></span>
-        <span>{busy ? "Working" : "Agent online"}</span>
+        <span role="status">{busy ? "Working" : "Agent online"}</span>
       </div>
       <form className="flex gap-[10px]" onSubmit={onSubmit}>
         <input
@@ -86,6 +86,7 @@ export function AskAgent({
           className="flex-1 min-w-0 border border-line-2 rounded-pill bg-paper-0 font-body text-[16px] text-ink-900 px-5 py-3 outline-none tracking-body transition-[border-color] duration-(--dur-fast) ease-out focus:border-ink-900 placeholder:text-ink-300"
           placeholder="Ask about the work"
           value={query}
+          maxLength={300}
           onChange={(e) => setQuery(e.target.value)}
         />
         <button
@@ -108,16 +109,18 @@ export function AskAgent({
           </button>
         ))}
       </div>
-      {answer ? (
-        <p
-          className={[
-            "mt-[18px] mb-0 pt-[18px] border-t border-line-1 text-body leading-body max-w-[62ch] whitespace-pre-wrap",
-            answer.muted ? "text-ink-500" : "text-ink-900",
-          ].join(" ")}
-        >
-          {answer.text}
-        </p>
-      ) : null}
+      <div aria-live="polite">
+        {answer ? (
+          <p
+            className={[
+              "mt-[18px] mb-0 pt-[18px] border-t border-line-1 text-body leading-body max-w-[62ch] whitespace-pre-wrap",
+              answer.muted ? "text-ink-500" : "text-ink-900",
+            ].join(" ")}
+          >
+            {answer.text}
+          </p>
+        ) : null}
+      </div>
       <p className="mt-[14px] mb-0 font-mono text-[10.5px] tracking-[0.05em] uppercase text-ink-300">
         Live model output. It can be wrong. For anything that matters, email.
       </p>

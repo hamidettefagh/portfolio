@@ -48,8 +48,12 @@ export function CommandMenu({
       setQuery("");
       setActive(0);
       setFlash(null);
+      document.body.style.overflow = "hidden";
       const t = setTimeout(() => inputRef.current?.focus(), 30);
-      return () => clearTimeout(t);
+      return () => {
+        clearTimeout(t);
+        document.body.style.overflow = "";
+      };
     }
   }, [open]);
 
@@ -77,6 +81,9 @@ export function CommandMenu({
     } else if (e.key === "Enter" && filtered[active]) {
       e.preventDefault();
       run(filtered[active]);
+    } else if (e.key === "Tab") {
+      // The input is the dialog's only focusable element; keep focus inside.
+      e.preventDefault();
     }
   };
 
@@ -90,6 +97,7 @@ export function CommandMenu({
       <div
         className="fixed z-[91] left-1/2 top-[16vh] -translate-x-1/2 w-[min(560px,calc(100vw-40px))] bg-surface-raised border border-line-1 rounded-md shadow-float overflow-hidden"
         role="dialog"
+        aria-modal="true"
         aria-label="Command menu"
       >
         <input
