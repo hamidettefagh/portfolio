@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { track } from "@vercel/analytics";
 import { RadarChart, readinessBand } from "@/components/patterns/RadarChart";
 import { TextLink } from "@/components/primitives/TextLink";
 
@@ -120,13 +121,21 @@ export function Scorecard() {
     return () => clearTimeout(t);
   }, [checked]);
 
-  const toggle = (key: string) =>
+  // Fires once per session, so the funnel counts people, not checkboxes.
+  const started = useRef(false);
+
+  const toggle = (key: string) => {
+    if (!started.current) {
+      started.current = true;
+      track("ship gate started");
+    }
     setChecked((prev) => {
       const next = new Set(prev);
       if (next.has(key)) next.delete(key);
       else next.add(key);
       return next;
     });
+  };
 
   const count = checked.size;
 
@@ -163,6 +172,7 @@ export function Scorecard() {
       .writeText(parts.join(" "))
       .then(() => {
         setCopied(true);
+        track("ship gate copied", { score: count, band: readinessBand(count, TOTAL) });
         setTimeout(() => setCopied(false), 1600);
       })
       .catch(() => {

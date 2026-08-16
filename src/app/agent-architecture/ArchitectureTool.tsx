@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { track } from "@vercel/analytics";
 import { ArchitectureDiagram } from "@/components/patterns/ArchitectureDiagram";
 import { TextLink } from "@/components/primitives/TextLink";
 
@@ -459,8 +460,25 @@ export function ArchitectureTool() {
     return () => clearTimeout(t);
   }, [answers, platform, answeredCount]);
 
-  const set = (qid: string, oid: string) =>
+  // Funnel: did they start, did they reach a verdict, did they take it with
+  // them. Each fires once per session so changing an answer does not inflate it.
+  const started = useRef(false);
+  const verdictSent = useRef(false);
+
+  const set = (qid: string, oid: string) => {
+    if (!started.current) {
+      started.current = true;
+      track("design gate started");
+    }
     setAnswers((prev) => ({ ...prev, [qid]: oid }));
+  };
+
+  useEffect(() => {
+    if (rec && !verdictSent.current) {
+      verdictSent.current = true;
+      track("design gate verdict", { verdict: rec.shape, lens: platform });
+    }
+  }, [rec, platform]);
 
   const copySummary = () => {
     if (!rec) return;
@@ -471,6 +489,7 @@ export function ArchitectureTool() {
       .writeText(text)
       .then(() => {
         setCopied(true);
+        track("design gate copied", { verdict: rec.shape, lens: platform });
         setTimeout(() => setCopied(false), 1600);
       })
       .catch(() => {
