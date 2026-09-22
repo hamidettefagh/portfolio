@@ -298,8 +298,8 @@ const LENSES: Record<Platform, Lens> = {
       hybridSpineConversational: "Agent Script",
       hybridModel: "Prompt template",
       call: "Prompt template",
-      coordinator: "Orchestrator",
-      specialists: "Subagents",
+      coordinator: "Primary agent",
+      specialists: "Specialist agents",
       agent: "Agentforce topic",
       toolsFallback: "Actions",
       docs: "Data library",
@@ -547,7 +547,7 @@ export function ArchitectureTool() {
         })}
         <span className="text-small text-ink-500 leading-tight">
           {platform === "agentforce"
-            ? "Same verdict, rendered in Flow, prompt templates, topics, and actions."
+            ? "Same verdict, rendered in Flow, prompt templates, Agent Script, and topics."
             : "Vendor-neutral vocabulary."}
         </span>
       </div>
