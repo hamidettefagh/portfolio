@@ -27,5 +27,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       priority: 0.6,
     },
+    {
+      url: "https://hamidettefagh.com/work/dining-platform-agents",
+      lastModified: new Date(),
+      priority: 0.6,
+    },
   ];
 }

@@ -9,13 +9,15 @@ export const WORK_ITEMS = [
     summary:
       "A production multi-agent platform for customer operations, now handling hundreds of thousands of automated actions a week and deflecting roughly 20 percent of call volume. I led it through the launch failure that nearly ended it and designed the delegate-agent architecture it runs on today.",
     org: "Major US airline",
+    href: "/work/airline-super-agent",
   },
   {
     index: "02",
-    title: "Agent cost and retention optimization",
+    title: "Service agents for a two-sided marketplace",
     summary:
-      "A production agent runtime re-architected to cut operating costs by 80 percent and drive more than 1,150 customer reactivations. Cost is a feature; this is the engagement where I proved it.",
+      "Two live agents, one facing diners and one facing restaurant operators, together carrying roughly 15,000 conversations a week. I rebuilt the escalation path so a handoff is computed from business hours and real availability, and the agents stopped promising transfers that could not happen.",
     org: "Global dining platform",
+    href: "/work/dining-platform-agents",
   },
   {
     index: "03",
@@ -40,11 +42,7 @@ export const WORK_ITEMS = [
   },
 ];
 
-export function WorkSection({
-  detailHref = "/work/airline-super-agent",
-}: {
-  detailHref?: string;
-}) {
+export function WorkSection() {
   return (
     <section className="pt-12 scroll-mt-[84px]" id="work">
       <div className="mb-8">
@@ -57,11 +55,7 @@ export function WorkSection({
       </div>
       <div className="border-b border-line-1">
         {WORK_ITEMS.map((w) => (
-          <ProjectRow
-            key={w.index}
-            {...w}
-            href={w.index === "01" ? detailHref : undefined}
-          />
+          <ProjectRow key={w.index} {...w} />
         ))}
       </div>
     </section>
