@@ -75,7 +75,7 @@ export default function CaseStudy() {
         <h2 className={labelCls}>Overview</h2>
         <p className={pCls}>
           A major US airline launched a production customer service agent to
-          deflect call-center volume across loyalty, baggage, and back-office
+          deflect call-center volume across loyalty, reservations, and back-office
           requests. I led the engagement as the forward deployed engineer:
           finding the failure that nearly ended the launch, then designing the
           delegate-agent architecture it now runs on.
