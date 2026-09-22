@@ -90,7 +90,9 @@ type Recommendation = {
 };
 
 type Lens = {
-  verdicts: Record<Kind, { title: string; detail: string }>;
+  verdicts: Record<Kind, { title: string; detail: string }> & {
+    hybridBackend?: { title: string; detail: string };
+  };
   knowledge: { workflow: string; docs: string; live: string; records: string; model: string };
   humans: { workflow: string; irreversible: string; draft: string; guarded: string; fullread: string; default: string };
   model: { workflow: string; hybrid: string; interactive: string; highvolume: string; default: string };
@@ -99,6 +101,7 @@ type Lens = {
   nodes: {
     workflow: string;
     hybridSpine: string;
+    hybridSpineConversational?: string;
     hybridModel: string;
     call: string;
     coordinator: string;
@@ -215,9 +218,14 @@ const LENSES: Record<Platform, Lens> = {
           "The steps are known and the rules are clear. Build it in Flow, or Apex where the logic outgrows it. A model in this path buys cost, latency, and nondeterminism you did not need.",
       },
       hybrid: {
+        title: "Agent Script with the load-bearing decisions pinned",
+        detail:
+          "There is a conversation here, so the determinism belongs inside the agent. Write it as Agent Script: pin the decisions that must not vary, using availability gates and conditional instructions the model cannot override, and let it reason over the rest. The actions underneath stay Flow or Apex.",
+      },
+      hybridBackend: {
         title: "A Flow with a prompt template at the judgment points",
         detail:
-          "Automate the fixed process in Flow. Call a prompt template action only at the genuine judgment points, wrapped in deterministic control flow.",
+          "Nothing here is conversational, so there is no agent to script. Automate the fixed process in Flow and call a prompt template action only at the genuine judgment points, wrapped in deterministic control flow.",
       },
       call: {
         title: "A prompt template, not an agent",
@@ -225,14 +233,14 @@ const LENSES: Record<Platform, Lens> = {
           "One Flex prompt template with clear instructions, grounded merge fields, and a few strong examples. No topic, no agent loop. Where a single template passes your evals, an agent is pure overhead.",
       },
       multi: {
-        title: "Multiple agents behind an orchestrator",
+        title: "Multi-Agent Orchestration",
         detail:
-          "A coordinator agent that delegates to focused subagents, each owning one domain and handing a result back. Default to one agent with well-separated topics first. Every handoff is latency plus a new failure mode, so this is the most expensive shape on the platform by a wide margin.",
+          "A primary agent routing to focused specialist agents, each owning one domain and handing a result back. Default to one agent with well-separated topics first. Every handoff is latency plus a new failure mode, so this is the most expensive shape on the platform by a wide margin.",
       },
       tools: {
         title: "One Agentforce topic with a tight action set",
         detail:
-          "One topic with a sharp classification description and scope, and a small set of actions backed by Flow or Apex. Let it reason over what varies and push what does not into the actions. Keep the action surface tight and each action boring.",
+          "One topic with a sharp classification description and scope, and a small set of actions backed by Flow or Apex. Define it in Agent Script so the guardrails and transitions are reviewable and the execution topology is known before a conversation starts. Let it reason over what varies and push what does not into the actions.",
       },
     },
     knowledge: {
@@ -260,7 +268,7 @@ const LENSES: Record<Platform, Lens> = {
       workflow:
         "Little to none. If one step genuinely needs judgment, make it a single prompt template action, not the spine of the system.",
       hybrid:
-        "One prompt template call at each judgment point, right-sized for that decision. The Flow around it stays deterministic and testable.",
+        "One model call at each judgment point, right-sized for that decision. The structure around it, Agent Script or Flow, stays deterministic and testable.",
       interactive:
         "Favor a fast model on the interactive path, and escalate to a frontier model only for the steps that need it.",
       highvolume: "Right-size hard. The cheapest model that passes your evals, not the biggest one available.",
@@ -269,7 +277,7 @@ const LENSES: Record<Platform, Lens> = {
     shapeRisk: {
       workflow:
         "The pressure will be to make it agentic, because that is what ships in demos. Resist it. Add a model only at the exact step where the work stops being predictable, and keep the rest as Flow you can test. Every model step you chain multiplies its own failure rate into the whole, so a long agent path can fail end to end even when each step looks fine.",
-      hybrid: "Keep the model on a short leash. It advises at the decision points; it does not drive the Flow.",
+      hybrid: "Keep the model on a short leash. It advises at the decision points; it does not drive the process.",
       tools:
         "Every step you can express in Flow or Apex is a step you do not have to trust the model on. Push those into the actions, and let the topic reason only over what genuinely varies.",
       multi:
@@ -287,6 +295,7 @@ const LENSES: Record<Platform, Lens> = {
     nodes: {
       workflow: "Flow",
       hybridSpine: "Flow",
+      hybridSpineConversational: "Agent Script",
       hybridModel: "Prompt template",
       call: "Prompt template",
       coordinator: "Orchestrator",
@@ -316,10 +325,20 @@ function knowledgeNode(q5: string, nodes: Lens["nodes"]): Node | null {
   return null;
 }
 
+// Is there a live conversational surface? Someone waiting on the answer, or a
+// job whose whole purpose is answering questions. Only the agentforce lens uses
+// this: it decides where the determinism lives, inside an agent or in a Flow
+// with no agent at all. The classification never depends on it.
+function isConversational(a: Answers): boolean {
+  return a.q6 === "interactive" || a.q1 === "answer";
+}
+
 function compute(a: Answers, platform: Platform): Recommendation {
   const L = LENSES[platform];
   const kind = classify(a);
-  const verdict = L.verdicts[kind];
+  const backendHybrid =
+    kind === "hybrid" && !isConversational(a) ? L.verdicts.hybridBackend : undefined;
+  const verdict = backendHybrid ?? L.verdicts[kind];
 
   // Knowledge. A workflow has no model in the retrieval path, so it never does RAG.
   const knowledge =
@@ -365,7 +384,11 @@ function compute(a: Answers, platform: Platform): Recommendation {
     if (needsApproval) stages.push({ label: "Human approval" });
     stages.push(end);
   } else if (kind === "hybrid") {
-    stages = [{ label: "You" }, { label: L.nodes.hybridSpine, accent: true }, { label: L.nodes.hybridModel }];
+    const spine =
+      !backendHybrid && L.nodes.hybridSpineConversational
+        ? L.nodes.hybridSpineConversational
+        : L.nodes.hybridSpine;
+    stages = [{ label: "You" }, { label: spine, accent: true }, { label: L.nodes.hybridModel }];
     if (needsApproval) stages.push({ label: "Human approval" });
     stages.push(end);
   } else if (kind === "call") {

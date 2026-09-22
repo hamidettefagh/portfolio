@@ -15,7 +15,7 @@ export const WORK_ITEMS = [
     index: "02",
     title: "Service agents for a two-sided marketplace",
     summary:
-      "Two live agents, one facing diners and one facing restaurant operators, together carrying roughly 15,000 conversations a week. I rebuilt the escalation path so a handoff is computed from business hours and real availability, and the agents stopped promising transfers that could not happen.",
+      "Two live agents, one facing diners and one facing restaurant operators, together carrying roughly 15,000 conversations a week. I rebuilt the escalation path so a handoff is computed from business hours and real availability, and re-architected the runtime to cut operating costs by 80 percent and drive more than 1,150 customer reactivations.",
     org: "Global dining platform",
     href: "/work/dining-platform-agents",
   },
