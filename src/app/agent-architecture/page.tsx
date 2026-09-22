@@ -5,7 +5,7 @@ import { TextLink } from "@/components/primitives/TextLink";
 import { ArchitectureTool } from "./ArchitectureTool";
 
 const description =
-  "I keep seeing agents where a workflow would do. Answer seven questions about your use case and get an opinionated call on which parts actually need reasoning, and which should stay deterministic automation you can test. Includes an Agentforce lens: the same verdict in Flow, prompt templates, topics, and actions.";
+  "I keep seeing agents where a workflow would do. Answer seven questions about your use case and get an opinionated call on which parts actually need reasoning, and which should stay deterministic automation you can test. Includes an Agentforce lens: the same verdict in Flow, prompt templates, Agent Script, and topics.";
 
 export const metadata: Metadata = {
   title: "Agent, or workflow? | Hamid Ettefagh",
@@ -40,7 +40,11 @@ export default function AgentArchitecture() {
           . This is the design gate in{" "}
           <TextLink href="/two-gates">the two gates</TextLink>. If the work
           lives on Salesforce, switch the lens to Agentforce and the same
-          verdict renders in Flow, prompt templates, topics, and actions.
+          verdict renders in Flow, prompt templates, Agent Script, and topics.
+          That lens also asks one question the general one does not: whether a
+          person is waiting on the answer, because it decides whether the
+          determinism belongs inside an agent or in a Flow with no agent at
+          all.
         </p>
         <ArchitectureTool />
       </article>

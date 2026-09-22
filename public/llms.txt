@@ -8,7 +8,7 @@
 
 ## Interactive tools
 
-- [Agent, or workflow?](https://hamidettefagh.com/agent-architecture): the design gate. Answer seven questions about a use case and get a deterministic verdict: workflow, hybrid, single model call, single agent with tools, or multi-agent. Includes an Agentforce lens that renders the same verdict in Flows, prompt templates, and topics.
+- [Agent, or workflow?](https://hamidettefagh.com/agent-architecture): the design gate. Answer seven questions about a use case and get a deterministic verdict: workflow, hybrid, single model call, single agent with tools, or multi-agent. Includes an Agentforce lens that renders the same verdict in Flows, prompt templates, Agent Script, and topics.
 - [Agent production readiness](https://hamidettefagh.com/agent-production-readiness): the ship gate. Score a built agent across seven dimensions (evaluation, cost, observability, guardrails, human oversight, reliability, governance) before go-live.
 
 ## Open source
