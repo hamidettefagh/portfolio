@@ -65,14 +65,14 @@ export default function TwoGates() {
           because a number you cannot trust is worse than no number.
         </p>
         <p className={pCls}>
-          That weekend bought the time to do the rest properly. I split the work
-          into delegate agents behind an orchestrator instead of one agent trying
-          to hold everything. I drew a hard trust boundary around the federally
-          regulated data so nothing crossed it by accident. I built the tools
-          once and let every agent share them rather than rebuild. That agent now
-          handles hundreds of thousands of automated customer actions a week and
-          deflects roughly 20 percent of call-center volume. The full account is
-          in the{" "}
+          That weekend bought the time to do the rest properly. I drew a hard
+          trust boundary around the federally regulated data so nothing crossed
+          it by accident. I built the tools once so every agent could share them
+          rather than rebuild. That agent now handles hundreds of thousands of
+          automated customer actions a week and deflects roughly 20 percent of
+          call-center volume. I am leading the build of its next architecture:
+          delegate agents behind an orchestrator, instead of one agent trying to
+          hold everything. The full account is in the{" "}
           <TextLink href="/work/airline-super-agent">case study</TextLink>.
         </p>
 
@@ -114,9 +114,9 @@ export default function TwoGates() {
           verdict is deterministic code, not a model reasoning about itself in a
           loop. A routing decision you can settle with rules should be settled
           with rules, because rules do not drift and you can read them a year
-          later and know exactly what they did. The airline system is multi-agent
-          because the design gate said it needed to be, and I can show that
-          reasoning rather than assert it.
+          later and know exactly what they did. The airline&rsquo;s next
+          architecture is multi-agent because the design gate said it needed to
+          be, and I can show that reasoning rather than assert it.
         </p>
 
         <p className="font-display font-semibold text-[clamp(22px,3.2vw,30px)] tracking-heading leading-[1.28] text-ink-900 max-w-[26ch] my-12">

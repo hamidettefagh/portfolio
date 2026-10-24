@@ -41,11 +41,12 @@ export function AboutSection() {
           and observability layers that make them safe to run at scale.
         </p>
         <p className={pCls}>
-          Recent work includes leading the engineering of a production
-          multi-agent platform for a major US airline, re-architecting an agent
-          runtime for a global dining platform to cut operating costs by 80
-          percent, and advising Fortune 500 teams on AI trust, security, and
-          governance. Earlier in my career I shipped enterprise programs across
+          Recent work includes taking a major US airline&rsquo;s customer service
+          agent through the launch failure that nearly ended it, and now leading
+          the build of the multi-agent architecture it moves to next. I also
+          re-architected an agent runtime for a global dining platform to cut
+          operating costs by 80 percent, and I advise Fortune 500 teams on AI
+          trust, security, and governance. Earlier in my career I shipped enterprise programs across
           consumer electronics, telecom, and travel, from strategy through
           zero-defect delivery.
         </p>

@@ -7,7 +7,7 @@ export const WORK_ITEMS = [
     index: "01",
     title: "Multi-agent customer operations platform",
     summary:
-      "A production multi-agent platform for customer operations, now handling hundreds of thousands of automated actions a week and deflecting roughly 20 percent of call volume. I led it through the launch failure that nearly ended it and designed the delegate-agent architecture it runs on today.",
+      "A production customer service agent, now handling hundreds of thousands of automated actions a week and deflecting roughly 20 percent of call volume. I led it through the launch failure that nearly ended it, and I'm now leading the build of the multi-agent architecture it moves to next.",
     org: "Major US airline",
     href: "/work/airline-super-agent",
   },

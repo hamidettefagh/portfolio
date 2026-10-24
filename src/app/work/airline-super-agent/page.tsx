@@ -8,7 +8,7 @@ import { TextLink } from "@/components/primitives/TextLink";
 import { ArchitectureDiagram } from "@/components/patterns/ArchitectureDiagram";
 
 const description =
-  "How a major US airline's production customer service platform survived the launch failure that nearly ended it, and the delegate-agent architecture it runs on now.";
+  "How a major US airline's production customer service agent survived the launch failure that nearly ended it, and the multi-agent architecture I designed for its next stage.";
 
 export const metadata: Metadata = {
   title: "Multi-agent customer operations platform | Hamid Ettefagh",
@@ -27,7 +27,7 @@ const decisions = [
   },
   {
     lead: "Split one agent into delegate agents behind an orchestrator.",
-    body: "Instead of a single monolithic agent, I designed specialized delegates for loyalty and back-office requests, coordinated by an orchestrator, so each domain could be governed, tested, and scaled on its own.",
+    body: "Instead of growing one monolithic agent, I designed specialized delegate agents coordinated by an orchestrator, so each domain can be governed, tested, and scaled on its own.",
   },
   {
     lead: "Draw an explicit trust boundary for regulated data.",
@@ -35,7 +35,7 @@ const decisions = [
   },
   {
     lead: "Build tools once, share them across agents and partners.",
-    body: "I defined a reusable tool strategy so capabilities were implemented a single time and shared across delegates and SI partners, rather than rebuilt per agent.",
+    body: "I defined a reusable tool strategy so each capability is implemented once and shared across agents and SI partners, rather than rebuilt per agent.",
   },
   {
     lead: "Fix the observability gap at the source.",
@@ -61,13 +61,13 @@ export default function CaseStudy() {
         </h1>
         <p className="text-lead leading-[1.5] text-ink-700 max-w-[56ch] m-0">
           A production customer service agent was a day from being shut down. I
-          found the failure, closed the path that produced it, and designed the
-          delegate-agent architecture the platform runs on now.
+          found the failure and closed the path that produced it. Now I'm
+          leading the build of the multi-agent architecture it moves to next.
         </p>
         <div className="flex gap-[10px] flex-wrap mt-8 mb-10">
           <Tag>Lead forward deployed engineer</Tag>
-          <Tag>Multi-agent platform</Tag>
-          <Tag variant="fill">In production</Tag>
+          <Tag variant="fill">Agent in production</Tag>
+          <Tag>Multi-agent architecture in build</Tag>
         </div>
 
         <Rule />
@@ -77,8 +77,8 @@ export default function CaseStudy() {
           A major US airline launched a production customer service agent to
           deflect call-center volume across loyalty, reservations, and back-office
           requests. I led the engagement as the forward deployed engineer:
-          finding the failure that nearly ended the launch, then designing the
-          delegate-agent architecture it now runs on.
+          first finding the failure that nearly ended the launch, then designing
+          the multi-agent architecture it moves to next and leading its build.
         </p>
         <div className="mt-7">
           <ArchitectureDiagram
@@ -89,6 +89,9 @@ export default function CaseStudy() {
               { label: "Systems of record" },
             ]}
           />
+          <p className="mt-3 mb-0 text-small text-ink-500 leading-tight">
+            The multi-agent architecture, designed and now in build.
+          </p>
         </div>
 
         <h2 className={labelCls}>The turning point</h2>
