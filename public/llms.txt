@@ -13,7 +13,7 @@
 
 ## Open source
 
-- [two-gates plugin](https://github.com/hamidettefagh/two-gates): the whole method as one installable Claude Code plugin. Install with /plugin marketplace add hamidettefagh/two-gates, then /plugin install two-gates@hamidettefagh.
+- [two-gates plugin](https://github.com/hamidettefagh/two-gates): the whole method as one installable Claude Code plugin. Install with /plugin marketplace add hamidettefagh/two-gates, then /plugin install two-gates@hamidettefagh. Also listed in Anthropic's plugin directory: search two-gates under Discover in the Claude apps.
 - [agent-or-workflow](https://github.com/hamidettefagh/agent-or-workflow): the design gate as a Claude skill with a deterministic verdict engine.
 - [agent-production-readiness](https://github.com/hamidettefagh/agent-production-readiness): the ship gate as a Claude skill with a 28-check rubric.
 - [incident-to-eval](https://github.com/hamidettefagh/incident-to-eval): turns a production agent incident into a portable, validated eval case.

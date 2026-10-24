@@ -182,7 +182,8 @@ export default function TwoGates() {
           <TextLink href="https://github.com/hamidettefagh/two-gates" external>
             Claude Code plugin
           </TextLink>
-          .
+          . It is listed in Anthropic&apos;s plugin directory: search two-gates
+          under Discover in the Claude apps.
         </p>
       </article>
     </div>
