@@ -21,6 +21,7 @@
 ## Case studies
 
 - [Multi-agent customer operations platform](https://hamidettefagh.com/work/airline-super-agent): how a major US airline's production customer service agent survived the launch failure that nearly ended it, and the multi-agent architecture he designed for its next stage and is now building.
+- [Service agents for a two-sided marketplace](https://hamidettefagh.com/work/dining-platform-agents): how a global dining platform's two production agents stopped promising customers a transfer that could not happen, by computing escalation from business hours and real availability before the model reasons.
 
 ## Contact
 
