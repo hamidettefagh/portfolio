@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 import { AGENT_SYSTEM } from "@/lib/agent-system";
+import { houseStyle } from "@/lib/house-style";
 
 export const runtime = "nodejs";
 
@@ -94,7 +95,7 @@ export async function POST(req: NextRequest) {
         { status: 502 },
       );
     }
-    return NextResponse.json({ answer });
+    return NextResponse.json({ answer: houseStyle(answer) });
   } catch {
     return NextResponse.json(
       { error: "The agent hit an error. Try again, or email hamid.ettefagh@gmail.com." },
