@@ -44,25 +44,34 @@ export default function TwoGates() {
         <h2 className={labelCls}>The weekend it almost died</h2>
         <p className={pCls}>
           A major US airline put a customer service agent into production. Within
-          a day of go-live it was being pulled back toward shutdown. The failure
-          was not a crash. The agent answered a policy question fluently,
-          confidently, and wrong. It was reaching into the model&rsquo;s
-          parametric knowledge, the things it had absorbed in training, and
-          answering from there instead of from the airline&rsquo;s current
-          approved policy. In a federally regulated business, a fluent wrong
+          a day of go-live, leadership was weighing a rollback. The failure was
+          not a crash. The agent answered a policy question fluently,
+          confidently, and wrong. On follow-up questions it skipped its
+          knowledge lookup and answered from the conversation so far, or from
+          what the model had absorbed in training, instead of from the
+          airline&rsquo;s current approved policy. Its instructions said to
+          always look it up. In a federally regulated business, a fluent wrong
           answer is worse than no answer, because fluency is what makes people
           trust it.
         </p>
         <p className={pCls}>
           I spent that Friday night and the Saturday after inside the system. The
-          fix was not more intelligence. It was less latitude. I forced every
-          answer through retrieval, so the agent could only speak from the
-          airline&rsquo;s live approved source, never from what the model
-          happened to remember. What it did not have grounding for, it did not
-          say. The confident wrong answers stopped because the path that produced
-          them was closed. Then I found an observability metric that had been
-          lying about what the system was doing and fixed it at the source,
+          logs flagged low instruction adherence on exactly the turns that went
+          wrong. The fix I could ship that weekend was tighter grounding
+          instructions and a cleanup of the global instructions every topic
+          shared, and it held. The platform stayed in production and the
+          rollback never happened. Then I found an observability metric that had
+          been lying about what the system was doing and fixed it at the source,
           because a number you cannot trust is worse than no number.
+        </p>
+        <p className={pCls}>
+          But the weekend fix held by asking the model more firmly, and an
+          instruction is a preference, not a guarantee. Afterward, about 1
+          percent of interactions still showed the agent drifting from its
+          instructions. The fix that lasts is not more intelligence, and it is
+          not more instruction. It is less latitude: retrieval first in the
+          path, so the agent answers from the approved source because it has no
+          other route.
         </p>
         <p className={pCls}>
           That weekend bought the time to do the rest properly. I drew a hard
@@ -70,27 +79,28 @@ export default function TwoGates() {
           it by accident. I built the tools once so every agent could share them
           rather than rebuild. That agent now handles more than 120,000
           automated customer actions a week, with case deflection between 40 and
-          49 percent. I am leading the build of its next architecture: an
-          orchestrator that answers questions itself and hands back-office work
-          to a single delegate, instead of one agent trying to hold everything.
-          The full account is in the{" "}
+          49 percent. I am leading the build of its next architecture, which
+          puts that lookup in the path: one orchestrator that answers questions
+          itself and a single delegate for back-office work, instead of one agent
+          trying to hold everything. The full account is in the{" "}
           <TextLink href="/work/airline-super-agent">case study</TextLink>.
         </p>
 
         <h2 className={labelCls}>What the scar taught</h2>
         <p className={pCls}>
-          The lesson was not add retrieval. It was that the failure and the fix
-          lived in two different places, and I had confused them.
+          The lesson was not add retrieval. The agent had retrieval. It was
+          allowed to skip it, and no instruction takes that permission away. The
+          failure lived at run time. The fix that lasts lives at design time,
+          and I had been treating them as one decision.
         </p>
         <p className={pCls}>
-          The agent almost died because of what it was allowed to do at run time.
-          But most of what saved it was decided before any of it was built:
-          whether to use one agent or several, where the trust boundary went,
-          what the tools were. I had been treating those as one decision. They
-          are two, and they happen at different times. So I started running two
-          gates, one before I build and one before I run, and I built each one
-          into something I can run again instead of relearning it over a broken
-          launch.
+          That weekend I patched it at run time, because that is all a weekend
+          allows. But whether a step is required, whether to use one agent or
+          several, where the trust boundary goes: those are settled before
+          anything is built, and they are a different decision made at a
+          different time. So I started running two gates, one before I build and
+          one before I run, and I built each one into something I can run again
+          instead of relearning it over a broken launch.
         </p>
 
         <h2 className={labelCls}>The design gate: decide what to build</h2>
@@ -148,7 +158,7 @@ export default function TwoGates() {
           </TextLink>
           . Grounding is one of those dimensions. It is the check that would have
           caught the airline failure on a Tuesday afternoon instead of a Friday
-          night. Every failure I fixed that weekend was a ship-gate dimension.
+          night. Every failure I chased that weekend was a ship-gate dimension.
           None of them showed up in the demo. All of them showed up in
           production.
         </p>

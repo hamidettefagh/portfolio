@@ -22,8 +22,8 @@ const pCls = "text-body leading-body text-ink-900 max-w-(--measure-body) mt-0 mb
 
 const decisions = [
   {
-    lead: "Ground every answer in retrieval, not the model's own knowledge.",
-    body: "The go-live failure traced directly to the agent answering from parametric knowledge. I enforced retrieval-grounded responses so the agent could only draw from approved, current sources.",
+    lead: "Make a required lookup structure, not an instruction.",
+    body: "The go-live failure traced to the agent skipping its knowledge lookup on follow-up questions, despite instructions that said always call it. Tighter instructions held the launch, but they leave the choice with the model. The architecture I'm building puts retrieval first in the path, so answering from approved, current sources is the only route, not a request the model can decline.",
   },
   {
     lead: "Delegate only the work that needs its own boundary.",
@@ -44,8 +44,9 @@ const decisions = [
 ];
 
 const outcomes = [
-  "The program survived the go-live escalation and stayed in production. The weekend grounding fix reversed a decision that had already been made to shut it down.",
+  "The program survived the go-live escalation and stayed in production. The weekend fix held the launch while a rollback was on the table.",
   "In production, the agent handles more than 120,000 automated customer actions a week, with case deflection between 40 and 49 percent.",
+  "After the weekend fix, about 1 percent of interactions still showed low instruction adherence. An instruction can make a skipped lookup rarer. Only structure can make it impossible, which is why the next architecture moves the lookup into the path.",
   "I co-authored the roadmap and statement of work for the next-generation agent architecture, now in flight.",
   "I became the technical point of contact leadership escalated to for the hardest production and trust decisions on the account.",
 ];
@@ -60,9 +61,11 @@ export default function CaseStudy() {
           Multi-agent customer operations platform
         </h1>
         <p className="text-lead leading-[1.5] text-ink-700 max-w-[56ch] m-0">
-          A production customer service agent was a day from being shut down. I
-          found the failure and closed the path that produced it. Now I'm
-          leading the build of the multi-agent architecture it moves to next.
+          A day after launch, a production customer service agent was giving
+          customers an outdated policy and leadership was weighing a rollback. I
+          found why it skipped its own knowledge lookup and held the launch that
+          weekend. Now I'm leading the build that takes the lookup out of the
+          model's hands.
         </p>
         <div className="flex gap-[10px] flex-wrap mt-8 mb-10">
           <Tag>Lead forward deployed engineer</Tag>
@@ -98,17 +101,26 @@ export default function CaseStudy() {
         <p className={pCls}>
           Within a day of launch, the agent gave customers guidance that no
           longer matched a policy the airline had recently changed. The error
-          reached real customers, and the executive team moved to pull the
-          platform out of production. I stepped in over a Friday night and
-          Saturday to find the failure and fix it before the decision became
-          permanent.
+          reached real customers, and leadership began weighing whether to roll
+          the platform back. I stepped in over a Friday night and Saturday to
+          find the cause and stop it.
         </p>
         <p className={pCls}>
-          The cause was not a weak model. The agent was answering from what the
-          model already held rather than from the airline's current, approved
-          knowledge. The fix was to force every answer through retrieval, so the
-          agent could only respond from sources the airline controlled and kept
-          current.
+          The cause was not a weak model, and it was not missing retrieval. The
+          agent had a knowledge lookup and instructions to always use it. On
+          follow-up questions it sometimes decided it could already answer, from
+          the conversation so far or from what the model had learned before the
+          policy changed, and skipped the lookup. The logs flagged low
+          instruction adherence on exactly those turns.
+        </p>
+        <p className={pCls}>
+          The fix I could ship that weekend was tighter grounding instructions
+          and a cleanup of the global instructions every topic shared. It held:
+          the platform stayed in production and the rollback never happened. But
+          it held by asking the model more firmly, and an instruction is a
+          preference, not a guarantee. The lasting fix takes the choice away,
+          with retrieval first in the path so the agent has no other route to an
+          answer. That is part of what I'm building now.
         </p>
 
         <h2 className={labelCls}>Decisions</h2>
@@ -139,10 +151,10 @@ export default function CaseStudy() {
         <p className={pCls}>
           The incident is a compact version of why enterprise agents fail in
           production. Not because the model is weak, but because it is allowed to
-          answer from the wrong source. Reliability comes from grounding answers
-          in current, approved knowledge and enforcing trust boundaries
-          deterministically in the request path, not from trusting the model to
-          police itself.
+          answer from the wrong source, and an instruction to always look it up
+          is still a choice the model gets to make. Reliability comes from
+          putting retrieval and trust boundaries in the request path
+          deterministically, not from trusting the model to police itself.
         </p>
         <p className="mt-6 text-small text-ink-500 leading-tight">
           The approach it taught me is in{" "}
