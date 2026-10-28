@@ -80,8 +80,8 @@ export default function CaseStudy() {
         <h2 className={labelCls}>Overview</h2>
         <p className={pCls}>
           A global dining platform ran two live service agents, one facing
-          diners and one facing restaurant operators, together carrying roughly
-          15,000 conversations a week. I led the engagement as the forward
+          diners and one facing restaurant operators, together carrying between
+          8,000 and 15,000 conversations a week. I led the engagement as the forward
           deployed engineer: rebuilding the escalation path both agents depended
           on, then migrating them onto a deterministic authoring model before
           any authenticated action was built on top.

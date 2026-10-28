@@ -68,11 +68,12 @@ export default function TwoGates() {
           That weekend bought the time to do the rest properly. I drew a hard
           trust boundary around the federally regulated data so nothing crossed
           it by accident. I built the tools once so every agent could share them
-          rather than rebuild. That agent now handles hundreds of thousands of
-          automated customer actions a week and deflects roughly 20 percent of
-          call-center volume. I am leading the build of its next architecture:
-          delegate agents behind an orchestrator, instead of one agent trying to
-          hold everything. The full account is in the{" "}
+          rather than rebuild. That agent now handles more than 120,000
+          automated customer actions a week, with case deflection between 40 and
+          49 percent. I am leading the build of its next architecture: an
+          orchestrator that answers questions itself and hands back-office work
+          to a single delegate, instead of one agent trying to hold everything.
+          The full account is in the{" "}
           <TextLink href="/work/airline-super-agent">case study</TextLink>.
         </p>
 

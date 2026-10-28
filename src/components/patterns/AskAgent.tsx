@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 // In production the panel calls /api/ask (Anthropic Messages API server-side).
 const DEFAULT_SUGGESTIONS = [
   "What did he do for the airline?",
-  "How did he cut agent costs 80 percent?",
+  "What are the two gates?",
   "What does a forward deployed engineer do?",
 ];
 

@@ -44,11 +44,12 @@ export function AboutSection() {
           Recent work includes taking a major US airline&rsquo;s customer service
           agent through the launch failure that nearly ended it, and now leading
           the build of the multi-agent architecture it moves to next. I also
-          re-architected an agent runtime for a global dining platform to cut
-          operating costs by 80 percent, and I advise Fortune 500 teams on AI
-          trust, security, and governance. Earlier in my career I shipped enterprise programs across
-          consumer electronics, telecom, and travel, from strategy through
-          zero-defect delivery.
+          rebuilt escalation for a global dining platform&rsquo;s two service
+          agents, so a handoff is computed from real availability instead of
+          guessed by the model, and I advise Fortune 500 teams on AI trust,
+          security, and governance. Earlier in my career I shipped enterprise
+          programs across consumer technology, telecom, and travel, from
+          strategy through delivery.
         </p>
         <p className={pCls}>
           I hold the Claude Certified Architect certification, 17 Salesforce

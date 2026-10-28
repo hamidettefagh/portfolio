@@ -26,8 +26,8 @@ const decisions = [
     body: "The go-live failure traced directly to the agent answering from parametric knowledge. I enforced retrieval-grounded responses so the agent could only draw from approved, current sources.",
   },
   {
-    lead: "Split one agent into delegate agents behind an orchestrator.",
-    body: "Instead of growing one monolithic agent, I designed specialized delegate agents coordinated by an orchestrator, so each domain can be governed, tested, and scaled on its own.",
+    lead: "Delegate only the work that needs its own boundary.",
+    body: "Instead of a farm of thin agents, I designed one customer-facing orchestrator that answers questions itself, through a subagent, and delegates to a single back-office agent. Back-office work needs a verified customer session and answering questions does not, so that is where the line goes.",
   },
   {
     lead: "Draw an explicit trust boundary for regulated data.",
@@ -45,7 +45,7 @@ const decisions = [
 
 const outcomes = [
   "The program survived the go-live escalation and stayed in production. The weekend grounding fix reversed a decision that had already been made to shut it down.",
-  "In production, the platform handles hundreds of thousands of automated customer actions a week and deflects roughly 20 percent of call-center volume.",
+  "In production, the agent handles more than 120,000 automated customer actions a week, with case deflection between 40 and 49 percent.",
   "I co-authored the roadmap and statement of work for the next-generation agent architecture, now in flight.",
   "I became the technical point of contact leadership escalated to for the hardest production and trust decisions on the account.",
 ];
@@ -85,7 +85,7 @@ export default function CaseStudy() {
             stages={[
               { label: "Customer" },
               { label: "Orchestrator", accent: true },
-              { label: "Delegate agents", accent: true },
+              { label: "Back-office agent", accent: true },
               { label: "Systems of record" },
             ]}
           />
