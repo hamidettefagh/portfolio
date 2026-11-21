@@ -34,9 +34,9 @@ export function AboutSection() {
       </div>
       <div>
         <p className={pCls}>
-          I&rsquo;m a Senior Forward Deployed Engineer at Salesforce, where I
-          lead production AI deployments for some of the company&rsquo;s largest
-          enterprise customers. My work sits at the intersection of architecture
+          I&rsquo;m a Distinguished Forward Deployed Engineer at Salesforce,
+          where I lead production AI deployments for some of the company&rsquo;s
+          largest enterprise customers. My work sits at the intersection of architecture
           and delivery: multi-agent systems, RAG pipelines, and the evaluation
           and observability layers that make them safe to run at scale.
         </p>

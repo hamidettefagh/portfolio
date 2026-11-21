@@ -16,3 +16,8 @@ npm-debug.log*
 
 # vercel
 .vercel
+
+# agent skills installed for local work (third-party, not part of the site)
+/.agents/
+/.claude/
+/skills-lock.json

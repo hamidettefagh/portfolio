@@ -14,9 +14,9 @@ export function ExperienceSection() {
       <div className="border-b border-line-1">
         <ExperienceItem
           dates="2025 - Now"
-          role="Senior Forward Deployed Engineer, AI"
+          role="Distinguished Forward Deployed Engineer"
           org="Salesforce"
-          note="Production agent deployments and technical advisory for strategic enterprise accounts."
+          note="Production agent deployments and technical advisory for strategic enterprise accounts. Director level since November 2026, on a specialist team for the most complex builds. Joined as a Senior Forward Deployed Engineer in 2025."
         />
         <ExperienceItem
           dates="2022 - 2025"

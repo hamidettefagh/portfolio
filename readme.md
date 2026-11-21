@@ -10,7 +10,7 @@ Everything else in this repo is the design system that governs the site: tokens,
 
 "Forward Deployed AI Engineer. I design, build, and ship production agent systems for the enterprise."
 
-Senior Forward Deployed Engineer, AI at Salesforce (2025 to present; Senior Technical Architect, Strategic Accounts 2022 to 2025; earlier Accenture, Deloitte, Cognizant). Based in Los Angeles. Work spans airlines, telecom, dining platforms, and consumer electronics: multi-agent platforms, RAG pipelines, evaluation and observability, AI trust and governance. Credentials: Claude Certified Architect (Anthropic), 17 Salesforce certifications, MIT xPRO professional certificate.
+Distinguished Forward Deployed Engineer at Salesforce (in Forward Deployed Engineering since 2025; Senior Technical Architect, Strategic Accounts 2022 to 2025; earlier Accenture, Deloitte, Cognizant). Based in Los Angeles. Work spans airlines, telecom, dining platforms, and consumer electronics: multi-agent platforms, RAG pipelines, evaluation and observability, AI trust and governance. Credentials: Claude Certified Architect (Anthropic), 17 Salesforce certifications, MIT xPRO professional certificate.
 
 ## Content fundamentals
 

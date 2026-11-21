@@ -28,7 +28,7 @@ export function Hero() {
             I design, build, and ship production agent systems for the
             enterprise.
             <span className="block mt-[14px] text-small text-ink-500 leading-tight">
-              Senior Forward Deployed Engineer at Salesforce.
+              Distinguished Forward Deployed Engineer at Salesforce.
             </span>
           </p>
           <p className="font-serif italic text-[19px] font-[450] leading-[1.55] text-ink-700 border-l-2 border-accent-500 pl-6 m-0">

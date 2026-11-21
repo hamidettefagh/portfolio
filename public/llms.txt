@@ -1,6 +1,6 @@
 # Hamid Ettefagh
 
-> Personal site of Hamid Ettefagh, Senior Forward Deployed Engineer (AI) at Salesforce, based in Los Angeles. He designs, builds, and ships production agent systems for the enterprise: multi-agent platforms, RAG pipelines, and the evaluation and observability layers that make them safe to run at scale. The site's through-line: production over demos, and reach for reasoning on purpose, not by default.
+> Personal site of Hamid Ettefagh, Distinguished Forward Deployed Engineer at Salesforce, based in Los Angeles. He designs, builds, and ships production agent systems for the enterprise: multi-agent platforms, RAG pipelines, and the evaluation and observability layers that make them safe to run at scale. The site's through-line: production over demos, and reach for reasoning on purpose, not by default.
 
 ## Method
 
