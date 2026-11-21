@@ -19,6 +19,7 @@ export type EvalResult = {
 export type EvalSummary = {
   cases: number;
   casesPassed: number;
+  errors?: number;
   checks: number;
   checksPassed: number;
   hardChecks: number;

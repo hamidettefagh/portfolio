@@ -31,7 +31,7 @@ export const LAB: LabEntry[] = [
     question: "Does the agent on my home page hold its rules when someone pushes on it?",
     result:
       RUNS.length > 1
-        ? `The latest run passed ${s.hardPassed} of ${s.hardChecks} hard checks and ${s.casesPassed} of ${s.cases} questions. The first run, at ${firstRun.casesPassed} of ${firstRun.cases}, caught a real gap in the agent’s fact sheet. It reruns after every production deploy.`
+        ? `The latest recorded run passed ${s.hardPassed} of ${s.hardChecks} hard checks and ${s.casesPassed} of ${s.cases} questions. The first run, at ${firstRun.casesPassed} of ${firstRun.cases}, caught a real gap in the agent’s fact sheet. It reruns after every production deploy.`
         : `The first run passed ${s.hardPassed} of ${s.hardChecks} hard checks and ${s.casesPassed} of ${s.cases} questions, and caught a real gap in the agent’s fact sheet. It reruns after every production deploy.`,
     href: "/lab/site-agent-evals",
   },
@@ -81,9 +81,9 @@ export const LAB: LabEntry[] = [
     title: "Receipts mode",
     status: "shipped",
     date: "November 2026",
-    question: "Can every number on this site say what kind of evidence it is?",
+    question: "Can each figure from my work say what kind of evidence it is?",
     result:
-      "One switch tags each figure as production, testing, projection, count, computed, or illustrative, and each section with how it is made.",
+      "One switch tags each figure from the work as production, testing, projection, count, computed, or illustrative, and each section with how it is made.",
     href: "/?receipts=on",
   },
   {
@@ -122,7 +122,7 @@ export const LAB: LabEntry[] = [
     date: "November 2026",
     question: "Can a page animate on a first visit without moving under the reader?",
     result:
-      "The first version shifted the layout by 0.29 on a phone when web fonts arrived. Anchoring it to the top with fixed rows fixed it: production measures a layout shift of 0.000 on phone and desktop.",
+      "The first version shifted the layout by 0.29 on a phone when web fonts arrived. Anchoring it to the top with fixed rows brought the shift back to the page’s own baseline, about 0.04 from the fonts themselves, with the mobile performance score unchanged.",
     href: "/",
   },
   {

@@ -55,9 +55,15 @@ html[data-receipts="on"] .rcpt {
   border-style: dotted;
   border-color: var(--color-ink-500);
 }
+.src-tag[data-kind="recorded"] {
+  border-color: var(--color-ink-500);
+  background: var(--color-paper-2);
+  color: var(--color-ink-900);
+}
 .rcpt-tag[data-kind="computed"],
 .src-tag[data-kind="computed"],
-.src-tag[data-kind="browser"] {
+.src-tag[data-kind="browser"],
+.src-tag[data-kind="server"] {
   border-color: var(--color-accent-500);
   color: var(--color-accent-700);
   background: var(--color-accent-050);

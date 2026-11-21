@@ -24,10 +24,10 @@ export const metadata: Metadata = {
 const PARTS: { part: string; kind: SourceKind; how: string }[] = [
   { part: "Most of the words", kind: "static", how: "Written by me, served as is." },
   { part: "The verdict in the hero", kind: "computed", how: "The design gate's engine, run when the site is built." },
-  { part: "The tools and the lab explorers", kind: "browser", how: "The same engines, running on your device. Nothing you enter leaves it." },
+  { part: "The tools and the lab explorers", kind: "browser", how: "The same engines, running on your device. Nothing you type leaves it; the two gates count the verdict or score they reach, nothing more." },
   { part: "The ask widget", kind: "model", how: "One model call per question. The only model call on the site." },
-  { part: "The eval results", kind: "computed", how: "A script asks the live agent the golden set; the page shows its raw output." },
-  { part: "The MCP server", kind: "computed", how: "Deterministic code on the server. No model behind it." },
+  { part: "The eval results", kind: "recorded", how: "A script asks the live agent the golden set; the page shows its raw output." },
+  { part: "The MCP server", kind: "server", how: "Deterministic code on the server, run when an agent calls it. No model behind it." },
 ];
 
 const metaCls = "font-mono text-mono-sm tracking-[0.06em] uppercase text-ink-500";
@@ -150,8 +150,8 @@ export default function HowItsBuilt() {
           <p className={pCls}>
             Turn on <span className="font-mono text-[14px]">Receipts</span> in
             the top bar to see these labels on every page, and an evidence class
-            on every number: production, testing, projection, count, computed,
-            or illustrative.
+            on each figure from the work: production, testing, projection,
+            count, computed, or illustrative.
           </p>
         </section>
 
@@ -162,8 +162,11 @@ export default function HowItsBuilt() {
             answers: its code writes neither to a log or a database. A question
             goes to Anthropic&rsquo;s API to write the answer, under that
             API&rsquo;s terms, and comes back to you with its trace. The tools
-            and explorers run in your browser. Page views are counted by Vercel
-            Web Analytics, which uses no cookies.
+            and explorers run in your browser, and nothing you type in them
+            leaves it; the two gates report only the verdict or score they
+            reached, as an anonymous count. Page views and page speed are
+            measured by Vercel Web Analytics and Speed Insights, which use no
+            cookies.
           </p>
         </section>
 
@@ -209,7 +212,7 @@ export default function HowItsBuilt() {
                 GitHub
               </TextLink>
               , including the agent&rsquo;s fact sheet, its golden set, and the
-              scripts that check this page&rsquo;s claims.
+              scripts behind the evals and the parity checks.
             </li>
           </ul>
         </section>

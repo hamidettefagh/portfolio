@@ -85,7 +85,7 @@ export default function McpPage() {
         </div>
 
         <div className="mt-12">
-          <Rule label="Tools" source="computed" />
+          <Rule label="Tools" source="server" />
           <ul className="list-none p-0 m-0 mt-2">
             {TOOLS.map((t) => (
               <li
@@ -106,7 +106,7 @@ export default function McpPage() {
         </div>
 
         <div className="mt-12">
-          <Rule label="Try it from here" source="browser" />
+          <Rule label="Try it from here" source="server" />
           <p className="text-body leading-body text-ink-700 max-w-(--measure-body) mt-5 mb-6">
             These are real requests from your browser to the endpoint, in the
             2026-07-28 shape, where every request carries its own protocol

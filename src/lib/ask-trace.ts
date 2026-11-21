@@ -15,16 +15,22 @@ export type AskTrace = {
   costUsd: number;
   stopReason: string | null;
   styleBreaks: number;
+  outputCheck?: boolean;
 };
 
 // Every check a question and its answer pass through, in the order they run.
-export const ASK_GUARDRAILS = [
-  "Same-site requests only",
-  "10 questions a minute per visitor",
-  "300-character limit",
-  "Fact sheet only, no tools, no browsing",
-  "House style enforced in code after the model answers",
-];
+// The client-name check only runs when its secret is set, so the trace adds it
+// only when the server says it ran.
+export function askGuardrails(outputCheck: boolean): string[] {
+  return [
+    "Browsers on other sites are refused",
+    "A rate limit per visitor",
+    "300-character limit",
+    "Fact sheet only, no tools, no browsing",
+    ...(outputCheck ? ["Client names checked on the way out"] : []),
+    "House style enforced in code after the model answers",
+  ];
+}
 
 export const FACT_SHEET_URL =
   "https://github.com/hamidettefagh/portfolio/blob/main/src/lib/agent-system.ts";

@@ -1,4 +1,4 @@
-// Receipts mode: every number on the page says what kind of evidence it is,
+// Receipts mode: each figure from the work says what kind of evidence it is,
 // and every section says how it was made. The tags render on the server and
 // stay hidden until html[data-receipts="on"] is set by the toggle, so turning
 // the mode on changes nothing but visibility, and no hooks are needed here.
@@ -11,7 +11,14 @@ export type EvidenceKind =
   | "computed"
   | "illustrative";
 
-export type SourceKind = "static" | "computed" | "browser" | "model" | "illustrative";
+export type SourceKind =
+  | "static"
+  | "computed"
+  | "browser"
+  | "server"
+  | "recorded"
+  | "model"
+  | "illustrative";
 
 export const EVIDENCE: Record<EvidenceKind, { label: string; note: string }> = {
   production: { label: "Production", note: "Measured on live traffic" },
@@ -26,6 +33,8 @@ export const SOURCES: Record<SourceKind, { label: string; note: string }> = {
   static: { label: "Static text", note: "Written by me, served as is" },
   computed: { label: "Computed at build", note: "Calculated by code when the site is built" },
   browser: { label: "Code in your browser", note: "Deterministic code running on your device, no model" },
+  server: { label: "Code on the server", note: "Deterministic code running on the server when asked, no model" },
+  recorded: { label: "Recorded run", note: "The raw output of a script run against the live site, unedited" },
   model: { label: "Live model call", note: "Written by a model when you ask" },
   illustrative: { label: "Illustrative", note: "Examples to show the idea, not data" },
 };

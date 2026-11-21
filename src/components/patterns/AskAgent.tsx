@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
-  ASK_GUARDRAILS,
+  askGuardrails,
   FACT_SHEET_URL,
   formatCost,
   formatMs,
@@ -148,7 +148,7 @@ export function AskAgent({
           <button
             type="button"
             aria-expanded={traceOpen}
-            aria-controls="ask-trace"
+            aria-controls={traceOpen ? "ask-trace" : undefined}
             onClick={() => setTraceOpen((o) => !o)}
             className="font-mono text-mono-sm tracking-[0.05em] uppercase text-ink-500 bg-transparent p-0 cursor-pointer underline underline-offset-[3px] decoration-line-2 transition-colors duration-(--dur-fast) ease-out hover:text-ink-900 hover:decoration-current"
           >
@@ -180,7 +180,7 @@ export function AskAgent({
                   : `${answer.trace.styleBreaks} ${answer.trace.styleBreaks === 1 ? "break" : "breaks"} fixed in code before you saw it`}
               </dd>
               <dt className="text-ink-500 uppercase tracking-[0.05em] text-[11px] pt-[2px] [@media(max-width:520px)]:pt-2">Guardrails</dt>
-              <dd className="m-0 text-ink-700">{ASK_GUARDRAILS.join(". ")}.</dd>
+              <dd className="m-0 text-ink-700">{askGuardrails(answer.trace.outputCheck === true).join(". ")}.</dd>
               <dt className="text-ink-500 uppercase tracking-[0.05em] text-[11px] pt-[2px] [@media(max-width:520px)]:pt-2">Sources</dt>
               <dd className="m-0 text-ink-700">
                 <a

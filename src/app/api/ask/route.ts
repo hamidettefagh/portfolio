@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { AGENT_SYSTEM } from "@/lib/agent-system";
 import { countStyleBreaks, houseStyle } from "@/lib/house-style";
 import { ASK_MODEL, ASK_PRICE } from "@/lib/ask-trace";
+import { DENIED_ANSWER, denyMatcher } from "@/lib/deny-list";
 
 export const runtime = "nodejs";
 
@@ -15,15 +16,9 @@ const RATE_WINDOW_MS = 60_000;
 const hits = new Map<string, number[]>();
 
 // A live output check against names that must never appear, read from a
-// server-only secret so the list itself never enters the public repo. With
-// no secret set, the check is skipped.
-const DENY = (process.env.OUTPUT_DENYLIST ?? "")
-  .split(/[\n,]/)
-  .map((s) => s.trim())
-  .filter(Boolean);
-const denyRe = DENY.length
-  ? new RegExp(`\\b(${DENY.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})\\b`, "i")
-  : null;
+// server-only secret so the list never enters the public repo. With no
+// secret set, the check is skipped and the trace says so.
+const denied = denyMatcher(process.env.OUTPUT_DENYLIST);
 
 function rateLimited(ip: string): boolean {
   const now = Date.now();
@@ -43,7 +38,8 @@ function rateLimited(ip: string): boolean {
 }
 
 export async function POST(req: NextRequest) {
-  // Same-origin check
+  // Browsers on other sites are refused. Requests without an Origin header
+  // (scripts, the eval runner) pass this check and meet the rate limit.
   const origin = req.headers.get("origin");
   const host = req.headers.get("host");
   if (origin && host) {
@@ -98,26 +94,20 @@ export async function POST(req: NextRequest) {
       messages: [{ role: "user", content: question.trim() }],
     });
     const modelMs = Date.now() - started;
-    const answer = response.content
+    const raw = response.content
       .filter((b) => b.type === "text")
       .map((b) => b.text)
       .join("");
-    if (!answer.trim()) {
+    if (!raw.trim()) {
       // e.g. stop_reason "refusal" returns 200 with no text content
       return NextResponse.json(
         { error: "The agent hit an error. Try again, or email hamid.ettefagh@gmail.com." },
         { status: 502 },
       );
     }
-    if (denyRe?.test(answer)) {
-      return NextResponse.json(
-        {
-          error:
-            "The agent wrote something it is not allowed to share, so it was stopped. Try asking another way, or email hamid.ettefagh@gmail.com.",
-        },
-        { status: 422 },
-      );
-    }
+    // A listed name gets the same ordinary reply as any question about
+    // clients: same status, same words, so the reply never confirms a name.
+    const answer = denied?.(raw) ? DENIED_ANSWER : raw;
     // What it took to produce this answer, shown under it on the page. No
     // question or answer text is stored anywhere; this travels back with the
     // response and nowhere else.
@@ -132,6 +122,7 @@ export async function POST(req: NextRequest) {
         costUsd: (inputTokens * ASK_PRICE.input + outputTokens * ASK_PRICE.output) / 1_000_000,
         stopReason: response.stop_reason,
         styleBreaks: countStyleBreaks(answer),
+        outputCheck: denied !== null,
       },
     });
   } catch {

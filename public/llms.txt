@@ -20,7 +20,7 @@
 ## Lab
 
 - [Lab](https://hamidettefagh.com/lab): experiments run in the open, each with a status, a question, and a result.
-- [Evals for this site's agent](https://hamidettefagh.com/lab/site-agent-evals): the ask widget's golden set, every answer and every check from the latest run against production.
+- [Evals for this site's agent](https://hamidettefagh.com/lab/site-agent-evals): the ask widget's golden set, every answer and every check from the latest recorded run against production.
 - [A voice agent's latency budget](https://hamidettefagh.com/lab/voice-latency): an interactive breakdown of one voice agent turn, stage by stage, from published ranges.
 - [How this site is built](https://hamidettefagh.com/how-its-built): the site run through its own two gates, including the site agent's ship gate score with every gap listed.
 

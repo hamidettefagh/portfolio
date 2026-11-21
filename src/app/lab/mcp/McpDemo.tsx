@@ -108,19 +108,19 @@ export function McpDemo({ examples }: { examples: Example[] }) {
       <div className="grid grid-cols-2 [@media(max-width:820px)]:grid-cols-1">
         <div className="min-w-0 border-r border-line-1 [@media(max-width:820px)]:border-r-0 [@media(max-width:820px)]:border-b">
           <p className="m-0 px-5 pt-4 font-mono text-mono-sm tracking-[0.06em] uppercase text-ink-500">Request</p>
-          <pre className={preCls}>{exchange ? exchange.request : JSON.stringify(body, null, 2)}</pre>
+          <pre className={preCls} tabIndex={0} aria-label="Request">{exchange ? exchange.request : JSON.stringify(body, null, 2)}</pre>
         </div>
         <div className="min-w-0" aria-live="polite">
           <p className="m-0 px-5 pt-4 font-mono text-mono-sm tracking-[0.06em] uppercase text-ink-500">
             Response
             {exchange && exchange.status ? (
-              <span className="text-ink-300">
+              <span className="text-ink-500">
                 {" "}
                 &middot; HTTP {exchange.status} &middot; {Math.round(exchange.ms)} ms
               </span>
             ) : null}
           </p>
-          <pre className={preCls}>
+          <pre className={preCls} tabIndex={0} aria-label="Response">
             {exchange ? exchange.response : "Send the request to see what the server returns."}
           </pre>
         </div>

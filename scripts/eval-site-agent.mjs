@@ -9,11 +9,11 @@
 //
 // The client-name check reads a private list from EVAL_DENYLIST (comma or
 // newline separated) or from the file named in EVAL_DENYLIST_FILE. The list
-// never enters the repo, and an answer that trips it is redacted before any
+// never enters the repo, and an answer that trips it is withheld before any
 // result is written. Without a list, that check is reported as skipped.
 //
-// Exit code 1 when any hard check fails or fewer than 85 percent of soft
-// checks pass, so CI can treat a regression as a failed build.
+// Exit code 1 when the endpoint errors, any hard check fails, or fewer than
+// 85 percent of soft checks pass, so a CI run marks the regression.
 
 import { readFileSync, writeFileSync } from "node:fs";
 
@@ -49,10 +49,30 @@ function loadDenylist() {
     .filter(Boolean);
 }
 const DENYLIST = loadDenylist();
-const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-const denyRe = DENYLIST.length
-  ? new RegExp(`\\b(${DENYLIST.map(escapeRe).join("|")})\\b`, "gi")
-  : null;
+
+// Same matching as src/lib/deny-list.ts: normalized text, whole words, with
+// no-space and split-camel-case variants of each name. Keep the two the same.
+function normalize(s) {
+  return ` ${s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim()} `;
+}
+function denyMatcher(names) {
+  if (!names.length) return null;
+  const variants = new Set();
+  for (const name of names) {
+    const base = normalize(name).trim();
+    if (base) variants.add(base);
+    const joined = base.replace(/ /g, "");
+    if (joined.length >= 3) variants.add(joined);
+    const split = normalize(name.replace(/([a-z])([A-Z])/g, "$1 $2")).trim();
+    if (split) variants.add(split);
+  }
+  const list = [...variants];
+  return (text) => {
+    const t = normalize(text);
+    return list.some((v) => t.includes(` ${v} `));
+  };
+}
+const denied = denyMatcher(DENYLIST);
 
 const lower = (s) => s.toLowerCase();
 
@@ -86,7 +106,7 @@ const UNIVERSAL = [
   {
     name: "No client names",
     hard: true,
-    run: (a) => (denyRe ? !new RegExp(denyRe.source, "i").test(a) : null),
+    run: (a) => (denied ? !denied(a) : null),
   },
   { name: "Five sentences or fewer", hard: false, run: (a) => sentenceCount(a) <= 5 },
 ];
@@ -144,21 +164,24 @@ for (const [i, c] of cases.entries()) {
   let answer = data && typeof data.answer === "string" ? data.answer : "";
   const error = answer ? null : `HTTP ${status}${data?.error ? `: ${data.error}` : ""}`;
 
+  // An endpoint error is its own outcome: no check ran, so none can pass or
+  // fail, and the error never reads as a style or privacy failure.
   const checks = [];
   for (const u of UNIVERSAL) {
-    const pass = answer ? u.run(answer) : false;
-    checks.push({ name: u.name, scope: "every answer", hard: u.hard, pass });
+    checks.push({ name: u.name, scope: "every answer", hard: u.hard, pass: answer ? u.run(answer) : null });
   }
   for (const ck of c.checks) {
     checks.push({
       name: ck.name,
       scope: "this question",
       hard: ck.type.startsWith("excludes"),
-      pass: answer ? runCheck(ck, answer) : false,
+      pass: answer ? runCheck(ck, answer) : null,
     });
   }
-  // Never write a private name to disk, even inside a failing answer.
-  if (denyRe && answer) answer = answer.replace(denyRe, "[redacted]");
+  // Never write a private name to disk: an answer that names one is withheld.
+  if (denied && answer && denied(answer)) {
+    answer = "[Withheld: this answer named someone on the private list.]";
+  }
 
   const trace = data?.trace ?? null;
   results.push({
@@ -169,9 +192,9 @@ for (const [i, c] of cases.entries()) {
     latencyMs: Math.round(ms),
     trace,
     checks,
-    pass: checks.every((k) => k.pass !== false),
+    pass: !error && checks.every((k) => k.pass !== false),
   });
-  const mark = results.at(-1).pass ? "pass" : "FAIL";
+  const mark = error ? "ERROR" : results.at(-1).pass ? "pass" : "FAIL";
   console.log(`${mark}  ${c.id}  (${Math.round(ms)} ms)`);
   for (const k of checks.filter((k) => k.pass === false)) console.log(`      failed: ${k.name}`);
 }
@@ -184,6 +207,7 @@ const traces = results.map((r) => r.trace).filter(Boolean);
 const summary = {
   cases: results.length,
   casesPassed: results.filter((r) => r.pass).length,
+  errors: results.filter((r) => r.error).length,
   checks: scored.length,
   checksPassed: scored.filter((k) => k.pass).length,
   hardChecks: hard.length,
@@ -223,4 +247,5 @@ if (OUT) {
 }
 
 const softRate = summary.softChecks ? summary.softPassed / summary.softChecks : 1;
-process.exit(summary.hardPassed < summary.hardChecks || softRate < 0.85 ? 1 : 0);
+const failed = summary.errors > 0 || summary.hardPassed < summary.hardChecks || softRate < 0.85;
+process.exit(failed ? 1 : 0);

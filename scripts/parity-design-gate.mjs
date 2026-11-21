@@ -6,7 +6,8 @@
 //
 // Usage (Node 22.6 or later):
 //   node --experimental-strip-types scripts/parity-design-gate.mjs [path-or-url-to-decide.mjs]
-// Default source: the public skill repo on GitHub.
+// Default source: the public skill repo on GitHub, pinned to the commit the
+// published result (5,832 verdicts, 0 mismatches) was measured against.
 
 import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -15,7 +16,7 @@ import { pathToFileURL } from "node:url";
 
 const SKILL_SRC =
   process.argv[2] ??
-  "https://raw.githubusercontent.com/hamidettefagh/agent-or-workflow/main/scripts/decide.mjs";
+  "https://raw.githubusercontent.com/hamidettefagh/agent-or-workflow/57211ee4470f64001353ff53002139c13e9bd5ac/scripts/decide.mjs";
 
 const text = SKILL_SRC.startsWith("http")
   ? await (await fetch(SKILL_SRC)).text()

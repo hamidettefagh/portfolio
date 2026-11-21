@@ -605,13 +605,12 @@ export function IncidentTool() {
                 ? "Valid case"
                 : `${errors.length} ${errors.length === 1 ? "problem" : "problems"}`}
             </span>
-            <span className="flex gap-1" role="tablist" aria-label="Output format">
+            <span className="flex gap-1" role="group" aria-label="Output format">
               {(["json", "md"] as const).map((t) => (
                 <button
                   key={t}
                   type="button"
-                  role="tab"
-                  aria-selected={tab === t}
+                  aria-pressed={tab === t}
                   onClick={() => setTab(t)}
                   className={[
                     "font-mono text-mono-sm tracking-[0.05em] uppercase px-[9px] py-[5px] rounded-sm cursor-pointer border",
@@ -625,7 +624,10 @@ export function IncidentTool() {
               ))}
             </span>
           </div>
-          <pre className="m-0 px-5 py-4 font-mono text-[12.5px] leading-[1.6] text-ink-700 whitespace-pre-wrap break-words max-h-[52vh] overflow-y-auto [@media(max-width:960px)]:max-h-[60vh]">
+          <pre
+            tabIndex={0}
+            aria-label={tab === "json" ? "Eval case JSON" : "Eval case summary"}
+            className="m-0 px-5 py-4 font-mono text-[12.5px] leading-[1.6] text-ink-700 whitespace-pre-wrap break-words max-h-[52vh] overflow-y-auto [@media(max-width:960px)]:max-h-[60vh]">
             {tab === "json"
               ? json
               : md || "The summary renders once the case is valid."}
@@ -659,7 +661,15 @@ export function IncidentTool() {
           <p className="mt-5 mb-0 text-small text-ink-500 leading-tight">
             Same verdict the skill&rsquo;s validator gives. Drop the file into
             your eval suite, or run{" "}
-            <code className="font-mono text-[13px]">node scripts/validate-eval.mjs</code>{" "}
+            the skill&rsquo;s{" "}
+            <a
+              href="https://github.com/hamidettefagh/incident-to-eval/blob/main/scripts/validate-eval.mjs"
+              target="_blank"
+              rel="noreferrer"
+              className="text-ink-900 underline decoration-line-2 underline-offset-[3px] hover:text-accent-700 hover:decoration-current"
+            >
+              validator<span aria-hidden="true"> &#8599;</span>
+            </a>{" "}
             on it yourself.
           </p>
         )}

@@ -7,7 +7,7 @@ import { LATEST, RUNS } from "@/data/evals/runs";
 import { formatMs } from "@/lib/ask-trace";
 
 const description =
-  "The ask widget on hamidettefagh.com is a small production agent, so it gets a golden set of questions checked by code on every change. Every answer and every check from the latest run.";
+  "The ask widget on hamidettefagh.com is a small production agent, so it gets a golden set of questions checked by code on every change. Every answer and every check from the latest recorded run.";
 
 export const metadata: Metadata = {
   title: "Evals for this site's agent | Hamid Ettefagh",
@@ -79,7 +79,7 @@ export default function SiteAgentEvals() {
         <PageIntro
           eyebrow={["Lab", "Evals"]}
           title={"Evals for this site’s agent"}
-          lead="The ask widget on my home page is a production agent, small as it is, so it gets what I ask of any agent: a golden set of questions, checked by code, rerun when it changes. Here is every answer from the latest run and every check it had to pass."
+          lead="The ask widget on my home page is a production agent, small as it is, so it gets what I ask of any agent: a golden set of questions, checked by code, rerun when it changes. Here is every answer from the latest recorded run and every check it had to pass."
         >
           No model grades another model here. Every check is a string or
           pattern rule you can read in{" "}
@@ -96,7 +96,7 @@ export default function SiteAgentEvals() {
         </PageIntro>
 
         <div className="mt-11">
-          <Rule label="Latest run" source="computed" />
+          <Rule label="Latest recorded run" source="recorded" />
           <p className="text-small text-ink-500 leading-tight mt-4 mb-0">
             {fmtDate(LATEST.report.ranAt)}, against the live endpoint
             {LATEST.report.model ? `, model ${LATEST.report.model}` : ""}.
@@ -146,8 +146,11 @@ export default function SiteAgentEvals() {
           <p className="text-body leading-body text-ink-700 mt-5 mb-4 max-w-[60ch]">
             Hard checks guard what must never happen: the house style, money,
             privacy, and the claims the agent must never make. Soft checks look
-            for what a good answer should include. A build fails on any hard
-            miss, or when fewer than 85 percent of soft checks pass.
+            for what a good answer should include. After every production deploy
+            a GitHub workflow reruns the set; a hard miss, or fewer than 85
+            percent of soft checks passing, fails that run and flags the
+            deploy. It runs after the deploy is live, so it flags rather than
+            blocks, and each run&rsquo;s raw results are kept with it.
           </p>
           <ul className="list-none p-0 m-0">
             {UNIVERSAL.map((u) => (

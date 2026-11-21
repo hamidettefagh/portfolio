@@ -49,7 +49,7 @@ const COMMANDS: Command[] = [
   },
   {
     label: "Turn receipts on or off",
-    hint: "E",
+    hint: "Mode",
     action: () => setReceipts(document.documentElement.dataset.receipts !== "on"),
   },
   {

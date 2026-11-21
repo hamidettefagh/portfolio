@@ -47,7 +47,7 @@ export const SITE_CHECKS: Record<string, SiteCheck[]> = {
     { met: false, deliberate: true, how: "Conversations are not stored, by choice." },
   ],
   guardrails: [
-    { met: true, how: "Type and length checks, same-site requests only, and a per-visitor rate limit, before the model sees anything." },
+    { met: true, how: "Type and length checks, browsers on other sites refused, and a per-visitor rate limit, before the model sees anything." },
     { met: true, how: "Eval cases for off-topic requests and prompt injection pass." },
     {
       met: true,
@@ -76,7 +76,7 @@ export const SITE_CHECKS: Record<string, SiteCheck[]> = {
   governance: [
     { met: true, byDesign: true, how: "It takes no consequential actions, and every change to it is a commit." },
     { met: true, how: "Written on this page: the site does not store questions or answers." },
-    { met: true, how: "The API key lives only on the server, and the endpoint answers only same-site requests." },
+    { met: true, how: "The API key lives only on the server, browsers on other sites are refused, and every visitor meets the rate limit." },
     { met: false, how: "Changes ship from my main branch without a second reviewer." },
   ],
 };

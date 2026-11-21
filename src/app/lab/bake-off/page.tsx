@@ -81,7 +81,7 @@ export default function BakeOff() {
             ))}
           </ul>
           <p className="text-small text-ink-500 leading-tight mt-4 max-w-[62ch]">
-            Weights out of 100. The two gates fail a build outright, whatever
+            Weights out of 100. The two hard limits fail a build outright, whatever
             its total: a fast page that invents a number is not a candidate.
           </p>
         </div>

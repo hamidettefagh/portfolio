@@ -5,6 +5,8 @@ import { buildMcpServer } from "@/lib/mcp-server";
 // statelessly: 2026-07-28 requests natively, and 2025-era clients through a
 // fresh server per request, with no sessions to keep. GET and DELETE get 405.
 export const runtime = "nodejs";
+// Every tool answers in milliseconds; nothing here should hold a function open.
+export const maxDuration = 10;
 
 // The default response mode answers with plain JSON unless a tool streams
 // progress, and these tools never do.
@@ -48,6 +50,17 @@ function withCors(res: Response): Response {
 }
 
 async function serve(req: Request): Promise<Response> {
+  // These tools have nothing to subscribe to, and a subscription stream would
+  // hold a function open for as long as a client liked. The 2026 revision names
+  // the method in a header the SDK checks against the body, so this is enough.
+  if (req.headers.get("mcp-method") === "subscriptions/listen") {
+    return withCors(
+      Response.json(
+        { jsonrpc: "2.0", id: null, error: { code: -32601, message: "Method not found: this server offers no subscriptions." } },
+        { status: 404 },
+      ),
+    );
+  }
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
   if (rateLimited(ip)) {
     return withCors(

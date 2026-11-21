@@ -7,7 +7,10 @@ export function CopyLine({ text, label }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false);
   return (
     <div className="flex items-stretch w-full min-w-0 border border-line-2 rounded-sm bg-paper-1 overflow-hidden">
-      <code className="flex-1 min-w-0 font-mono text-[13px] leading-[1.5] text-ink-900 px-4 py-3 overflow-x-auto whitespace-nowrap">
+      <code
+        tabIndex={0}
+        aria-label={text}
+        className="flex-1 min-w-0 font-mono text-[13px] leading-[1.5] text-ink-900 px-4 py-3 overflow-x-auto whitespace-nowrap">
         {text}
       </code>
       <button

@@ -56,7 +56,7 @@ export function buildMcpServer() {
     },
     {
       instructions:
-        "Tools for deciding and checking AI agent designs. design_gate picks the least autonomous architecture that does a job, from seven answers. ship_gate_checklist lists the 28 production readiness checks; ship_gate_score scores an agent from how many checks it meets in each dimension. validate_eval_case checks an incident-to-eval case. site_agent_evals reports the latest eval run of the agent on hamidettefagh.com. All tools are deterministic code with no model inside.",
+        "Tools for deciding and checking AI agent designs. design_gate picks the least autonomous architecture that does a job, from seven answers. ship_gate_checklist lists the 28 production readiness checks; ship_gate_score scores an agent from how many checks it meets in each dimension. validate_eval_case checks an incident-to-eval case. site_agent_evals reports the latest recorded eval run of the agent on hamidettefagh.com. All tools are deterministic code with no model inside.",
       cacheHints: {
         "tools/list": { ttlMs: 3_600_000, cacheScope: "public" },
         "server/discover": { ttlMs: 3_600_000, cacheScope: "public" },
@@ -205,7 +205,7 @@ export function buildMcpServer() {
     {
       title: "Latest evals for the site agent",
       description:
-        "The latest run of the golden eval set against the ask agent on hamidettefagh.com: pass counts, response times, and any failing questions.",
+        "The latest recorded run of the golden eval set against the ask agent on hamidettefagh.com: pass counts, response times, and any failing questions.",
       inputSchema: z.object({}),
       outputSchema: z.object({
         ranAt: z.string(),

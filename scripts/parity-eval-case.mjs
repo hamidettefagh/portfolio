@@ -6,7 +6,8 @@
 //
 // Usage (Node 22.6 or later):
 //   node --experimental-strip-types scripts/parity-eval-case.mjs [path-or-url-to-validate-eval.mjs]
-// Default source: the public skill repo on GitHub.
+// Default source: the public skill repo on GitHub, pinned to the commit the
+// published result (429 cases, 0 mismatches) was measured against.
 
 import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -15,7 +16,7 @@ import { pathToFileURL } from "node:url";
 
 const SKILL_SRC =
   process.argv[2] ??
-  "https://raw.githubusercontent.com/hamidettefagh/incident-to-eval/main/scripts/validate-eval.mjs";
+  "https://raw.githubusercontent.com/hamidettefagh/incident-to-eval/ada57de2cfb61d2c395c05327dced420254cb858/scripts/validate-eval.mjs";
 
 async function loadSkillValidator() {
   const text = SKILL_SRC.startsWith("http")

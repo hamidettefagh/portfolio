@@ -1,7 +1,8 @@
 # Reruns the site agent's golden set against production after every successful
-# production deploy, and fails when a hard check fails or soft checks drop
-# below 85 percent. It calls the public endpoint, so it needs no API key. The
-# optional EVAL_DENYLIST secret turns on the client-name check.
+# production deploy. It runs after the deploy is live, so a failure marks the
+# deploy in GitHub rather than blocking it. It calls the public endpoint and
+# needs no API key; the optional EVAL_DENYLIST secret turns on the client-name
+# check. Each run's raw results are kept as a downloadable artifact.
 name: Site agent evals
 
 on:
@@ -16,7 +17,7 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event.deployment_status.state == 'success' &&
-      (github.event.deployment.environment == 'Production' || github.event.deployment.environment == 'production'))
+      startsWith(github.event.deployment.environment, 'Production'))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -31,4 +32,12 @@ jobs:
       - name: Run the golden set against production
         env:
           EVAL_DENYLIST: ${{ secrets.EVAL_DENYLIST }}
-        run: node scripts/eval-site-agent.mjs --url https://hamidettefagh.com --no-write
+        run: node scripts/eval-site-agent.mjs --url https://hamidettefagh.com --out eval-results.json
+      - name: Keep the raw results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-agent-evals
+          path: eval-results.json
+          if-no-files-found: ignore
+          retention-days: 90

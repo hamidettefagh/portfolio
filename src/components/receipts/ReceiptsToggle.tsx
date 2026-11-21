@@ -29,6 +29,11 @@ export function useReceipts(): boolean {
   const [on, setOn] = useState(false);
   useEffect(() => {
     const sync = () => setOn(document.documentElement.dataset.receipts === "on");
+    // The inline script only sees full page loads. A link followed inside the
+    // site (a soft navigation) lands here instead, so read the switch again.
+    const q = new URLSearchParams(window.location.search).get("receipts");
+    if (q === "on" || q === "1") setReceipts(true);
+    else if (q === "off" || q === "0") setReceipts(false);
     sync();
     window.addEventListener(EVENT, sync);
     return () => window.removeEventListener(EVENT, sync);

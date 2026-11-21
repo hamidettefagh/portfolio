@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { SiteNav } from "@/components/site/SiteNav";
 import { Hero } from "@/components/site/Hero";
 import { WorkSection } from "@/components/site/WorkSection";
@@ -17,6 +18,11 @@ import { PAGE_GATE, PAGE_SIGNALS } from "@/lib/page-gate";
 // key, tap, or scroll end the intro at once, even before the page hydrates.
 // Kept inline and tiny because it has to run before anything is drawn.
 const INTRO_SCRIPT = `(function(){try{var d=document.documentElement,k="pf-intro-v1";if(location.pathname!=="/"||location.hash)return;if(localStorage.getItem(k))return;if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;localStorage.setItem(k,"1");d.dataset.intro="play";var ev=["pointerdown","keydown","wheel","touchstart"];var done=function(){ev.forEach(function(e){removeEventListener(e,done,true)});if(d.dataset.intro==="play")d.dataset.intro="done"};ev.forEach(function(e){addEventListener(e,done,{capture:true,passive:true})})}catch(e){}})();`;
+
+// Links like /?receipts=on point at the same page; tell search engines so.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 // Home — ui_kits/portfolio/Home.jsx
 export default function Home() {
