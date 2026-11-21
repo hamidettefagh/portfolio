@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ReceiptsToggle } from "@/components/receipts/ReceiptsToggle";
 
 // Fixed site nav — ui_kits/portfolio/SiteNav.jsx
 export function SiteNav({
@@ -65,6 +66,7 @@ export function SiteNav({
             &#8984;K
           </button>
         ) : null}
+        <ReceiptsToggle />
       </div>
     </nav>
   );

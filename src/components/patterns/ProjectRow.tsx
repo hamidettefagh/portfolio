@@ -16,7 +16,7 @@ function RowContent({
 }: {
   index: string;
   title: string;
-  summary?: string;
+  summary?: React.ReactNode;
   org?: string;
 }) {
   return (
@@ -58,7 +58,7 @@ export function ProjectRow({
 }: {
   index: string;
   title: string;
-  summary?: string;
+  summary?: React.ReactNode;
   org?: string;
   href?: string;
 }) {

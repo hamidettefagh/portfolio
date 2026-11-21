@@ -6,7 +6,7 @@ export function ExperienceSection() {
   return (
     <section className="pt-12 scroll-mt-[84px]" id="experience">
       <div className="mb-8">
-        <Rule label="Experience" />
+        <Rule label="Experience" source="static" />
         <h2 className="font-display font-bold text-h2 tracking-heading leading-[1.05] mt-6 mb-0">
           Where the work happens
         </h2>

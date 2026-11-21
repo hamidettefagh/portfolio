@@ -1,0 +1,157 @@
+/* Styles for receipts mode and the lab pages. Kept apart from globals.css so
+   the design tokens there stay the single source of truth; everything here
+   reads those tokens through CSS variables. */
+
+/* ---- Receipts mode ----
+   Off by default: the tags exist in the markup but take no space. The inline
+   script in the root layout sets html[data-receipts="on"] before first paint
+   for visitors who turned it on. */
+.rcpt-tag,
+.src-tag,
+.receipts-bar {
+  display: none;
+}
+
+html[data-receipts="on"] .rcpt-tag,
+html[data-receipts="on"] .src-tag {
+  display: inline-flex;
+}
+
+html[data-receipts="on"] .rcpt {
+  background: linear-gradient(transparent 60%, var(--color-accent-100) 60%);
+  border-radius: 1px;
+}
+
+.rcpt-tag,
+.src-tag {
+  align-items: center;
+  margin-left: 0.4em;
+  vertical-align: 0.14em;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 3px 5px;
+  border: 1px solid var(--color-line-2);
+  border-radius: 3px;
+  color: var(--color-ink-700);
+  background: var(--color-paper-0);
+}
+
+.rcpt-tag[data-kind="production"] {
+  border-color: var(--color-ink-500);
+  background: var(--color-paper-2);
+  color: var(--color-ink-900);
+}
+.rcpt-tag[data-kind="testing"] {
+  border-style: dashed;
+  border-color: var(--color-ink-500);
+}
+.rcpt-tag[data-kind="projection"] {
+  border-style: dotted;
+  border-color: var(--color-ink-500);
+}
+.rcpt-tag[data-kind="computed"],
+.src-tag[data-kind="computed"],
+.src-tag[data-kind="browser"] {
+  border-color: var(--color-accent-500);
+  color: var(--color-accent-700);
+  background: var(--color-accent-050);
+}
+.rcpt-tag[data-kind="illustrative"],
+.src-tag[data-kind="illustrative"] {
+  border-style: dashed;
+  border-color: var(--color-accent-500);
+  color: var(--color-accent-700);
+}
+.src-tag[data-kind="model"] {
+  border-color: var(--color-accent-600);
+  background: var(--color-accent-600);
+  color: var(--color-on-accent);
+}
+
+/* Where a page is about receipts, its tags show whether the mode is on or not. */
+.receipts-always .src-tag,
+.receipts-always .rcpt-tag {
+  display: inline-flex;
+  margin-left: 0;
+}
+
+/* The legend that rides along at the bottom while the mode is on. */
+html[data-receipts="on"] .receipts-bar {
+  display: flex;
+}
+
+.receipts-bar {
+  position: fixed;
+  z-index: 60;
+  left: 50%;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100vw - 24px);
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  padding: 10px 14px;
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-line-1);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-float);
+}
+
+.receipts-bar-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-600);
+}
+
+.receipts-bar-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.receipts-bar-items .rcpt-tag {
+  display: inline-flex;
+  margin-left: 0;
+}
+
+.receipts-bar-off {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-ink-500);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-line-2);
+}
+
+.receipts-bar-off:hover {
+  color: var(--color-ink-900);
+}
+
+@media (max-width: 640px) {
+  .receipts-bar {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    transform: none;
+  }
+}
+
+/* While the legend is showing, leave room for it at the end of the page. */
+html[data-receipts="on"] body {
+  padding-bottom: 96px;
+}

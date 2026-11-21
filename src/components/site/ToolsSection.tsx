@@ -20,7 +20,7 @@ export function ToolsSection() {
   return (
     <section className="pt-12 scroll-mt-[84px]" id="tools">
       <div className="mb-9">
-        <Rule label="Tools" />
+        <Rule label="Tools" source="browser" />
         <h2 className="font-display font-bold text-h2 tracking-heading leading-[1.05] mt-6 mb-3">
           Two gates, built in the open
         </h2>
@@ -96,6 +96,24 @@ export function ToolsSection() {
             the Claude skill.
           </p>
         </ReadinessProfiles>
+      </div>
+
+      <div className="mt-12 pt-10 border-t border-line-1">
+        <span className={gateLabelCls}>The loop</span>
+        <h3 className="font-display font-semibold text-[24px] tracking-heading leading-heading m-0">
+          Incident to eval
+        </h3>
+        <p className="mt-3 mb-0 text-body leading-body text-ink-700 max-w-[56ch]">
+          When something gets past both gates anyway, it becomes a test. Turn an
+          agent incident into a regression eval case, checked by the same rules
+          as the Claude skill, without leaving the browser.
+        </p>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-4 mt-7">
+          <Button href="/incident-to-eval" variant="secondary" arrow>
+            Open the tool
+          </Button>
+          <TextLink href="/lab">More experiments in the lab</TextLink>
+        </div>
       </div>
     </section>
   );

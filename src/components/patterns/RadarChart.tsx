@@ -1,6 +1,7 @@
 // Presentational radar chart for the production-readiness diagnostic.
 // No hooks, so it renders in both server components (the home showcase) and
 // client components (the interactive scorecard).
+import { readinessBand } from "@/lib/ship-gate";
 
 export const READINESS_AXES = [
   "Evaluation",
@@ -36,14 +37,8 @@ function ringPath(frac: number): string {
   );
 }
 
-export function readinessBand(count: number, total: number): string {
-  if (count === 0) return "Score your system";
-  const pct = count / total;
-  if (pct >= 0.9) return "Production ready";
-  if (pct >= 0.7) return "Nearly there";
-  if (pct >= 0.4) return "On the way";
-  return "This is a demo";
-}
+// The band names live with the checklist, so every surface agrees on them.
+export { readinessBand };
 
 export function RadarChart({
   values,

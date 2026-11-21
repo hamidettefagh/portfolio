@@ -57,9 +57,20 @@ Kit sections (`ui_kits/portfolio/`, screen-level, also exported): **Home**, **Ca
 
 The production implementations live under `src/components/`, extended past the kit where the site grew: the shared **RadarChart** and **ArchitectureDiagram** behind the interactive tools, and the tool engines under `src/app/`. CommandMenu (Cmd+K), AskAgent (live model Q&A grounded in site facts), and SpecsOverlay (press ".") are the site's three interactive signatures. Deliberately kept out: skill-badge grids, GitHub graphs, typing animations, particle or 3D backgrounds, AI-generated imagery, chatbot popups, dark mode.
 
+## Lab and checks
+
+The site holds itself to the same evidence it asks of agents. These run from the repo:
+
+- `npm run parity` checks that the browser's design gate and eval case validator agree with the skills' own engines on every case (`scripts/parity-design-gate.mjs`, `scripts/parity-eval-case.mjs`).
+- `npm run evals` asks the live site agent the golden set in `evals/site-agent.cases.json` and scores each answer with deterministic checks (`scripts/eval-site-agent.mjs`). A GitHub workflow reruns it after every production deploy. The client-name check reads a private list from `EVAL_DENYLIST`; the list never enters the repo.
+- `/api/mcp` serves the design gate, the ship gate, and the eval validator as MCP tools (`src/lib/mcp-server.ts`). `/api/ask` returns a trace with every answer and can refuse answers that match a private `OUTPUT_DENYLIST`.
+- Receipts mode (`src/components/receipts/`) tags every figure with its evidence class and every section with how it is made. Figures are wrapped where they are written, so the claim and its receipt cannot drift apart.
+
 ## Index
 
-- `src/` the production site: app routes, components, the API route behind the ask panel
+- `src/` the production site: app routes, components, the API routes behind the ask panel and the MCP server
+- `src/lib/lab.ts` the lab index; `src/data/evals/` every recorded eval run, unedited
+- `evals/`, `scripts/` the golden set and the checks above
 - `styles.css` imports everything under `tokens/` (fonts, colors, typography, spacing, effects, base)
 - `guidelines/` foundation specimen cards (Colors, Type, Spacing, Effects groups in the Design System tab)
 - `components/primitives/`, `components/patterns/` reusable UI with props contracts and usage notes per component

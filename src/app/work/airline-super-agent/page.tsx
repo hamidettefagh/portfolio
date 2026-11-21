@@ -5,6 +5,7 @@ import { Tag } from "@/components/primitives/Tag";
 import { Rule } from "@/components/primitives/Rule";
 import { Button } from "@/components/primitives/Button";
 import { TextLink } from "@/components/primitives/TextLink";
+import { ReceiptTag, type EvidenceKind } from "@/components/receipts/Receipts";
 import { ArchitectureDiagram } from "@/components/patterns/ArchitectureDiagram";
 
 const description =
@@ -50,6 +51,12 @@ const outcomes = [
   "I co-authored the roadmap and statement of work for the next-generation agent architecture, now in flight.",
   "I became the technical point of contact leadership escalated to for the hardest production and trust decisions on the account.",
 ];
+
+// Evidence class for each outcome that carries a figure, shown in receipts mode.
+const outcomeReceipts: Record<number, { kind: EvidenceKind; note: string }> = {
+  1: { kind: "production", note: "Weekly volume and deflection from the live system" },
+  2: { kind: "production", note: "Adherence measured on live traffic after the fix" },
+};
 
 export default function CaseStudy() {
   return (
@@ -143,6 +150,9 @@ export default function CaseStudy() {
               className="text-body leading-body text-ink-700 py-4 border-t border-line-1"
             >
               {o}
+              {outcomeReceipts[i] ? (
+                <ReceiptTag kind={outcomeReceipts[i].kind} note={outcomeReceipts[i].note} />
+              ) : null}
             </li>
           ))}
         </ul>

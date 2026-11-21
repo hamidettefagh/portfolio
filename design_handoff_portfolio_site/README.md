@@ -66,7 +66,7 @@ All client-side and local: nav scrolled boolean; command menu open/query/active-
 
 Canonical values in `tokens/*.css` (colors, typography, spacing, effects). Highlights — map into the Tailwind theme:
 
-- Paper `#FDFBF8` / `#F7F3EC` / `#F0EADF`; ink `#211D18` / `#4F4840` / `#7D7569` / `#ADA495`; hairlines `#E8E2D6`, strong `#D3CBBD`; accent `oklch(53% 0.17 38)` (hover `46%`, light `59%`, washes `93%`/`97%`); live green `oklch(58% 0.13 150)`.
+- Paper `#FDFBF8` / `#F7F3EC` / `#F0EADF`; ink `#211D18` / `#4F4840` / `#7A7266` / `#ADA495`; hairlines `#E8E2D6`, strong `#D3CBBD`; accent `oklch(53% 0.17 38)` (hover `46%`, light `59%`, washes `93%`/`97%`); live green `oklch(58% 0.13 150)`.
 - Fonts: Archivo (display+body), Newsreader italic (accent word, asides only), Geist Mono (meta) — all on Google Fonts; use `next/font/google`.
 - Type scale: hero `clamp(56px,8.2vw,112px)` / h2 `clamp(34px,4.2vw,54px)` / h3 26 / lead 21 / body 17 / small 15 / mono 13 and 11.5. Tracking: display -0.035em, headings -0.02em, mono +0.08em uppercase. Leading: display 0.98, body 1.6.
 - Spacing: 4px base — 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 96, 128, 176. Container 1160px.

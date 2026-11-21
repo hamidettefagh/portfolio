@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import { Archivo, Newsreader, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ReceiptsBar } from "@/components/receipts/ReceiptsToggle";
 import "./globals.css";
+import "./lab.css";
+
+// Receipts mode, restored before first paint so the tags never pop in. A
+// ?receipts=on or ?receipts=off link sets the mode for the visitor too.
+const RECEIPTS_SCRIPT = `(function(){try{var d=document.documentElement,k="pf-receipts",q=new URLSearchParams(location.search).get("receipts");if(q==="on"||q==="1")localStorage.setItem(k,"on");else if(q==="off"||q==="0")localStorage.removeItem(k);if(localStorage.getItem(k)==="on")d.dataset.receipts="on"}catch(e){}})();`;
 
 const archivo = Archivo({
   subsets: ["latin"],
@@ -59,11 +65,14 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${archivo.variable} ${newsreader.variable} ${geistMono.variable}`}
-      // The home page's intro script sets data-intro on this element before hydration.
+      // The home page's intro script and the receipts script set data
+      // attributes on this element before hydration.
       suppressHydrationWarning
     >
       <body>
+        <script dangerouslySetInnerHTML={{ __html: RECEIPTS_SCRIPT }} />
         {children}
+        <ReceiptsBar />
         <Analytics />
         <SpeedInsights />
         <script

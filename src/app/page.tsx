@@ -37,6 +37,7 @@ export default function Home() {
           { href: "#about", label: "About" },
           { href: "#experience", label: "Experience" },
           { href: "#contact", label: "Contact" },
+          { href: "/lab", label: "Lab" },
         ]}
       />
       <div className="max-w-(--container-site) mx-auto px-(--gutter)">

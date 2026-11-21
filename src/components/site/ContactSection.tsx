@@ -10,7 +10,7 @@ export function ContactSection() {
   return (
     <section className="pt-12 scroll-mt-[84px]" id="contact">
       <div className="mb-8">
-        <Rule label="Contact" />
+        <Rule label="Contact" source="static" />
         <h2 className="font-display font-bold text-h2 tracking-heading leading-[1.05] mt-6 mb-0">
           Get in touch
         </h2>
@@ -33,6 +33,12 @@ export function ContactSection() {
           Hamid Ettefagh
         </span>
         <span className={metaCls}>hamidettefagh.com</span>
+        <a
+          href="/how-its-built"
+          className={`${metaCls} underline underline-offset-[3px] decoration-line-2 transition-colors duration-(--dur-fast) ease-out hover:text-ink-900 hover:decoration-current`}
+        >
+          how it&rsquo;s built
+        </a>
         <button
           type="button"
           className={`${metaCls} bg-transparent p-0 cursor-pointer underline underline-offset-[3px] decoration-line-2 transition-colors duration-(--dur-fast) ease-out hover:text-ink-900 hover:decoration-current`}

@@ -25,7 +25,7 @@ export function AboutSection() {
   return (
     <section className="pt-12 scroll-mt-[84px]" id="about">
       <div className="mb-8">
-        <Rule label="About" />
+        <Rule label="About" source="static" />
         <h2 className="font-display font-bold text-h2 tracking-heading leading-[1.05] mt-6 mb-0">
           The gap between
           <br />

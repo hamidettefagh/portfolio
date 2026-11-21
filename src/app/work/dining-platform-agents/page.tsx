@@ -5,6 +5,7 @@ import { Tag } from "@/components/primitives/Tag";
 import { Rule } from "@/components/primitives/Rule";
 import { Button } from "@/components/primitives/Button";
 import { TextLink } from "@/components/primitives/TextLink";
+import { ReceiptTag, type EvidenceKind } from "@/components/receipts/Receipts";
 import { ArchitectureDiagram } from "@/components/patterns/ArchitectureDiagram";
 
 const description =
@@ -54,6 +55,13 @@ const outcomes = [
   "The architecture stopped being one customer's fix. When an engineer on another account hit agents that stalled and looped on handoff, I wrote the pattern up, state variables, routing gate, pre-reasoning fetch and ticket fallback, and it became a design other engineers applied.",
   "The engagement ended because it was finished. The platform moved from build into steady state and the account graduated, which was always the goal: a system the customer runs without me.",
 ];
+
+// Evidence class for each outcome that carries a figure, shown in receipts mode.
+const outcomeReceipts: Record<number, { kind: EvidenceKind; note: string }> = {
+  0: { kind: "production", note: "One measured production week, about a month after launch" },
+  1: { kind: "production", note: "Deflection and satisfaction from the live system" },
+  2: { kind: "production", note: "Deflection and satisfaction from the live system" },
+};
 
 export default function CaseStudy() {
   return (
@@ -140,6 +148,9 @@ export default function CaseStudy() {
               className="text-body leading-body text-ink-700 py-4 border-t border-line-1"
             >
               {o}
+              {outcomeReceipts[i] ? (
+                <ReceiptTag kind={outcomeReceipts[i].kind} note={outcomeReceipts[i].note} />
+              ) : null}
             </li>
           ))}
         </ul>

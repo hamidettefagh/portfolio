@@ -15,7 +15,7 @@
   --color-paper-2: #f0eadf;
   --color-ink-900: #211d18;
   --color-ink-700: #4f4840;
-  --color-ink-500: #7d7569;
+  --color-ink-500: #7a7266; /* 4.58:1 on paper-0, the AA minimum for small text */
   --color-ink-300: #ada495;
 
   /* Hairlines */

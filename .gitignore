@@ -21,3 +21,6 @@ npm-debug.log*
 /.agents/
 /.claude/
 /skills-lock.json
+
+# private notes for the site owner, never published
+/private/

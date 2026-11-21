@@ -1,6 +1,7 @@
 "use client";
 
 import { CommandMenu, type Command } from "@/components/patterns/CommandMenu";
+import { setReceipts } from "@/components/receipts/ReceiptsToggle";
 
 // Command menu wiring for the home page — ui_kits/portfolio/Home.jsx
 const EMAIL = "hamid.ettefagh@gmail.com";
@@ -30,6 +31,39 @@ const COMMANDS: Command[] = [
     hint: "→",
     action: () => {
       window.location.href = "/agent-production-readiness";
+    },
+  },
+  {
+    label: "Open incident to eval",
+    hint: "→",
+    action: () => {
+      window.location.href = "/incident-to-eval";
+    },
+  },
+  {
+    label: "Open the lab",
+    hint: "→",
+    action: () => {
+      window.location.href = "/lab";
+    },
+  },
+  {
+    label: "Turn receipts on or off",
+    hint: "E",
+    action: () => setReceipts(document.documentElement.dataset.receipts !== "on"),
+  },
+  {
+    label: "How this site is built",
+    hint: "→",
+    action: () => {
+      window.location.href = "/how-its-built";
+    },
+  },
+  {
+    label: "Connect the MCP server",
+    hint: "→",
+    action: () => {
+      window.location.href = "/lab/mcp";
     },
   },
   {

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { RadarChart } from "@/components/patterns/RadarChart";
+import { ReceiptTag } from "@/components/receipts/Receipts";
 
 export type ReadinessProfile = { label: string; values: number[] };
 
@@ -37,6 +38,7 @@ export function ReadinessProfiles({
         >
           <span className="font-mono text-mono-sm tracking-[0.06em] uppercase text-ink-500 mr-2">
             Example profiles
+            <ReceiptTag kind="illustrative" note="Archetypes to show the scale, not real engagements" />
           </span>
           {profiles.map((p, i) => {
             const on = i === active;

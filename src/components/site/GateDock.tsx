@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MiniFlow } from "@/components/patterns/MiniFlow";
 import { PAGE_GATE } from "@/lib/page-gate";
+import { ReceiptTag } from "@/components/receipts/Receipts";
 
 // The verdict the design gate returned for this page, resting in the hero.
 // On a first visit the intro draws it and hands it off to this spot; after
@@ -15,6 +16,7 @@ export function GateDock() {
     >
       <span className="font-mono text-mono-sm tracking-[0.06em] uppercase text-ink-500 transition-colors duration-(--dur-fast) ease-out group-hover:text-ink-900">
         Design gate, run on this page
+        <ReceiptTag kind="computed" note="The design gate's verdict for this page, computed when the site is built" />
       </span>
       <span className="sr-only">
         . Verdict: {PAGE_GATE.verdict}. See the reasoning.

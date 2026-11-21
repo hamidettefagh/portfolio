@@ -1,9 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import {
+  ASK_GUARDRAILS,
+  FACT_SHEET_URL,
+  formatCost,
+  formatMs,
+  isTrace,
+  type AskTrace,
+} from "@/lib/ask-trace";
 
 // Ask-my-agent panel — components/patterns/AskAgent.jsx
 // In production the panel calls /api/ask (Anthropic Messages API server-side).
+// Each answer comes back with a trace of what it took to make it, shown on
+// request under the answer.
 const DEFAULT_SUGGESTIONS = [
   "What did he do for the airline?",
   "What are the two gates?",
@@ -21,10 +32,14 @@ export function AskAgent({
   focusEventName?: string;
 }) {
   const [query, setQuery] = useState("");
-  const [answer, setAnswer] = useState<{ text: string; muted: boolean } | null>(
-    null,
-  );
+  const [answer, setAnswer] = useState<{
+    text: string;
+    muted: boolean;
+    trace?: AskTrace;
+    roundTripMs?: number;
+  } | null>(null);
   const [busy, setBusy] = useState(false);
+  const [traceOpen, setTraceOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -39,14 +54,21 @@ export function AskAgent({
     setBusy(true);
     setAnswer(null);
     try {
+      const started = performance.now();
       const res = await fetch("/api/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question }),
       });
       const data = await res.json().catch(() => null);
+      const roundTripMs = performance.now() - started;
       if (res.ok && data && typeof data.answer === "string") {
-        setAnswer({ text: data.answer, muted: false });
+        setAnswer({
+          text: data.answer,
+          muted: false,
+          trace: isTrace(data.trace) ? data.trace : undefined,
+          roundTripMs,
+        });
       } else {
         setAnswer({
           text:
@@ -121,6 +143,67 @@ export function AskAgent({
           </p>
         ) : null}
       </div>
+      {answer?.trace ? (
+        <div className="mt-4">
+          <button
+            type="button"
+            aria-expanded={traceOpen}
+            aria-controls="ask-trace"
+            onClick={() => setTraceOpen((o) => !o)}
+            className="font-mono text-mono-sm tracking-[0.05em] uppercase text-ink-500 bg-transparent p-0 cursor-pointer underline underline-offset-[3px] decoration-line-2 transition-colors duration-(--dur-fast) ease-out hover:text-ink-900 hover:decoration-current"
+          >
+            {traceOpen ? "Hide how this answer was made" : "How this answer was made"}
+          </button>
+          {traceOpen ? (
+            <dl
+              id="ask-trace"
+              className="mt-3 mb-0 grid grid-cols-[120px_minmax(0,1fr)] gap-x-5 gap-y-[7px] font-mono text-[12.5px] leading-[1.5] [@media(max-width:520px)]:grid-cols-1 [@media(max-width:520px)]:gap-y-[2px]"
+            >
+              <dt className="text-ink-500 uppercase tracking-[0.05em] text-[11px] pt-[2px] [@media(max-width:520px)]:pt-2">Model</dt>
+              <dd className="m-0 text-ink-700">{answer.trace.model}, one call, no tools</dd>
+              <dt className="text-ink-500 uppercase tracking-[0.05em] text-[11px] pt-[2px] [@media(max-width:520px)]:pt-2">Time</dt>
+              <dd className="m-0 text-ink-700">
+                {formatMs(answer.trace.modelMs)} in the model
+                {answer.roundTripMs ? `, ${formatMs(answer.roundTripMs)} round trip` : ""}
+              </dd>
+              <dt className="text-ink-500 uppercase tracking-[0.05em] text-[11px] pt-[2px] [@media(max-width:520px)]:pt-2">Tokens</dt>
+              <dd className="m-0 text-ink-700">
+                {answer.trace.inputTokens.toLocaleString("en-US")} in,{" "}
+                {answer.trace.outputTokens.toLocaleString("en-US")} out
+              </dd>
+              <dt className="text-ink-500 uppercase tracking-[0.05em] text-[11px] pt-[2px] [@media(max-width:520px)]:pt-2">Cost</dt>
+              <dd className="m-0 text-ink-700">{formatCost(answer.trace.costUsd)} at list price</dd>
+              <dt className="text-ink-500 uppercase tracking-[0.05em] text-[11px] pt-[2px] [@media(max-width:520px)]:pt-2">House style</dt>
+              <dd className="m-0 text-ink-700">
+                {answer.trace.styleBreaks === 0
+                  ? "The model followed it; nothing to fix"
+                  : `${answer.trace.styleBreaks} ${answer.trace.styleBreaks === 1 ? "break" : "breaks"} fixed in code before you saw it`}
+              </dd>
+              <dt className="text-ink-500 uppercase tracking-[0.05em] text-[11px] pt-[2px] [@media(max-width:520px)]:pt-2">Guardrails</dt>
+              <dd className="m-0 text-ink-700">{ASK_GUARDRAILS.join(". ")}.</dd>
+              <dt className="text-ink-500 uppercase tracking-[0.05em] text-[11px] pt-[2px] [@media(max-width:520px)]:pt-2">Sources</dt>
+              <dd className="m-0 text-ink-700">
+                <a
+                  href={FACT_SHEET_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-ink-900 underline decoration-line-2 underline-offset-[3px] hover:text-accent-700 hover:decoration-current"
+                >
+                  The fact sheet it answers from<span aria-hidden="true"> &#8599;</span>
+                </a>
+                {". "}
+                <Link
+                  href="/lab/site-agent-evals"
+                  className="text-ink-900 underline decoration-line-2 underline-offset-[3px] hover:text-accent-700 hover:decoration-current"
+                >
+                  How it scores on its evals
+                </Link>
+                .
+              </dd>
+            </dl>
+          ) : null}
+        </div>
+      ) : null}
       <p className="mt-[14px] mb-0 font-mono text-[10.5px] tracking-[0.05em] uppercase text-ink-300">
         Live model output. It can be wrong. For anything that matters, email.
       </p>
