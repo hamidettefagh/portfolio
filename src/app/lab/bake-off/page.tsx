@@ -89,7 +89,7 @@ export default function BakeOff() {
         <div className="mt-12">
           <Rule label="Baseline: the page I built" source="computed" />
           <p className="text-small text-ink-500 leading-tight mt-4 mb-0">
-            Lighthouse on production, {BASELINE.measured}.
+            {BASELINE.runs}, {BASELINE.measured}.
           </p>
           <table className="w-full mt-4 border-collapse text-small">
             <thead>

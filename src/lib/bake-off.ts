@@ -60,6 +60,7 @@ export const RUBRIC: { criterion: string; how: string; weight: number; gate?: st
 // content, so fidelity does not apply to it.
 export const BASELINE = {
   measured: "November 21, 2026",
+  runs: "Lighthouse on production, two runs on the phone setting and one on desktop; the phone runs agreed",
   mobile: { performance: 96, accessibility: 100, bestPractices: 100, seo: 100, cls: "0.000" },
-  desktop: { performance: 100, accessibility: 96, bestPractices: 100, seo: 100, cls: "0.000" },
+  desktop: { performance: 100, accessibility: 100, bestPractices: 100, seo: 100, cls: "0.000" },
 };

@@ -183,11 +183,12 @@ export default function HowItsBuilt() {
           <p className={pCls}>
             I build it with Claude Code. Commits it helped write carry its name
             in the git history. Before a release I run a production build and
-            Lighthouse on phone and desktop settings. Measured on production,{" "}
-            {BASELINE.measured}: phone {BASELINE.mobile.performance} performance,{" "}
-            {BASELINE.mobile.accessibility} accessibility, layout shift{" "}
-            {BASELINE.mobile.cls}; desktop {BASELINE.desktop.performance},{" "}
-            {BASELINE.desktop.accessibility}, and {BASELINE.desktop.cls}.
+            Lighthouse on phone and desktop settings. The latest, {BASELINE.measured},
+            two runs on the phone setting and one on desktop: phone{" "}
+            {BASELINE.mobile.performance} performance, {BASELINE.mobile.accessibility}{" "}
+            accessibility, layout shift {BASELINE.mobile.cls}; desktop{" "}
+            {BASELINE.desktop.performance}, {BASELINE.desktop.accessibility}, and{" "}
+            {BASELINE.desktop.cls}.
           </p>
         </section>
 

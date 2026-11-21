@@ -366,6 +366,20 @@
           "value": "haiku"
         }
       ]
+    },
+    {
+      "id": "self-model-why",
+      "question": "Why does the agent on this site run on a small model?",
+      "checks": [
+        {
+          "name": "Gives the reason the fact sheet states",
+          "type": "includesAny",
+          "value": [
+            "fact sheet",
+            "short answers"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -111,8 +111,12 @@ export const LAB: LabEntry[] = [
     status: "shipped",
     date: "November 2026",
     question: "If the system prompt says no em dashes and no exclamation points, does the model comply?",
+    // The count needs traces, which runs before the trace existed do not have.
     result:
-      "Not reliably, so the rule moved into code that runs after the model answers. The trace now counts every time the code has to step in.",
+      "Not reliably, so the rule moved into code that runs after the model answers, and the trace counts every time it steps in." +
+      (s.modelP50Ms
+        ? ` In the latest recorded run, the model broke the style in ${s.answersWithStyleBreaks} of ${s.cases} answers; the checks confirm none of those breaks reached the page.`
+        : ""),
     href: "/lab/site-agent-evals",
   },
   {
@@ -122,7 +126,7 @@ export const LAB: LabEntry[] = [
     date: "November 2026",
     question: "Can a page animate on a first visit without moving under the reader?",
     result:
-      "The first version shifted the layout by 0.29 on a phone when web fonts arrived. Anchoring it to the top with fixed rows brought the shift back to the page’s own baseline, about 0.04 from the fonts themselves, with the mobile performance score unchanged.",
+      "The first version shifted the layout by 0.29 on a phone when web fonts arrived. Anchoring it to the top with fixed rows brought the shift back to the page’s own baseline, about 0.04 in local runs from the fonts themselves and 0.000 in two production runs, with the mobile performance score unchanged.",
     href: "/",
   },
   {
