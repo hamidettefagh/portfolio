@@ -114,6 +114,147 @@
   --border-w: 1px;
 }
 
+/*
+ * Fallback faces for the moment before the web fonts arrive.
+ *
+ * Each one is a font already on the device, scaled (size-adjust) so this
+ * site's own copy measures the same width as it does in the web font, and
+ * given the web font's ascent and descent. The overrides are the web font's
+ * metrics divided by size-adjust, because size-adjust scales them too.
+ * Matching widths is what keeps lines from re-wrapping, and the hero from
+ * moving, when the fonts swap in. Nothing here applies once they have loaded.
+ *
+ * These replace next/font's automatic fallbacks (switched off in layout.tsx),
+ * which used one upright Arial for every Archivo weight, Arial for Geist Mono
+ * and upright Times New Roman for Newsreader Italic.
+ *
+ * Values were measured in Chrome against the copy on every page. Arial and
+ * Times New Roman ship with Windows, macOS and iOS. Where a local font is
+ * missing the face is skipped and the stacks in @theme take over: for mono
+ * that means Menlo or the system monospace, which already share Geist Mono's
+ * 0.6em advance, and on Android it means the plain system fonts, as before.
+ */
+
+/* Archivo: ascent 0.878em, descent 0.21em. One face per weight in use,
+   because Archivo widens with weight faster than Arial does. The regular and
+   medium faces leave out the symbol range, which is handled further down. */
+@font-face {
+  font-family: "Archivo Fallback";
+  src: local("Arial"), local("ArialMT");
+  font-weight: 400;
+  unicode-range: U+0000-218F, U+2C00-10FFFF;
+  size-adjust: 98.3%;
+  ascent-override: 89.32%;
+  descent-override: 21.36%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Archivo Fallback";
+  src: local("Arial"), local("ArialMT");
+  font-weight: 500;
+  unicode-range: U+0000-218F, U+2C00-10FFFF;
+  size-adjust: 100.6%;
+  ascent-override: 87.28%;
+  descent-override: 20.87%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Archivo Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  font-weight: 600;
+  size-adjust: 95.6%;
+  ascent-override: 91.84%;
+  descent-override: 21.97%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Archivo Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  font-weight: 700;
+  size-adjust: 98.8%;
+  ascent-override: 88.87%;
+  descent-override: 21.26%;
+  line-gap-override: 0%;
+}
+
+/* Newsreader Italic: ascent 0.735em, descent 0.265em. Its optical-size axis
+   makes it wider as it gets larger, so the hero quote (weight 450, text size)
+   and accent words (weight 500, display size) each get their own cut. */
+@font-face {
+  font-family: "Newsreader Fallback";
+  src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT");
+  font-style: italic;
+  font-weight: 450;
+  size-adjust: 93.6%;
+  ascent-override: 78.53%;
+  descent-override: 28.31%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Newsreader Fallback";
+  src: local("Times New Roman Italic"), local("TimesNewRomanPS-ItalicMT");
+  font-style: italic;
+  font-weight: 500;
+  size-adjust: 106%;
+  ascent-override: 69.34%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
+/* Geist Mono: 0.6em advance, ascent 1.005em, descent 0.295em. Consolas is
+   0.55em wide, so it needs scaling up; both are monospaced, so every string
+   then matches exactly. */
+@font-face {
+  font-family: "Geist Mono Fallback";
+  src: local("Consolas");
+  unicode-range: U+0000-218F, U+2C00-10FFFF;
+  size-adjust: 109.1%;
+  ascent-override: 92.12%;
+  descent-override: 27.04%;
+  line-gap-override: 0%;
+}
+
+/* Arrows and other symbols. Archivo and Geist Mono have no arrow glyphs, so
+   an arrow is drawn by the fallback even after the web fonts have loaded.
+   The faces above leave this range out and these draw it exactly as
+   next/font's automatic fallbacks did, so the tuning cannot change how an
+   arrow looks. Regular and medium are the weights arrows appear in. */
+@font-face {
+  font-family: "Archivo Fallback";
+  src: local("Arial");
+  font-weight: 400;
+  unicode-range: U+2190-2BFF;
+  size-adjust: 98.7%;
+  ascent-override: 88.96%;
+  descent-override: 21.28%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Archivo Fallback";
+  src: local("Arial");
+  font-weight: 500;
+  unicode-range: U+2190-2BFF;
+  size-adjust: 98.7%;
+  ascent-override: 88.96%;
+  descent-override: 21.28%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Geist Mono Fallback";
+  src: local("Arial");
+  unicode-range: U+2190-2BFF;
+  size-adjust: 134.59%;
+  ascent-override: 74.67%;
+  descent-override: 21.92%;
+  line-gap-override: 0%;
+}
+
 /* Base element styles (tokens/base.css) */
 @layer base {
   html {

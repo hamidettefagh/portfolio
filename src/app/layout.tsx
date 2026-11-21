@@ -10,9 +10,14 @@ import "./lab.css";
 // ?receipts=on or ?receipts=off link sets the mode for the visitor too.
 const RECEIPTS_SCRIPT = `(function(){try{var d=document.documentElement,k="pf-receipts",q=new URLSearchParams(location.search).get("receipts");if(q==="on"||q==="1")localStorage.setItem(k,"on");else if(q==="off"||q==="0")localStorage.removeItem(k);if(localStorage.getItem(k)==="on")d.dataset.receipts="on"}catch(e){}})();`;
 
+// The fallback faces named below are defined by hand in globals.css. They
+// replace next/font's automatic ones (adjustFontFallback), whose widths were
+// far enough from the web fonts that lines re-wrapped when the fonts arrived.
 const archivo = Archivo({
   subsets: ["latin"],
   variable: "--font-archivo",
+  adjustFontFallback: false,
+  fallback: ['"Archivo Fallback"'],
 });
 
 const newsreader = Newsreader({
@@ -20,11 +25,15 @@ const newsreader = Newsreader({
   style: ["italic"],
   variable: "--font-newsreader",
   axes: ["opsz"],
+  adjustFontFallback: false,
+  fallback: ['"Newsreader Fallback"'],
 });
 
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-geist-mono",
+  adjustFontFallback: false,
+  fallback: ['"Geist Mono Fallback"'],
 });
 
 const SITE_TITLE = "Hamid Ettefagh | Forward Deployed AI Engineer";
