@@ -2,6 +2,8 @@ import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Accent } from "@/components/primitives/Accent";
 import { Button } from "@/components/primitives/Button";
 import { Ticker } from "@/components/patterns/Ticker";
+import { LocalTime } from "@/components/patterns/LocalTime";
+import { GateDock } from "@/components/site/GateDock";
 
 // Hero — ui_kits/portfolio/Hero.jsx
 export function Hero() {
@@ -17,7 +19,18 @@ export function Hero() {
         aria-hidden="true"
       ></div>
       <div className="relative">
-        <Eyebrow dot="accent">{["Portfolio, 2026", "Los Angeles"]}</Eyebrow>
+        <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-5">
+          <Eyebrow dot="accent">
+            {[
+              "Portfolio, 2026",
+              <span key="place">
+                Los Angeles
+                <LocalTime />
+              </span>,
+            ]}
+          </Eyebrow>
+          <GateDock />
+        </div>
         <h1 className="font-display font-bold text-hero tracking-display leading-display mt-6 mb-0 text-ink-900 text-balance">
           Agents that
           <br />

@@ -1,18 +1,16 @@
 import { Rule } from "@/components/primitives/Rule";
 import { Button } from "@/components/primitives/Button";
 import { TextLink } from "@/components/primitives/TextLink";
-import { RadarChart } from "@/components/patterns/RadarChart";
-import { ArchitectureDiagram } from "@/components/patterns/ArchitectureDiagram";
+import { GateCases } from "@/components/site/GateCases";
+import { ReadinessProfiles } from "@/components/site/ReadinessProfiles";
+import { GATE_CASES } from "@/lib/page-gate";
 
-// A representative filled profile so the showcase radar reads as a real result.
-const EXAMPLE = [4, 3, 4, 4, 3, 4, 3];
-
-// The hybrid shape, to signal the agent-versus-workflow point at a glance.
-const EXAMPLE_STAGES = [
-  { label: "You" },
-  { label: "Workflow", accent: true },
-  { label: "Model" },
-  { label: "Systems of record" },
+// Three illustrative agents for the showcase radar, one value per axis in the
+// order of READINESS_AXES. Archetypes, not engagements.
+const PROFILES = [
+  { label: "A weekend demo", values: [1, 0, 1, 1, 1, 0, 0] },
+  { label: "A pilot with real users", values: [2, 2, 2, 3, 3, 2, 1] },
+  { label: "Two quarters in production", values: [4, 3, 4, 4, 3, 4, 3] },
 ];
 
 const gateLabelCls =
@@ -53,7 +51,7 @@ export function ToolsSection() {
           your editor with the Claude skill.
         </p>
         <div className="mt-7">
-          <ArchitectureDiagram stages={EXAMPLE_STAGES} />
+          <GateCases cases={GATE_CASES} initial={1} />
         </div>
         <div className="flex items-center gap-6 mt-7">
           <Button href="/agent-architecture" variant="secondary" arrow>
@@ -70,22 +68,11 @@ export function ToolsSection() {
 
       <div className="mt-12 pt-10 border-t border-line-1">
         <span className={gateLabelCls}>The ship gate</span>
-        <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] gap-10 items-center [@media(max-width:860px)]:grid-cols-1 [@media(max-width:860px)]:gap-7">
-          <div className="mx-auto w-full max-w-[440px]">
-            <RadarChart values={EXAMPLE} />
-          </div>
-          <div>
-            <h3 className="font-display font-semibold text-[24px] tracking-heading leading-heading m-0">
-              Agent production readiness
-            </h3>
-            <p className="mt-3 mb-0 text-body leading-body text-ink-700 max-w-[46ch]">
-              A diagnostic for telling a demo agent from a production one. It
-              scores an agent across seven dimensions, shows where it is strong
-              and where it is thin, and turns the gaps into a plan. Use the
-              interactive version, or run the same review from your editor with
-              the Claude skill.
-            </p>
-            <div className="flex items-center gap-6 mt-6">
+        <ReadinessProfiles
+          profiles={PROFILES}
+          initial={2}
+          actions={
+            <div className="flex items-center gap-6 mt-7">
               <Button href="/agent-production-readiness" variant="secondary" arrow>
                 Open the diagnostic
               </Button>
@@ -96,8 +83,19 @@ export function ToolsSection() {
                 On GitHub
               </TextLink>
             </div>
-          </div>
-        </div>
+          }
+        >
+          <h3 className="font-display font-semibold text-[24px] tracking-heading leading-heading m-0">
+            Agent production readiness
+          </h3>
+          <p className="mt-3 mb-0 text-body leading-body text-ink-700 max-w-[46ch]">
+            A diagnostic for telling a demo agent from a production one. It
+            scores an agent across seven dimensions, shows where it is strong
+            and where it is thin, and turns the gaps into a plan. Use the
+            interactive version, or run the same review from your editor with
+            the Claude skill.
+          </p>
+        </ReadinessProfiles>
       </div>
     </section>
   );

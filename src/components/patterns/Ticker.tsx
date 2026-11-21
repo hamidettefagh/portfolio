@@ -6,7 +6,7 @@ export function Ticker({
 }: {
   label?: string;
   live?: boolean;
-  items?: string[];
+  items?: React.ReactNode[];
 }) {
   return (
     <div className="border-t border-b border-line-2 py-[14px] flex items-center gap-7 overflow-hidden [@media(max-width:640px)]:flex-wrap [@media(max-width:640px)]:gap-y-[10px]">

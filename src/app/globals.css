@@ -149,6 +149,113 @@
   }
 }
 
+/* ---- First-visit intro: the design gate, run on this page ----
+   An inline script in the home page sets html[data-intro="play"] before first
+   paint, on a first visit only and never under reduced motion. Without that
+   attribute every rule below is inert and the overlay is not rendered at all.
+   The page underneath is fully painted the whole time. */
+.gate-intro {
+  display: none;
+}
+
+html[data-intro="play"] .gate-intro {
+  display: block;
+  /* Failsafe: if the script that hands the diagram off never runs, lift anyway. */
+  animation: gi-out 400ms ease 3600ms forwards;
+}
+
+/* One entrance per element: rows rise, labels only fade. */
+html[data-intro="play"] .gi-in {
+  animation: gi-in 420ms var(--ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+
+html[data-intro="play"] .gi-fade {
+  animation: gi-fade 320ms ease both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* The diagram draws left to right, in the order the work flows. */
+html[data-intro="play"] .gi-flow > span > span {
+  animation: gi-in 380ms var(--ease-out) both;
+  animation-delay: calc(var(--d, 0ms) + var(--i, 0) * 70ms);
+}
+
+/* The docked copy in the hero stays hidden until the intro hands off to it. */
+html[data-intro="play"] [data-gate-flow] {
+  animation: gi-dock 1ms linear 3600ms both;
+}
+
+@keyframes gi-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes gi-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes gi-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes gi-dock {
+  from {
+    visibility: hidden;
+  }
+  to {
+    visibility: visible;
+  }
+}
+
+/* Replaying the intro is motion on request; do not offer it under reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .intro-replay {
+    display: none;
+  }
+}
+
+/* The docked verdict's arrow leans toward the tool on hover, pointers only. */
+.gate-dock-arrow {
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    color var(--dur-fast) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-gate-dock]:hover .gate-dock-arrow {
+    transform: translateX(3px);
+    color: var(--color-accent-600);
+  }
+}
+
+/* Chips that pick an example on the home page's tool cards. */
+.choice-chip {
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    background-color var(--dur-fast) ease;
+}
+
+.choice-chip:active {
+  transform: scale(0.97);
+}
+
+/* The radar's shape and dots travel together; under reduced motion they jump. */
+@media (prefers-reduced-motion: reduce) {
+  .radar-move {
+    transition: none !important;
+  }
+}
+
 @keyframes ask-pulse {
   50% {
     opacity: 0.3;

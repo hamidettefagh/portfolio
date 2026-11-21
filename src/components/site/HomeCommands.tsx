@@ -61,6 +61,11 @@ const COMMANDS: Command[] = [
     action: () => window.dispatchEvent(new Event("pf-specs-open")),
   },
   {
+    label: "Replay the intro",
+    hint: "R",
+    action: () => window.dispatchEvent(new Event("pf-intro-replay")),
+  },
+  {
     label: "Open LinkedIn",
     hint: "↗",
     action: () =>

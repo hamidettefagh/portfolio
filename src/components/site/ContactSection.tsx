@@ -40,6 +40,13 @@ export function ContactSection() {
         >
           view specs
         </button>
+        <button
+          type="button"
+          className={`intro-replay ${metaCls} bg-transparent p-0 cursor-pointer underline underline-offset-[3px] decoration-line-2 transition-colors duration-(--dur-fast) ease-out hover:text-ink-900 hover:decoration-current`}
+          onClick={() => window.dispatchEvent(new Event("pf-intro-replay"))}
+        >
+          replay intro
+        </button>
         <span className={metaCls}>&copy; 2026</span>
       </footer>
     </section>

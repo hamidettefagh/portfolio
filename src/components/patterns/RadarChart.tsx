@@ -94,7 +94,7 @@ export function RadarChart({
       })}
       <path
         d={dataPath}
-        className="fill-accent-600 stroke-accent-600"
+        className="radar-move fill-accent-600 stroke-accent-600"
         style={{
           fillOpacity: 0.14,
           ...(animate ? { transition: "d var(--dur-base) var(--ease-out)" } : {}),
@@ -104,7 +104,6 @@ export function RadarChart({
       />
       {READINESS_AXES.map((_c, i) => {
         const v = values[i] ?? 0;
-        if (v === 0) return null;
         const [x, y] = point(i, v / max);
         return (
           <circle
@@ -112,7 +111,16 @@ export function RadarChart({
             cx={x.toFixed(1)}
             cy={y.toFixed(1)}
             r={v === max ? 4.5 : 3.5}
-            className="fill-accent-600"
+            className="radar-move fill-accent-600"
+            style={{
+              opacity: v === 0 ? 0 : 1,
+              ...(animate
+                ? {
+                    transition:
+                      "cx var(--dur-base) var(--ease-out), cy var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out)",
+                  }
+                : {}),
+            }}
           />
         );
       })}

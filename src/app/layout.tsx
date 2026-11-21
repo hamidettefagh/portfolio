@@ -59,6 +59,8 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${archivo.variable} ${newsreader.variable} ${geistMono.variable}`}
+      // The home page's intro script sets data-intro on this element before hydration.
+      suppressHydrationWarning
     >
       <body>
         {children}

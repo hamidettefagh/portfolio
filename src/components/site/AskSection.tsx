@@ -12,6 +12,10 @@ export function AskSection() {
           <br />
           Ask my agent
         </h2>
+        <p className="mt-5 mb-0 text-small leading-tight text-ink-500 max-w-[58ch]">
+          This is the only model call on this page. Everything else is static,
+          or computed by code.
+        </p>
       </div>
       <AskAgent />
     </section>
