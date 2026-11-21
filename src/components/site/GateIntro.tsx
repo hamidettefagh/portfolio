@@ -146,8 +146,11 @@ export function GateIntro({
   return (
     <div ref={root} className="gate-intro fixed inset-0 z-[60] overflow-hidden" aria-hidden="true">
       <div data-gi-bg className="absolute inset-0 bg-paper-0"></div>
-      <div className="relative h-full max-w-(--container-site) mx-auto px-(--gutter) flex flex-col justify-center">
-        <div className="max-w-[620px]">
+      {/* Anchored from the top with fixed row heights, never centered: the
+          record's geometry must not depend on how its text happens to wrap,
+          or a late web font would shift the whole block. */}
+      <div className="relative h-full max-w-(--container-site) mx-auto px-(--gutter) pt-[clamp(84px,17vh,190px)]">
+        <div className="max-w-[560px]">
           <p data-gi-text className={`gi-fade ${labelCls}`}>
             Design gate, run on this page
           </p>
@@ -155,13 +158,13 @@ export function GateIntro({
             {signals.map((s, i) => (
               <div
                 key={s.id}
-                className="gi-in grid grid-cols-[13.5rem_minmax(0,1fr)] gap-5 py-[9px] border-t border-line-1 [@media(max-width:640px)]:grid-cols-[8.5rem_minmax(0,1fr)] [@media(max-width:640px)]:gap-3"
+                className="gi-in grid grid-cols-[11rem_minmax(0,1fr)] items-center gap-5 h-[40px] border-t border-line-1 whitespace-nowrap overflow-hidden [@media(max-width:640px)]:grid-cols-[8.25rem_minmax(0,1fr)] [@media(max-width:640px)]:gap-3"
                 style={delay(ROW_DELAYS[i] ?? ROW_DELAYS[ROW_DELAYS.length - 1])}
               >
-                <dt className="font-mono text-mono-sm tracking-[0.06em] uppercase text-ink-500 pt-[3px]">
+                <dt className="font-mono text-mono-sm tracking-[0.06em] uppercase text-ink-500">
                   {s.signal}
                 </dt>
-                <dd className="m-0 text-[16px] leading-tight text-ink-900">{s.read}</dd>
+                <dd className="m-0 text-[16px] leading-none text-ink-900">{s.read}</dd>
               </div>
             ))}
           </dl>
@@ -177,7 +180,7 @@ export function GateIntro({
           </div>
           <p
             data-gi-text
-            className="gi-in mt-5 mb-0 font-display font-semibold text-[clamp(22px,3vw,32px)] tracking-heading leading-[1.15] text-ink-900 text-balance"
+            className="gi-in mt-5 mb-0 max-w-[18em] font-display font-semibold text-[clamp(22px,3vw,32px)] tracking-heading leading-[1.15] text-ink-900"
             style={delay(SENTENCE_AT)}
           >
             {verdict}

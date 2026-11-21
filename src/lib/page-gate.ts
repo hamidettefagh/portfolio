@@ -15,14 +15,16 @@ export const PAGE_ANSWERS: Answers = {
 };
 
 // The same seven signals in plain words, for the intro's decision record.
+// Kept short on purpose: every row has to fit on one line at phone width, in
+// the web font or its fallback, so nothing in the intro moves when fonts load.
 export const PAGE_SIGNALS: { id: string; signal: string; read: string }[] = [
-  { id: "q1", signal: "What it mainly does", read: "Answers questions about my work" },
-  { id: "q2", signal: "How fixed the work is", read: "A fixed page with one judgment call" },
+  { id: "q1", signal: "What it does", read: "Answers questions" },
+  { id: "q2", signal: "How fixed it is", read: "One judgment call" },
   { id: "q3", signal: "How many jobs", read: "One" },
-  { id: "q4", signal: "What it can change", read: "Nothing. It only reads" },
-  { id: "q5", signal: "Where its knowledge lives", read: "A fact sheet I maintain" },
+  { id: "q4", signal: "Can change", read: "Nothing, read-only" },
+  { id: "q5", signal: "Its knowledge", read: "A fact sheet I keep" },
   { id: "q6", signal: "Who is waiting", read: "A person, live" },
-  { id: "q7", signal: "How much it acts alone", read: "Within guardrails" },
+  { id: "q7", signal: "Acting alone", read: "Within guardrails" },
 ];
 
 const rec = compute(PAGE_ANSWERS, "general");

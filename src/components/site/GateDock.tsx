@@ -11,11 +11,13 @@ export function GateDock() {
     <Link
       href={PAGE_GATE.href}
       data-gate-dock
-      aria-label={`The design gate, run on this page. Verdict: ${PAGE_GATE.verdict}. See the reasoning.`}
       className="group inline-flex flex-wrap items-center gap-x-4 gap-y-[10px] no-underline"
     >
       <span className="font-mono text-mono-sm tracking-[0.06em] uppercase text-ink-500 transition-colors duration-(--dur-fast) ease-out group-hover:text-ink-900">
         Design gate, run on this page
+      </span>
+      <span className="sr-only">
+        . Verdict: {PAGE_GATE.verdict}. See the reasoning.
       </span>
       <span className="inline-flex items-center gap-[10px]" aria-hidden="true">
         <span data-gate-flow className="text-[clamp(11px,3.3vw,13px)]">
