@@ -70,7 +70,7 @@ export default function SiteAgentEvals() {
     },
   ];
   if (s.costUsd > 0) stats.push({ label: "Cost of the run", value: `$${s.costUsd.toFixed(3)}` });
-  if (s.modelP50Ms) stats.push({ label: "Style breaks fixed in code", value: `${s.styleBreaksCaught} in ${s.answersWithStyleBreaks} answers` });
+  if (s.modelP50Ms) stats.push({ label: "Answers the style code fixed", value: `${s.answersWithStyleBreaks} of ${s.cases}` });
 
   return (
     <div>
