@@ -12,6 +12,7 @@ import { HomeCommands } from "@/components/site/HomeCommands";
 import { SpecsOverlay } from "@/components/patterns/SpecsOverlay";
 import { GateIntro } from "@/components/site/GateIntro";
 import { PAGE_GATE, PAGE_SIGNALS } from "@/lib/page-gate";
+import { LOCAL_TIME_SCRIPT } from "@/lib/local-time";
 
 // Decides, before first paint, whether this visit gets the intro: first visit,
 // landing at the top of the home page, and motion allowed. It also lets any
@@ -29,6 +30,10 @@ export default function Home() {
   return (
     <div>
       <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
+      {/* Works out the hero's local time before first paint. It sits up here,
+          ahead of all content, so it adds no point at which the browser could
+          paint half a page. */}
+      <script dangerouslySetInnerHTML={{ __html: LOCAL_TIME_SCRIPT }} />
       <GateIntro
         signals={PAGE_SIGNALS}
         stages={PAGE_GATE.stages}
