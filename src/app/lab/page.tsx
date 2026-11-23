@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteNav } from "@/components/site/SiteNav";
 import { Rule } from "@/components/primitives/Rule";
 import { PageIntro } from "@/components/site/PageIntro";
-import { LAB, LAB_STATUS, type LabStatus } from "@/lib/lab";
+import { LAB, LAB_STATUS, byNewest, monthLabel, monthShort, type LabStatus } from "@/lib/lab";
 
 const description =
   "Experiments I run in the open on my own site and tools. Each starts with a question and ends with a result, including the ones that did not go my way.";
@@ -52,7 +52,7 @@ export default function Lab() {
         </PageIntro>
 
         {ORDER.map((status) => {
-          const entries = LAB.filter((e) => e.status === status);
+          const entries = LAB.filter((e) => e.status === status).sort(byNewest);
           if (!entries.length) return null;
           return (
             <section key={status} className="mt-12">
@@ -67,7 +67,13 @@ export default function Lab() {
                       <span className="pt-[5px] [@media(max-width:640px)]:col-span-2">
                         <StatusTag status={e.status} />
                         <span className="block font-mono text-mono-sm tracking-[0.04em] text-ink-500 mt-2 [@media(max-width:640px)]:inline [@media(max-width:640px)]:ml-3">
-                          {e.date}
+                          {monthLabel(e.date)}
+                          {e.updated ? (
+                            <span className="block [@media(max-width:640px)]:inline">
+                              <span className="[@media(min-width:641px)]:hidden"> &middot; </span>
+                              updated {monthShort(e.updated)}
+                            </span>
+                          ) : null}
                         </span>
                       </span>
                       <span>
