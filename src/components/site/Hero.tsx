@@ -19,7 +19,13 @@ export function Hero() {
         aria-hidden="true"
       ></div>
       <div className="relative">
-        <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-5">
+        {/* The dock sits beside the eyebrow from 1100px up and under it below
+            that, by rule. The row used to wrap wherever the two happened to
+            fit, and that depended on the hour (the time is one or two digits
+            wide) and on which fonts had arrived, so in a few window widths
+            the dock jumped a row, and the headline with it, as the page
+            loaded. 1100px is the first round width where the widest case fits. */}
+        <div className="flex flex-col items-start gap-x-10 gap-y-5 [@media(min-width:1100px)]:flex-row [@media(min-width:1100px)]:items-center [@media(min-width:1100px)]:justify-between">
           <Eyebrow dot="accent">
             {[
               "Portfolio, 2026",
